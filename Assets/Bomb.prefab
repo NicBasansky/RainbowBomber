@@ -58,7 +58,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 4.58
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -80,7 +80,9 @@ MonoBehaviour:
   explosionPrefab: {fileID: 7450504061510004232, guid: 87e6ef5800aeb414cad6239aaf70d3ed,
     type: 3}
   initialExplosionRadius: 3
-  explosionRadius: 3
+  currentExplosionRadius: 3
+  explosionForce: 1000
+  upwardsModifier: 1
   damage: 50
   maxFlashSpeed: 10
   flashSpeedMultiplier: 1.3

@@ -6,7 +6,7 @@ using Bomber.Core;
 
 namespace Bomber.Items
 {
-    public class ItemDropper : MonoBehaviour, IPowerUp
+    public class BombDropper : MonoBehaviour, IPowerUp
     {
 
         [SerializeField] float placementOffsetY = 1.0f;
@@ -42,10 +42,7 @@ namespace Bomber.Items
             }
         }
 
-        private void ResetBlastRadiusMultiplier()
-        {
-            accumulativeBlastRadiusMultiplier = 1f;
-        }
+
 
     }
 

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &6576076363885538668
+--- !u!114 &1796506241746027337
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 245b8e250b0286c43afba330b0cd0202, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  extraScale: 3
+  extraScale: 1
 --- !u!1001 &7450054473600663022
 PrefabInstance:
   m_ObjectHideFlags: 0
