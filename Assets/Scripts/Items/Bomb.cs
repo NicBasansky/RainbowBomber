@@ -43,24 +43,29 @@ namespace Bomber.Items
             gameObject.SetActive(false);
         }
 
-        private void CheckForOverlappingHits()
+        private void CheckForOverlappingHits() // there will be problems if two destructable crates hit eachother
         {
+            bool destructableFound = false;
             Collider[] hits = Physics.OverlapSphere(transform.position, currentExplosionRadius);
             foreach (Collider hit in hits)
             {
                 DealDamage(hit);
 
+                Destructable destructable = hit.GetComponent<Destructable>();
+                if (destructable == null) continue;
+
+                destructable.BeginDestruction(hits);
+                destructableFound = true;
+            }
+
+            if (destructableFound) return; // don't apply physics if there is a destructable nearby
+
+            foreach (Collider hit in hits)
+            {
                 if (hit.gameObject.tag == "PhysicsObject")
                 {
                     ApplyExplosionForce(hit);
                 }
-
-                Destructable destructable = hit.GetComponent<Destructable>();
-                if (destructable != null)
-                {
-                    destructable.BeginDestruction();
-                }
-
             }
         }
 
@@ -75,7 +80,6 @@ namespace Bomber.Items
 
         private void ApplyExplosionForce(Collider hit)
         {
-            print(hit.gameObject.name);
             hit.transform.GetComponentInChildren<Rigidbody>().AddExplosionForce(explosionForce, transform.position,
             currentExplosionRadius, 3.0f);
 

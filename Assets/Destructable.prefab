@@ -78,7 +78,7 @@ MonoBehaviour:
   ExplosionFx: {fileID: 198880425136568428, guid: 2de6c0db4d7adab40ae921395a8fe819,
     type: 3}
   explosionRadius: 4
-  power: 1500
+  power: 1300
   upwardsModifier: 3
 --- !u!1001 &813758766675835673
 PrefabInstance:

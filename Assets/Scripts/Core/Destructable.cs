@@ -12,14 +12,14 @@ namespace Bomber.Core
         [SerializeField] float power = 2000f;
         [SerializeField] float upwardsModifier = 3f;
 
-        public void BeginDestruction()
+        public void BeginDestruction(Collider[] hits)
         {
             SpawnParticles();
-            ApplyExplosionForce();
+            ApplyExplosionForce(hits);
 
             // todo play a sound
 
-            Destroy(gameObject);
+            DestroyGameObject();
         }
 
         private void SpawnParticles()
@@ -27,9 +27,11 @@ namespace Bomber.Core
             Instantiate(ExplosionFx, transform.position, Quaternion.identity);
         }
 
-        private void ApplyExplosionForce()
+
+
+        private void ApplyExplosionForce(Collider[] hits)
         {
-            Collider[] hits = Physics.OverlapSphere(transform.position, explosionRadius);
+            //Collider[] hits = Physics.OverlapSphere(transform.position, explosionRadius);
             foreach (Collider hit in hits)
             {
                 if (hit.gameObject.tag == "PhysicsObject")
@@ -38,6 +40,16 @@ namespace Bomber.Core
                                                     explosionRadius, upwardsModifier);
                 }
             }
+        }
+
+        private void DestroyGameObject()
+        {
+            MeshRenderer meshRenderer = GetComponentInChildren<MeshRenderer>();
+            meshRenderer.enabled = false;
+            Collider collider = GetComponent<BoxCollider>();
+            collider.enabled = false;
+
+            Destroy(gameObject, 1f);
         }
 
     }
