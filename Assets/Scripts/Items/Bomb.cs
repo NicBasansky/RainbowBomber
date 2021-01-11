@@ -14,7 +14,7 @@ namespace Bomber.Items
         [SerializeField] float currentExplosionRadius = 3.0f; // todo make private
         [SerializeField] float explosionForce = 1000f;
         [SerializeField] float upwardsModifier = 1f;
-        [SerializeField] float damage = 50.0f;
+        float damage = 0;
 
         [Header("Flashing")]
         [SerializeField] float maxFlashSpeed = 3f;
@@ -27,20 +27,51 @@ namespace Bomber.Items
 
         }
 
+        public void SetupBomb(float multiplier, float damage)
+        {
+            //currentExplosionRadius = initialExplosionRadius; TODO need?
+            currentExplosionRadius *= multiplier;
+            print("new explosionRadius: " + currentExplosionRadius.ToString());
 
-        IEnumerator RunBombSequence()
+            this.damage = damage;
+        }
+
+        IEnumerator RunBombSequence() // todo rework explosion scalar
         {
             StartCoroutine(BombFlash());
             yield return new WaitForSeconds(timeToExplode);
 
-            GameObject fx = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-            fx.GetComponentInChildren<ExplosionParticleScaler>().MultiplyParticleScale(currentExplosionRadius);
+            //GameObject fx = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            //fx.GetComponentInChildren<ExplosionParticleScaler>().MultiplyParticleScale(currentExplosionRadius);
+            ActivateExplosionFX();
 
             CheckForOverlappingHits();
 
+            gameObject.SetActive(false);
 
+        }
+
+        public void ExplodeBomb()
+        {
+            print("explode bomb called");
+            StopCoroutine(RunBombSequence());
+
+            ActivateExplosionFX();
+
+            CheckForOverlappingHits();
 
             gameObject.SetActive(false);
+        }
+
+        private void ActivateExplosionFX()
+        {
+            GameObject fx = Pool.singleton.Get("BombFX");
+            if (fx != null)
+            {
+                fx.SetActive(true);
+                fx.transform.position = transform.position;
+                fx.GetComponent<ParticleEmissionHandler>().ActivateFX();
+            }
         }
 
         private void CheckForOverlappingHits() // there will be problems if two destructable crates hit eachother
@@ -49,7 +80,7 @@ namespace Bomber.Items
             Collider[] hits = Physics.OverlapSphere(transform.position, currentExplosionRadius);
             foreach (Collider hit in hits)
             {
-                DealDamage(hit);
+                //DealDamage(hit);
 
                 Destructable destructable = hit.GetComponent<Destructable>();
                 if (destructable == null) continue;
@@ -96,11 +127,12 @@ namespace Bomber.Items
             }
         }
 
-        public void SetBlastRadius(float multiplier)
+        private void OnParticleCollision(GameObject other)
         {
-            currentExplosionRadius = initialExplosionRadius;
-            currentExplosionRadius *= multiplier;
-            print("new explosionRadius: " + currentExplosionRadius.ToString());
+            if (other.tag == "BombFX")
+            {
+                ExplodeBomb();
+            }
         }
 
         private void ResetBlastRadius()

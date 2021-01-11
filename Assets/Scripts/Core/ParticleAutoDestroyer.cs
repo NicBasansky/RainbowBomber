@@ -7,6 +7,7 @@ namespace Bomber.Core
     public class ParticleAutoDestroyer : MonoBehaviour
     {
         ParticleSystem ps;
+        [SerializeField] GameObject targetToDestroy = null;
 
         private void Awake()
         {
@@ -17,7 +18,15 @@ namespace Bomber.Core
         {
             if (!ps.IsAlive())
             {
-                Destroy(gameObject);
+                if (targetToDestroy != null)
+                {
+                    Destroy(targetToDestroy);
+                }
+                else
+                {
+                    Destroy(gameObject);
+                }
+
             }
         }
     }

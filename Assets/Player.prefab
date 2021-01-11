@@ -94,7 +94,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da368835933b69c4796ea22767ff8695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 100
+  startingHealth: 3
+  invincibilityDuration: 1.5
+  invinsibilityDeltaTime: 0.15
+  model: {fileID: 4498852869859726532}
   health: 0
 --- !u!114 &8014716908013607328
 MonoBehaviour:
@@ -108,7 +111,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f9f0f27404d3164592516230729b592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagePerBomb: 1
+  dropDelay: 2
   placementOffsetY: 1
+  timeSinceLastDroppedBomb: Infinity
 --- !u!1 &4498852869859726532
 GameObject:
   m_ObjectHideFlags: 0
@@ -120,7 +126,6 @@ GameObject:
   - component: {fileID: 9155597992764320969}
   - component: {fileID: 8629365163933161901}
   - component: {fileID: 8604894017831459524}
-  - component: {fileID: 4957973322336922610}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -190,19 +195,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &4957973322336922610
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4498852869859726532}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6378304316232684813
 GameObject:
   m_ObjectHideFlags: 0

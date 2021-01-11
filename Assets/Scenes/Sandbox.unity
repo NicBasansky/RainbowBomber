@@ -865,7 +865,7 @@ Transform:
   - {fileID: 976216335}
   - {fileID: 298949757}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &573317991 stripped
 Transform:
@@ -1282,7 +1282,7 @@ Transform:
   - {fileID: 734504125}
   - {fileID: 1965663361}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &960159350 stripped
 Transform:
@@ -2415,6 +2415,10 @@ MonoBehaviour:
       type: 3}
     amount: 5
     expandable: 0
+  - prefab: {fileID: 4089682096088661216, guid: 51d75a459e179fa4f8daffdc3b1c7f88,
+      type: 3}
+    amount: 5
+    expandable: 0
   pooledItems:
   - {fileID: 0}
   parent: {fileID: 983009731}
@@ -2719,6 +2723,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3264128626501384078, guid: 617455d29a8932845991d3ebcfbe5dfa,
+        type: 3}
+      propertyPath: startingHealth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3264128626501384078, guid: 617455d29a8932845991d3ebcfbe5dfa,
+        type: 3}
+      propertyPath: invinsibilityDeltaTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8014716908013607328, guid: 617455d29a8932845991d3ebcfbe5dfa,
+        type: 3}
+      propertyPath: dropDelay
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 617455d29a8932845991d3ebcfbe5dfa, type: 3}
 --- !u!1001 &5943315685998533192
@@ -2845,7 +2864,7 @@ PrefabInstance:
     - target: {fileID: 6197800773688365063, guid: f3125e2df0c4b19498fae19a8d0e7829,
         type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 6197800773688365063, guid: f3125e2df0c4b19498fae19a8d0e7829,
         type: 3}
