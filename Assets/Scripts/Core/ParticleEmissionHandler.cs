@@ -8,7 +8,9 @@ namespace Bomber.Core
     {
         float timeSinceActivated = Mathf.Infinity;
         [SerializeField] float emissionDuration = 1.5f;
+        [SerializeField] GameObject baseGameObject = null;
         ParticleSystem[] particleSystems;
+
 
 
         private void Awake()
@@ -41,7 +43,7 @@ namespace Bomber.Core
                     EnableEmissionModule(ps, false);
                 }
 
-                gameObject.SetActive(false);
+                baseGameObject.SetActive(false);
             }
         }
 

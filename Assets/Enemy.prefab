@@ -121,6 +121,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 100
+  invincibilityDuration: 1.5
+  invinsibilityDeltaTime: 0.15
+  model: {fileID: 8814988431866828301}
   health: 0
 --- !u!1 &8814988431866828301
 GameObject:

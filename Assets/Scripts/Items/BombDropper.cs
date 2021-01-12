@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Bomber.Core;
 
-
 namespace Bomber.Items
 {
     public class BombDropper : MonoBehaviour, IPowerUp

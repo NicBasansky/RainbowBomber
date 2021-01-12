@@ -24,7 +24,6 @@ namespace Bomber.Items
         private void OnEnable()
         {
             StartCoroutine(RunBombSequence());
-
         }
 
         public void SetupBomb(float multiplier, float damage)
@@ -45,7 +44,7 @@ namespace Bomber.Items
             //fx.GetComponentInChildren<ExplosionParticleScaler>().MultiplyParticleScale(currentExplosionRadius);
             ActivateExplosionFX();
 
-            CheckForOverlappingHits();
+            CheckForOverlappingPhysicsObjects();
 
             gameObject.SetActive(false);
 
@@ -53,12 +52,11 @@ namespace Bomber.Items
 
         public void ExplodeBomb()
         {
-            print("explode bomb called");
             StopCoroutine(RunBombSequence());
 
             ActivateExplosionFX();
 
-            CheckForOverlappingHits();
+            CheckForOverlappingPhysicsObjects();
 
             gameObject.SetActive(false);
         }
@@ -70,18 +68,16 @@ namespace Bomber.Items
             {
                 fx.SetActive(true);
                 fx.transform.position = transform.position;
-                fx.GetComponent<ParticleEmissionHandler>().ActivateFX();
+                fx.GetComponentInChildren<ParticleEmissionHandler>().ActivateFX();
             }
         }
 
-        private void CheckForOverlappingHits() // there will be problems if two destructable crates hit eachother
+        private void CheckForOverlappingPhysicsObjects() // there will be problems if two destructable crates hit eachother
         {
             bool destructableFound = false;
             Collider[] hits = Physics.OverlapSphere(transform.position, currentExplosionRadius);
             foreach (Collider hit in hits)
             {
-                //DealDamage(hit);
-
                 Destructable destructable = hit.GetComponent<Destructable>();
                 if (destructable == null) continue;
 
@@ -113,7 +109,6 @@ namespace Bomber.Items
         {
             hit.transform.GetComponentInChildren<Rigidbody>().AddExplosionForce(explosionForce, transform.position,
             currentExplosionRadius, 3.0f);
-
         }
 
         IEnumerator BombFlash()
@@ -127,14 +122,6 @@ namespace Bomber.Items
             }
         }
 
-        private void OnParticleCollision(GameObject other)
-        {
-            if (other.tag == "BombFX")
-            {
-                ExplodeBomb();
-            }
-        }
-
         private void ResetBlastRadius()
         {
             currentExplosionRadius = 1f;
@@ -144,9 +131,6 @@ namespace Bomber.Items
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, currentExplosionRadius);
-
-            // todo make the particles reflect the size of the explosion radius
         }
     }
-
 }

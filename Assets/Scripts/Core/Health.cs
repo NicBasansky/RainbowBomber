@@ -81,14 +81,6 @@ namespace Bomber.Core
             model.transform.localScale = scale;
         }
 
-        private void OnParticleCollision(GameObject other)
-        {
-            if (other.tag == "BombFX")
-            {
-                AffectHealth(1f);
-            }
-        }
-
     }
 
 }

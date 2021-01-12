@@ -77,10 +77,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToExplode: 3
-  explosionPrefab: {fileID: 4089682096088661216, guid: 51d75a459e179fa4f8daffdc3b1c7f88,
+  explosionPrefab: {fileID: 6357242220132679749, guid: 9310c7f15e3a79a47a26e18f42d46ce6,
     type: 3}
-  initialExplosionRadius: 3
-  currentExplosionRadius: 3
+  initialExplosionRadius: 6
+  currentExplosionRadius: 6
   explosionForce: 1000
   upwardsModifier: 1
   maxFlashSpeed: 10
