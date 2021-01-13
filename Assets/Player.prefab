@@ -53,6 +53,10 @@ MonoBehaviour:
   gravity: 20
   boostThrust: 10000
   boostDuration: 2
+  knockbackPower: 10
+  knockbackRadius: 3
+  knockbackUpwardsModifier: 10
+  knockbackParalisisSeconds: 1.5
 --- !u!54 &1153168073
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -76,7 +80,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1818679884671909245}
-  m_Material: {fileID: 13400000, guid: 79612389cdf8579439762c10bf5869f0, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -114,7 +118,6 @@ MonoBehaviour:
   damagePerBomb: 1
   dropDelay: 2
   placementOffsetY: 1
-  timeSinceLastDroppedBomb: Infinity
 --- !u!1 &4498852869859726532
 GameObject:
   m_ObjectHideFlags: 0

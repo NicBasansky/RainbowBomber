@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Bomber.Core
 {
@@ -11,10 +12,10 @@ namespace Bomber.Core
         [SerializeField] float invincibilityDuration = 1.5f;
         [SerializeField] float invinsibilityDeltaTime = 0.15f;
         [SerializeField] GameObject model;
+
         bool isInvincible = false;
         public float health; // todo make private
         bool isDead = false;
-
 
         void Start()
         {
@@ -25,8 +26,9 @@ namespace Bomber.Core
         {
             if (!isInvincible)
             {
+
                 health -= delta;
-                print(gameObject.name + " is at " + health + " health"); // todo remove
+                //print(gameObject.name + " is at " + health + " health"); // todo remove
                 if (!CheckIsDead())
                 {
                     StartCoroutine(BecomeInvincible());
@@ -68,12 +70,16 @@ namespace Bomber.Core
                     ScaleModelTo(Vector3.one);
                 }
                 yield return new WaitForSeconds(invinsibilityDeltaTime);
-
             }
 
             ScaleModelTo(Vector3.one);
 
             isInvincible = false;
+        }
+
+        public bool GetIsInvincible()
+        {
+            return isInvincible;
         }
 
         private void ScaleModelTo(Vector3 scale)

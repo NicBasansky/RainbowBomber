@@ -21,15 +21,17 @@ namespace Bomber.Items
         [SerializeField] float flashSpeedMultiplier = 1.3f;
         [SerializeField] float flashAccelTime = 0.2f;
 
+        private float explosionRadius = 0;
+
         private void OnEnable()
         {
             StartCoroutine(RunBombSequence());
         }
 
-        public void SetupBomb(float multiplier, float damage)
+        public void SetupBomb(float radius, float damage)
         {
             //currentExplosionRadius = initialExplosionRadius; TODO need?
-            currentExplosionRadius *= multiplier;
+            explosionRadius = radius;
             print("new explosionRadius: " + currentExplosionRadius.ToString());
 
             this.damage = damage;
@@ -92,6 +94,12 @@ namespace Bomber.Items
                 if (hit.gameObject.tag == "PhysicsObject")
                 {
                     ApplyExplosionForce(hit);
+                }
+
+                IBombExplosion bombExplosion = hit.GetComponent<IBombExplosion>();
+                if (bombExplosion != null)
+                {
+                    bombExplosion.AffectByExplosion(explosionForce, transform.position, currentExplosionRadius);
                 }
             }
         }

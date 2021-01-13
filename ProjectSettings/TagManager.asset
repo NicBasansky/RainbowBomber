@@ -8,6 +8,8 @@ TagManager:
   - Bomb
   - PhysicsObject
   - BombFX
+  - whatIsGround
+  - Environment
   layers:
   - Default
   - TransparentFX
@@ -18,7 +20,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - whatIsGround
   - 
   - 
   - 

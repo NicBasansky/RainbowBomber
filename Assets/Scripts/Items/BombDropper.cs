@@ -11,27 +11,33 @@ namespace Bomber.Items
         [SerializeField] float dropDelay = 2f;
         [SerializeField] float placementOffsetY = 1.0f;
         float timeSinceLastDroppedBomb = Mathf.Infinity;
+        float initialExplosionRadius = 3.0f;
         float accumulativeBlastRadiusMultiplier = 1f;
 
-        void Update()
+        void Update() // later, could make it so if the player drops a bomb then all the rest do
         {
-            if (Input.GetKeyDown(KeyCode.B) && timeSinceLastDroppedBomb > dropDelay)
-            {
-                DropBomb();
-                timeSinceLastDroppedBomb = 0;
-            }
+
             timeSinceLastDroppedBomb += Time.deltaTime;
         }
 
-        private void DropBomb()
+        public void DropBomb()
         {
-            GameObject bomb = Pool.singleton.Get("Bomb");
-            if (bomb != null)
+            if (timeSinceLastDroppedBomb > dropDelay)
             {
-                bomb.SetActive(true);
-                bomb.transform.position = transform.position + new Vector3(0, placementOffsetY, 0);//spawnPosition.transform.position;
-                bomb.GetComponent<Bomb>().SetupBomb(accumulativeBlastRadiusMultiplier, damagePerBomb);
+                GameObject bomb = Pool.singleton.Get("Bomb");
+                if (bomb != null)
+                {
+                    bomb.SetActive(true);
+                    bomb.transform.position = transform.position + new Vector3(0, placementOffsetY, 0);//spawnPosition.transform.position;
+                    bomb.GetComponent<Bomb>().SetupBomb(GetExplosionRadius(), damagePerBomb);
+                }
+                timeSinceLastDroppedBomb = 0;
             }
+        }
+
+        public float GetExplosionRadius()
+        {
+            return initialExplosionRadius * accumulativeBlastRadiusMultiplier;
         }
 
         public void ApplyPowerUp(PowerUp details)
