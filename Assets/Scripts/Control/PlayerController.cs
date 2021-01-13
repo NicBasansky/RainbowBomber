@@ -1,15 +1,16 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Bomber.Items;
 using UnityEngine.AI;
+using UnityEngine.InputSystem;
 using Bomber.Core;
+
 
 namespace Bomber.Control
 {
     public class PlayerController : MonoBehaviour, IPowerUp, IBombExplosion
     {
-
         [SerializeField] float speed = 5.0f;
         [SerializeField] float thrust = 1.0f;
         [SerializeField] float gravity = 9.82f;
@@ -22,6 +23,7 @@ namespace Bomber.Control
         [SerializeField] float knockbackUpwardsModifier = 3.0f;
         [SerializeField] float knockbackParalisisSeconds = 1.5f;
 
+
         float startingThrust;
         bool isBoosting = false;
 
@@ -32,6 +34,7 @@ namespace Bomber.Control
         {
             rb = GetComponent<Rigidbody>();
             bombDropper = GetComponent<BombDropper>();
+
         }
 
         // Start is called before the first frame update
@@ -40,6 +43,7 @@ namespace Bomber.Control
             // todo see if this affects things other than the player
             Physics.gravity = new Vector3(0, -gravity, 0);
             startingThrust = thrust;
+
         }
 
         // Update is called once per frame
@@ -50,14 +54,23 @@ namespace Bomber.Control
 
         void ProcessInputs()
         {
+
             float horizontal = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
             float vertical = Input.GetAxis("Vertical") * Time.deltaTime * speed;
 
             //transform.Translate(new Vector3(horizontal, 0, vertical));
             rb.AddForce(new Vector3(horizontal, 0, vertical).normalized * thrust);
 
+            var gamepad = Gamepad.current;
+            if (gamepad != null)
+            {
+                if (gamepad.bButton.isPressed)
+                {
+                    DropBomb();
+                }
+            }
             // boost movement
-            if (Input.GetKeyDown("space") && !isBoosting)
+            if (Input.GetKeyDown("space") && !isBoosting) // controller??
             {
                 StartCoroutine(BoostSpeedCoroutine(new Vector3(horizontal, 0, vertical).normalized, boostThrust));
             }

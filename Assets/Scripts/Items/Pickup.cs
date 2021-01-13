@@ -8,15 +8,17 @@ namespace Bomber.Items
 {
     public class Pickup : MonoBehaviour
     {
-        [SerializeField] ScoreHUD scoreHUD;
-        //[SerializeField] int scoreIncrement = 10;
-        GameObject player;
-
+        [Tooltip("ScoreContribution only if there are no Power Up Details")]
+        [SerializeField] float scoreContribution = 20f;
         [SerializeField] PowerUp powerUpDetails;
+
+        ScoreHUD scoreHUD;
+        GameObject player;
 
         private void Awake()
         {
             player = GameObject.FindWithTag("Player");
+            scoreHUD = FindObjectOfType<ScoreHUD>();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -31,18 +33,28 @@ namespace Bomber.Items
                 // increase count in UI
                 if (scoreHUD != null)
                 {
-                    scoreHUD.UpdateScore(Mathf.RoundToInt(powerUpDetails.scoreContribution));
+                    if (powerUpDetails != null)
+                    {
+                        scoreHUD.UpdateScore(Mathf.RoundToInt(powerUpDetails.scoreContribution));
+                    }
+                    else
+                    {
+                        scoreHUD.UpdateScore(Mathf.RoundToInt(scoreContribution));
+                    }
                 }
 
-                ApplyPowerUp();
+                if (powerUpDetails != null)
+                {
+                    ApplyPowerUp();
+                }
 
                 // play sound
+
+                // play particle effect
 
                 // send object back to object Pool
                 Destroy(gameObject);
             }
-
-
         }
 
         private void ApplyPowerUp()

@@ -129,6 +129,7 @@ namespace Bomber.Control
 
             if (Physics.Raycast(walkPoint, -Vector3.up, 2f, whatIsGround))
             {
+                // TODO see if this nav mesh testing is necessary, could be good in case they choose a random spot on top of a pillar
                 NavMeshHit hit;
                 Vector3 testLocation;
                 if (NavMesh.SamplePosition(walkPoint, out hit, 2.0f, NavMesh.AllAreas))
