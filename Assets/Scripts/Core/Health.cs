@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,6 +13,8 @@ namespace Bomber.Core
         [SerializeField] float invincibilityDuration = 1.5f;
         [SerializeField] float invinsibilityDeltaTime = 0.15f;
         [SerializeField] GameObject model;
+
+        public event Action onDeath;
 
         bool isInvincible = false;
         public float health; // todo make private
@@ -50,6 +53,7 @@ namespace Bomber.Core
             health = 0;
             isDead = true;
 
+            onDeath.Invoke();
             // play death animation
             // stop moving
             // destroy / return to object pool

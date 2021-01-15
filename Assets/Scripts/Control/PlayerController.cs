@@ -23,9 +23,9 @@ namespace Bomber.Control
         [SerializeField] float knockbackUpwardsModifier = 3.0f;
         [SerializeField] float knockbackParalisisSeconds = 1.5f;
 
-
         float startingThrust;
         bool isBoosting = false;
+        bool isDead = false;
 
         Rigidbody rb;
         BombDropper bombDropper;
@@ -37,7 +37,16 @@ namespace Bomber.Control
 
         }
 
-        // Start is called before the first frame update
+        private void OnEnable()
+        {
+            GetComponent<Health>().onDeath += OnDeath;
+        }
+
+        private void OnDisable()
+        {
+            GetComponent<Health>().onDeath += OnDeath;
+        }
+
         void Start()
         {
             // todo see if this affects things other than the player
@@ -46,7 +55,6 @@ namespace Bomber.Control
 
         }
 
-        // Update is called once per frame
         void FixedUpdate()
         {
             ProcessInputs();
@@ -54,6 +62,7 @@ namespace Bomber.Control
 
         void ProcessInputs()
         {
+            if (isDead) return;
 
             float horizontal = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
             float vertical = Input.GetAxis("Vertical") * Time.deltaTime * speed;
@@ -122,6 +131,11 @@ namespace Bomber.Control
         private void DropBomb()
         {
             bombDropper.DropBomb();
+        }
+
+        private void OnDeath()
+        {
+            isDead = true;
         }
 
         public void ApplyPowerUp(PowerUp details)

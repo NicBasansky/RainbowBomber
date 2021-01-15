@@ -36,6 +36,8 @@ namespace Bomber.Control
         bool walkPointSet = false;
         float timeOnCurrentPath = Mathf.Infinity;
         float maxTimeOnCurrentPath = 0;
+        bool hitByPhysics = false;
+        bool isDead = false;
 
         NavMeshAgent agent;
         Rigidbody rb;
@@ -50,8 +52,20 @@ namespace Bomber.Control
             target = GameObject.FindWithTag("Player");
         }
 
+        private void OnEnable()
+        {
+            GetComponent<Health>().onDeath += OnDeath;
+        }
+
+        private void OnDisable()
+        {
+            GetComponent<Health>().onDeath += OnDeath;
+        }
+
         void Update()
         {
+            if (isDead) return;
+
             if (IsInChaseRange())
             {
                 MoveTo();
@@ -101,6 +115,8 @@ namespace Bomber.Control
         {
             if (!agent.isOnNavMesh) return;
 
+            hitByPhysics = false;
+
             if (agent.isActiveAndEnabled && !walkPointSet)
             {
                 SearchWalkPoint();
@@ -109,6 +125,7 @@ namespace Bomber.Control
             if (walkPointSet)
             {
                 agent.SetDestination(walkPoint);
+                transform.LookAt(walkPoint);
             }
 
             float distanceToWalkPoint = Vector3.Distance(transform.position, walkPoint);
@@ -215,6 +232,7 @@ namespace Bomber.Control
 
         public IEnumerator KnockbackCoroutine(float explosionForce, Vector3 sourcePosition, float radius)
         {
+            hitByPhysics = true;
             NavMeshAgent agent = GetComponent<NavMeshAgent>();
             agent.enabled = false;
             anim.enabled = false;
@@ -224,6 +242,13 @@ namespace Bomber.Control
 
             agent.enabled = true;
             anim.enabled = true;
+        }
+
+        private void OnDeath()
+        {
+            agent.enabled = false;
+            anim.SetBool("die", true);
+            isDead = true;
         }
 
         private bool IsInAttackRange()
@@ -247,7 +272,10 @@ namespace Bomber.Control
 
         public void AffectByExplosion(float explosionForce, Vector3 sourcePosition, float radius)
         {
-            StartCoroutine(KnockbackCoroutine(explosionForce, sourcePosition, radius));
+            if (!hitByPhysics)
+            {
+                StartCoroutine(KnockbackCoroutine(explosionForce, sourcePosition, radius));
+            }
         }
 
 

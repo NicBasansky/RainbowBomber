@@ -86,7 +86,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5b70ac6598ace04fb2f55af26e07192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   chaseRadius: 8.96
   stoppingDist: 2.2
   attackRadius: 4.73
@@ -131,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da368835933b69c4796ea22767ff8695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 100
+  startingHealth: 1
   invincibilityDuration: 1.5
   invinsibilityDeltaTime: 0.15
   model: {fileID: 8814988431866828301}

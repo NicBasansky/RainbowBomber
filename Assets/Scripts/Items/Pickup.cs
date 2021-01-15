@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Bomber.UI;
-using System;
+using Bomber.Core;
 
 namespace Bomber.Items
 {
@@ -11,14 +11,19 @@ namespace Bomber.Items
         [Tooltip("ScoreContribution only if there are no Power Up Details")]
         [SerializeField] float scoreContribution = 20f;
         [SerializeField] PowerUp powerUpDetails;
+        //[SerializeField] GameObject pickupParticles = null;
+        //[SerializeField] Vector3 particleOffset = new Vector3(0, 1f, 0);
+        [SerializeField] bool isCoin = false;
 
         ScoreHUD scoreHUD;
         GameObject player;
+        Animator animator;
 
         private void Awake()
         {
             player = GameObject.FindWithTag("Player");
             scoreHUD = FindObjectOfType<ScoreHUD>();
+            animator = GetComponentInChildren<Animator>();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -26,7 +31,6 @@ namespace Bomber.Items
 
             if (other.gameObject.tag == "Player")
             {
-                GetComponentInChildren<MeshRenderer>().enabled = false;
 
                 // play particle effect
 
@@ -48,14 +52,26 @@ namespace Bomber.Items
                     ApplyPowerUp();
                 }
 
+                if (animator != null)
+                {
+                    animator.SetTrigger("onPickedUp");
+                }
+
                 // play sound
 
                 // play particle effect
+                // Vector3 particleLocation = new Vector3(transform.position.x + particleOffset.x,
+                //                                         transform.position.y + particleOffset.y,
+                //                                         transform.position.z + particleOffset.z);
+                // Instantiate(pickupParticles, particleLocation, Quaternion.identity);
+                //Instantiate(pickupParticles, transform.position, Quaternion.identity);
 
                 // send object back to object Pool
-                Destroy(gameObject);
+
             }
         }
+
+
 
         private void ApplyPowerUp()
         {

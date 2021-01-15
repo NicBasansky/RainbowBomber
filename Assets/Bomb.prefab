@@ -81,7 +81,7 @@ MonoBehaviour:
     type: 3}
   initialExplosionRadius: 6
   currentExplosionRadius: 6
-  explosionForce: 1000
+  explosionForce: 2000
   upwardsModifier: 1
   maxFlashSpeed: 10
   flashSpeedMultiplier: 1.3
