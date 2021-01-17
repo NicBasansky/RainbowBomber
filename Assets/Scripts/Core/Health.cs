@@ -41,11 +41,15 @@ namespace Bomber.Core
 
         public bool CheckIsDead()
         {
+            if (isDead)
+                return true;
+
             if (health <= 0)
             {
                 Die();
+                return true;
             }
-            return isDead;
+            return false;
         }
 
         private void Die()

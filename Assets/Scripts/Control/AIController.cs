@@ -67,6 +67,11 @@ namespace Bomber.Control
             GetComponent<Health>().onDeath += OnDeath;
         }
 
+        private void Start()
+        {
+            rb.isKinematic = true;
+        }
+
         void Update()
         {
             if (isDead) return;
@@ -83,22 +88,31 @@ namespace Bomber.Control
                 else
                 {
                     anim.SetBool("isAttacking", false);
-
                 }
             }
             else
             {
-                // IdleBehaviour();
                 PatrolBehaviour();
                 timeOnCurrentPath += Time.deltaTime;
-
             }
         }
 
-        private void IdleBehaviour()
+        private void MoveTo()
         {
             anim.SetTrigger("idle");
-            // todo reset attack animation?
+            if (!agent.isActiveAndEnabled || !agent.isOnNavMesh) return;
+
+            hitByPhysics = false;
+            agent.isStopped = false;
+            transform.LookAt(target.transform);
+            agent.SetDestination(target.transform.position);
+            agent.speed = maxSpeed; // to change speeds when patrolling
+            anim.SetTrigger("walk");
+
+            if (Vector3.Distance(transform.position, target.transform.position) <= stoppingDist)
+            {
+                agent.isStopped = true;
+            }
         }
 
         private void AttackBehaviour()
@@ -108,7 +122,7 @@ namespace Bomber.Control
             FreezeRigidbodyRotation(true);
 
             attacking = true;
-            transform.LookAt(target.transform.position);
+            //transform.LookAt(target.transform.position);
             anim.ResetTrigger("idle");
             anim.SetBool("isAttacking", true);
 
@@ -209,22 +223,6 @@ namespace Bomber.Control
             return hasLineOfSight;
         }
 
-        private void MoveTo()
-        {
-            if (!agent.isActiveAndEnabled || !agent.isOnNavMesh) return;
-
-            hitByPhysics = false;
-            agent.isStopped = false;
-            agent.SetDestination(target.transform.position);
-            agent.speed = maxSpeed; // to change speeds when patrolling
-            anim.SetTrigger("walk");
-
-            if (Vector3.Distance(transform.position, target.transform.position) <= stoppingDist)
-            {
-                agent.isStopped = true;
-            }
-        }
-
         private bool IsTakingTooLongOnCurrentpath()
         {
             return timeOnCurrentPath > GetMaxTimeAllowedOnPath();
@@ -244,10 +242,12 @@ namespace Bomber.Control
         public IEnumerator KnockbackCoroutine(float explosionForce, Vector3 sourcePosition, float radius)
         {
             hitByPhysics = true;
-            //NavMeshAgent agent = GetComponent<NavMeshAgent>();
+
             FreezeRigidbodyRotation(false);
+
             agent.enabled = false;
-            anim.enabled = false;
+            //anim.enabled = false;
+            rb.isKinematic = false;
 
             faceChanger.ChangeAppearance(true);
 
@@ -256,12 +256,16 @@ namespace Bomber.Control
             yield return new WaitForSeconds(knockbackParalisisSeconds); // TODO could be the cause of future problems
 
             faceChanger.ChangeAppearance(false);
+
+            FreezeRigidbodyRotation(false);
             agent.enabled = true;
-            anim.enabled = true;
+            //anim.enabled = true;
+            rb.isKinematic = true;
         }
 
         private void OnDeath()
         {
+            print("OnDeath Called by " + gameObject.name);
             agent.enabled = false;
             anim.SetBool("die", true);
             isDead = true;
@@ -272,6 +276,7 @@ namespace Bomber.Control
         private void FreezeRigidbodyRotation(bool shouldFreeze)
         {
             rb.freezeRotation = shouldFreeze;
+
         }
 
         private bool IsInAttackRange()

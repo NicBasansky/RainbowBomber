@@ -11,6 +11,7 @@ namespace Bomber.Core
     {
         [SerializeField] Transform baseTransform = null;
         [SerializeField] float peripheralExplosionForce = 1000f;
+        bool alreadyHit = false;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -20,6 +21,10 @@ namespace Bomber.Core
 
         private void AffectHealthIfExposed(Collider other)
         {
+            //if (alreadyHit) return;
+            // alreadyHit = true;
+            print("AffectHealthIfExposed");
+
             Health health = other.GetComponent<Health>();
             if (health != null)
             {
@@ -39,13 +44,14 @@ namespace Bomber.Core
 
                 if (isExposed)
                 {
+                    health.AffectHealth(1f);
 
                     IBombExplosion bombExplosion = health.GetComponent<IBombExplosion>(); // if there are multiple components affected by the explosion then change it here
                     if (bombExplosion != null)
                     {
                         bombExplosion.AffectByExplosion(peripheralExplosionForce, gameObject.transform.position, 3f);
                     }
-                    health.AffectHealth(1f);
+
                 }
             }
         }

@@ -27,6 +27,7 @@ namespace Bomber.Control
         bool isBoosting = false;
         bool isDead = false;
         bool isHitByPhysics = false;
+        bool isParalized = false;
 
         Rigidbody rb;
         BombDropper bombDropper;
@@ -58,7 +59,7 @@ namespace Bomber.Control
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.B))
+            if (Input.GetKeyDown(KeyCode.B) && !isParalized)
             {
                 DropBomb();
             }
@@ -71,7 +72,7 @@ namespace Bomber.Control
 
         void ProcessInputs()
         {
-            if (isDead) return;
+            if (isDead || isParalized) return;
 
             float horizontal = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
             float vertical = Input.GetAxis("Vertical") * Time.deltaTime * speed;
@@ -123,19 +124,14 @@ namespace Bomber.Control
         public IEnumerator KnockbackCoroutine(float explosionForce, Vector3 sourcePosition, float radius)
         {
             //Vector3 explosionPoint = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1.5f);
-            NavMeshAgent agent = GetComponent<NavMeshAgent>();
-            if (agent != null)
-            {
-                agent.enabled = false;
-            }
+
             rb.AddExplosionForce(explosionForce, sourcePosition, radius, knockbackUpwardsModifier);
+
+            isParalized = true;
 
             yield return new WaitForSeconds(knockbackParalisisSeconds);
 
-            if (agent != null)
-            {
-                agent.enabled = true;
-            }
+            isParalized = false;
 
         }
 
