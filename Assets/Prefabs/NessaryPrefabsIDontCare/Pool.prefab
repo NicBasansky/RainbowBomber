@@ -50,7 +50,7 @@ MonoBehaviour:
     expandable: 1
   - prefab: {fileID: 6357242220132679749, guid: 9310c7f15e3a79a47a26e18f42d46ce6,
       type: 3}
-    amount: 5
+    amount: 7
     expandable: 1
   pooledItems: []
   parent: {fileID: 0}

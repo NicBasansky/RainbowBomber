@@ -18,6 +18,11 @@ namespace Bomber.Core
             particleSystems = GetComponentsInChildren<ParticleSystem>();
         }
 
+        private void OnEnable()
+        {
+            ActivateFX();
+        }
+
         private void Update()
         {
             timeSinceActivated += Time.deltaTime;

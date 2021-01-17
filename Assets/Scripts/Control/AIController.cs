@@ -6,6 +6,7 @@ using UnityEngine.AI;
 using Bomber.Items;
 using Random = UnityEngine.Random;
 using Bomber.Core;
+using Neon2.SlimeSystem;
 
 namespace Bomber.Control
 {
@@ -27,8 +28,10 @@ namespace Bomber.Control
         [SerializeField] float knockbackUpwardsModifier = 3.0f;
         [SerializeField] float knockbackParalisisSeconds = 1.5f;
 
+
         BombDropper bombDropper = null;
         GameObject target;
+
         bool attacking = false;
         bool isPatrolling = false;
         bool maxAllowedTimeSpecified = false;
@@ -42,14 +45,16 @@ namespace Bomber.Control
         NavMeshAgent agent;
         Rigidbody rb;
         Animator anim;
+        EnemyFaceChanger faceChanger;
 
         void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
-            anim = GetComponent<Animator>();
+            anim = GetComponentInChildren<Animator>(); // todo remove inChildren
             bombDropper = GetComponent<BombDropper>();
             rb = GetComponent<Rigidbody>();
             target = GameObject.FindWithTag("Player");
+            faceChanger = GetComponent<EnemyFaceChanger>();
         }
 
         private void OnEnable()
@@ -78,6 +83,7 @@ namespace Bomber.Control
                 else
                 {
                     anim.SetBool("isAttacking", false);
+
                 }
             }
             else
@@ -87,7 +93,6 @@ namespace Bomber.Control
                 timeOnCurrentPath += Time.deltaTime;
 
             }
-
         }
 
         private void IdleBehaviour()
@@ -98,6 +103,10 @@ namespace Bomber.Control
 
         private void AttackBehaviour()
         {
+            if (!agent.isOnNavMesh) return;
+
+            FreezeRigidbodyRotation(true);
+
             attacking = true;
             transform.LookAt(target.transform.position);
             anim.ResetTrigger("idle");
@@ -114,6 +123,8 @@ namespace Bomber.Control
         private void PatrolBehaviour()
         {
             if (!agent.isOnNavMesh) return;
+
+            FreezeRigidbodyRotation(true);
 
             hitByPhysics = false;
 
@@ -142,7 +153,7 @@ namespace Bomber.Control
             float randomX = Random.Range(-walkPointRange, walkPointRange);
             float randomZ = Random.Range(-walkPointRange, walkPointRange);
 
-            walkPoint = new Vector3(transform.position.x + randomX, 21.0f, transform.position.z + randomZ);
+            walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
             if (Physics.Raycast(walkPoint, -Vector3.up, 2f, whatIsGround))
             {
@@ -168,7 +179,6 @@ namespace Bomber.Control
                         return false;
 
                     walkPointSet = true;
-
                     return true;
                 }
             }
@@ -203,6 +213,7 @@ namespace Bomber.Control
         {
             if (!agent.isActiveAndEnabled || !agent.isOnNavMesh) return;
 
+            hitByPhysics = false;
             agent.isStopped = false;
             agent.SetDestination(target.transform.position);
             agent.speed = maxSpeed; // to change speeds when patrolling
@@ -233,13 +244,18 @@ namespace Bomber.Control
         public IEnumerator KnockbackCoroutine(float explosionForce, Vector3 sourcePosition, float radius)
         {
             hitByPhysics = true;
-            NavMeshAgent agent = GetComponent<NavMeshAgent>();
+            //NavMeshAgent agent = GetComponent<NavMeshAgent>();
+            FreezeRigidbodyRotation(false);
             agent.enabled = false;
             anim.enabled = false;
+
+            faceChanger.ChangeAppearance(true);
+
             rb.AddExplosionForce(explosionForce, sourcePosition, radius, knockbackUpwardsModifier);
 
             yield return new WaitForSeconds(knockbackParalisisSeconds); // TODO could be the cause of future problems
 
+            faceChanger.ChangeAppearance(false);
             agent.enabled = true;
             anim.enabled = true;
         }
@@ -249,6 +265,13 @@ namespace Bomber.Control
             agent.enabled = false;
             anim.SetBool("die", true);
             isDead = true;
+            FreezeRigidbodyRotation(false);
+            faceChanger.ChangeAppearance(true);
+        }
+
+        private void FreezeRigidbodyRotation(bool shouldFreeze)
+        {
+            rb.freezeRotation = shouldFreeze;
         }
 
         private bool IsInAttackRange()
@@ -261,14 +284,14 @@ namespace Bomber.Control
             return Vector3.Distance(target.transform.position, transform.position) < chaseRadius;
         }
 
-        private void OnDrawGizmosSelected()
-        {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(transform.position, chaseRadius);
+        // private void OnDrawGizmosSelected()
+        // {
+        //     Gizmos.color = Color.blue;
+        //     Gizmos.DrawWireSphere(transform.position, chaseRadius);
 
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, attackRadius);
-        }
+        //     Gizmos.color = Color.red;
+        //     Gizmos.DrawWireSphere(transform.position, attackRadius);
+        // }
 
         public void AffectByExplosion(float explosionForce, Vector3 sourcePosition, float radius)
         {

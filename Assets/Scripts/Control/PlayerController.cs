@@ -26,15 +26,16 @@ namespace Bomber.Control
         float startingThrust;
         bool isBoosting = false;
         bool isDead = false;
+        bool isHitByPhysics = false;
 
         Rigidbody rb;
         BombDropper bombDropper;
+
 
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
             bombDropper = GetComponent<BombDropper>();
-
         }
 
         private void OnEnable()
@@ -55,6 +56,14 @@ namespace Bomber.Control
 
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                DropBomb();
+            }
+        }
+
         void FixedUpdate()
         {
             ProcessInputs();
@@ -67,27 +76,28 @@ namespace Bomber.Control
             float horizontal = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
             float vertical = Input.GetAxis("Vertical") * Time.deltaTime * speed;
 
-            //transform.Translate(new Vector3(horizontal, 0, vertical));
-            rb.AddForce(new Vector3(horizontal, 0, vertical).normalized * thrust);
-
-            var gamepad = Gamepad.current;
-            if (gamepad != null)
+            //if (!isHitByPhysics)
             {
-                if (gamepad.bButton.isPressed)
+                //transform.Translate(new Vector3(horizontal, 0, vertical));
+                rb.AddForce(new Vector3(horizontal, 0, vertical).normalized * thrust);
+
+                var gamepad = Gamepad.current;
+                if (gamepad != null)
                 {
-                    DropBomb();
+                    if (gamepad.bButton.isPressed)
+                    {
+                        DropBomb();
+                    }
+                }
+                // boost movement
+                if (Input.GetKeyDown("space") && !isBoosting) // controller??
+                {
+                    StartCoroutine(BoostSpeedCoroutine(new Vector3(horizontal, 0, vertical).normalized, boostThrust));
                 }
             }
-            // boost movement
-            if (Input.GetKeyDown("space") && !isBoosting) // controller??
-            {
-                StartCoroutine(BoostSpeedCoroutine(new Vector3(horizontal, 0, vertical).normalized, boostThrust));
-            }
 
-            if (Input.GetKeyDown(KeyCode.B))
-            {
-                DropBomb();
-            }
+
+
         }
 
         public void BoostForwardSpeed(Vector3 boostDirection, float boostAmount)
@@ -126,6 +136,7 @@ namespace Bomber.Control
             {
                 agent.enabled = true;
             }
+
         }
 
         private void DropBomb()
@@ -136,6 +147,7 @@ namespace Bomber.Control
         private void OnDeath()
         {
             isDead = true;
+            //faceChanger.ChangeAppearance(true);
         }
 
         public void ApplyPowerUp(PowerUp details)
@@ -148,7 +160,11 @@ namespace Bomber.Control
 
         public void AffectByExplosion(float explosionForce, Vector3 sourcePosition, float radius)
         {
-            StartCoroutine(KnockbackCoroutine(explosionForce, sourcePosition, radius));
+            //if (!isHitByPhysics)
+            {
+                StartCoroutine(KnockbackCoroutine(explosionForce, sourcePosition, radius));
+            }
+
         }
     }
 

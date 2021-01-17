@@ -32,7 +32,7 @@ namespace Bomber.Items
         {
             //currentExplosionRadius = initialExplosionRadius; TODO need?
             explosionRadius = radius;
-            print("new explosionRadius: " + currentExplosionRadius.ToString());
+            //print("new explosionRadius: " + currentExplosionRadius.ToString());
 
             this.damage = damage;
         }
@@ -70,7 +70,6 @@ namespace Bomber.Items
             {
                 fx.SetActive(true);
                 fx.transform.position = transform.position;
-                fx.GetComponentInChildren<ParticleEmissionHandler>().ActivateFX();
             }
         }
 
@@ -78,22 +77,23 @@ namespace Bomber.Items
         {
             bool destructableFound = false;
             Collider[] hits = Physics.OverlapSphere(transform.position, currentExplosionRadius);
-            foreach (Collider hit in hits)
-            {
-                Destructable destructable = hit.GetComponent<Destructable>();
-                if (destructable == null) continue;
+            // foreach (Collider hit in hits) // TODO bring back for destructive crates
+            // {
+            //     Destructable destructable = hit.GetComponent<Destructable>();
+            //     if (destructable == null) continue;
 
-                destructable.BeginDestruction(hits);
-                destructableFound = true;
-            }
+            //     destructable.BeginDestruction(hits);
+            //     destructableFound = true;
+            // }
 
-            if (destructableFound) return; // don't apply physics if there is a destructable nearby
+            // if (destructableFound) return; // don't apply physics if there is a destructable nearby
 
             foreach (Collider hit in hits)
             {
                 if (hit.gameObject.tag == "PhysicsObject")
                 {
                     ApplyExplosionForce(hit);
+                    continue;
                 }
 
                 IBombExplosion bombExplosion = hit.GetComponent<IBombExplosion>();
@@ -115,7 +115,7 @@ namespace Bomber.Items
 
         private void ApplyExplosionForce(Collider hit)
         {
-            hit.transform.GetComponentInChildren<Rigidbody>().AddExplosionForce(explosionForce, transform.position,
+            hit.transform.GetComponent<Rigidbody>().AddExplosionForce(explosionForce, transform.position,
             currentExplosionRadius, 3.0f);
         }
 

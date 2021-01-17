@@ -5,7 +5,6 @@ using Bomber.Control;
 
 namespace Bomber.Core
 {
-
     public class BoostPad : MonoBehaviour
     {
         [SerializeField] float speedBoost = 15000f;

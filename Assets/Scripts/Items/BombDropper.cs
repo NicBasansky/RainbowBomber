@@ -9,7 +9,9 @@ namespace Bomber.Items
     {
         [SerializeField] float damagePerBomb = 1.0f;
         [SerializeField] float dropDelay = 2f;
+        [SerializeField] float placementOffsetX = 0.0f;
         [SerializeField] float placementOffsetY = 1.0f;
+        [SerializeField] float placementOffsetZ = 0f;
         float timeSinceLastDroppedBomb = Mathf.Infinity;
         float initialExplosionRadius = 3.0f;
         float accumulativeBlastRadiusMultiplier = 1f;
@@ -28,7 +30,7 @@ namespace Bomber.Items
                 if (bomb != null)
                 {
                     bomb.SetActive(true);
-                    bomb.transform.position = transform.position + new Vector3(0, placementOffsetY, 0);//spawnPosition.transform.position;
+                    bomb.transform.position = transform.position + new Vector3(placementOffsetX, placementOffsetY, placementOffsetZ);//spawnPosition.transform.position;
                     bomb.GetComponent<Bomb>().SetupBomb(GetExplosionRadius(), damagePerBomb);
                 }
                 timeSinceLastDroppedBomb = 0;
@@ -46,7 +48,7 @@ namespace Bomber.Items
             {
                 // -1 so in Power Up we can say 1.x for a positive change to blast radius
                 accumulativeBlastRadiusMultiplier += (details.blastRadiusMultiplier - 1);
-                print("accumulative blast radius: " + accumulativeBlastRadiusMultiplier);
+                //print("accumulative blast radius: " + accumulativeBlastRadiusMultiplier);
             }
             // TODO increase damage
         }

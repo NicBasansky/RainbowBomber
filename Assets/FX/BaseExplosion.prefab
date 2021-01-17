@@ -107,6 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseTransform: {fileID: 2729142433195460002}
+  peripheralExplosionForce: 1000
 --- !u!1 &1201272485
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,6 +215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseTransform: {fileID: 2729142433195460002}
+  peripheralExplosionForce: 1000
 --- !u!1 &2077867747
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,6 +323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseTransform: {fileID: 2729142433195460002}
+  peripheralExplosionForce: 1000
 --- !u!1 &6357242220132679749
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,6 +455,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8424259701386435508, guid: 51d75a459e179fa4f8daffdc3b1c7f88,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8424404199776768470, guid: 51d75a459e179fa4f8daffdc3b1c7f88,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51d75a459e179fa4f8daffdc3b1c7f88, type: 3}
 --- !u!4 &5682331750495535579 stripped
@@ -505,7 +518,7 @@ PrefabInstance:
     - target: {fileID: 4065073111296807798, guid: 2f54d9eb4744ef64bb73a8ee7c73df17,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4065073111296807798, guid: 2f54d9eb4744ef64bb73a8ee7c73df17,
         type: 3}
@@ -526,6 +539,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FX_FT_1 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4231364683555125468, guid: 2f54d9eb4744ef64bb73a8ee7c73df17,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f54d9eb4744ef64bb73a8ee7c73df17, type: 3}
@@ -574,7 +592,7 @@ PrefabInstance:
     - target: {fileID: 4065073111296807798, guid: 2f54d9eb4744ef64bb73a8ee7c73df17,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4065073111296807798, guid: 2f54d9eb4744ef64bb73a8ee7c73df17,
         type: 3}
@@ -595,6 +613,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FX_FT_1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4231364683555125468, guid: 2f54d9eb4744ef64bb73a8ee7c73df17,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f54d9eb4744ef64bb73a8ee7c73df17, type: 3}
@@ -643,7 +666,7 @@ PrefabInstance:
     - target: {fileID: 4065073111296807798, guid: 2f54d9eb4744ef64bb73a8ee7c73df17,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4065073111296807798, guid: 2f54d9eb4744ef64bb73a8ee7c73df17,
         type: 3}
@@ -664,6 +687,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FX_FT_1 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4231364683555125468, guid: 2f54d9eb4744ef64bb73a8ee7c73df17,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f54d9eb4744ef64bb73a8ee7c73df17, type: 3}
@@ -712,7 +740,7 @@ PrefabInstance:
     - target: {fileID: 4065073111296807798, guid: 2f54d9eb4744ef64bb73a8ee7c73df17,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4065073111296807798, guid: 2f54d9eb4744ef64bb73a8ee7c73df17,
         type: 3}
@@ -733,6 +761,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FX_FT_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4231364683555125468, guid: 2f54d9eb4744ef64bb73a8ee7c73df17,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f54d9eb4744ef64bb73a8ee7c73df17, type: 3}
