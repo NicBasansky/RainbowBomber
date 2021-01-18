@@ -118,6 +118,7 @@ namespace Bomber.Control
         private void AttackBehaviour()
         {
             if (!agent.isOnNavMesh) return;
+            hitByPhysics = false;
 
             FreezeRigidbodyRotation(true);
 
@@ -249,7 +250,7 @@ namespace Bomber.Control
 
             yield return new WaitForSeconds(knockbackParalisisSeconds); // TODO could be the cause of future problems
 
-            if (!isDead) // TODO figure out why things are getting enabled after death
+            if (!isDead)
             {
                 EnableComponents(true);
             }

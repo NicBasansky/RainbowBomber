@@ -19,10 +19,12 @@ namespace Bomber.Core
         bool isInvincible = false;
         public float health; // todo make private
         bool isDead = false;
+        Vector3 initialScale;
 
         void Start()
         {
             health = startingHealth; // TODO use a Lazy Value initialization
+            initialScale = model.transform.localScale;
         }
 
         public void AffectHealth(float delta)
@@ -72,12 +74,12 @@ namespace Bomber.Core
                 }
                 else
                 {
-                    ScaleModelTo(Vector3.one);
+                    ScaleModelTo(initialScale);
                 }
                 yield return new WaitForSeconds(invinsibilityDeltaTime);
             }
 
-            ScaleModelTo(Vector3.one);
+            ScaleModelTo(initialScale);
 
             isInvincible = false;
         }

@@ -22,8 +22,6 @@ namespace Bomber.Core
 
         private void OnTriggerEnter(Collider other)
         {
-
-
             AffectHealthIfExposed(other);
 
             CheckIfIsBomb(other);
@@ -34,7 +32,7 @@ namespace Bomber.Core
         {
             if (!cancelPhysics && other.gameObject.tag == "PhysicsObject")
             {
-                other.GetComponent<Rigidbody>().AddExplosionForce(peripheralExplosionForce, transform.position, 3f);
+                other.GetComponent<Rigidbody>().AddExplosionForce(peripheralExplosionForce, transform.position, 7f);
                 return;
             }
 
@@ -63,10 +61,11 @@ namespace Bomber.Core
 
                         if (!cancelPhysics)
                         {
+                            //print("an explosion is happening in the hit detector!");
                             IBombExplosion bombExplosion = health.GetComponent<IBombExplosion>(); // if there are multiple components affected by the explosion then change it here
                             if (bombExplosion != null)
                             {
-                                bombExplosion.AffectByExplosion(peripheralExplosionForce, gameObject.transform.position, 3f);
+                                bombExplosion.AffectByExplosion(peripheralExplosionForce, gameObject.transform.position, 7.0f);
                             }
                         }
                     }
@@ -77,6 +76,10 @@ namespace Bomber.Core
         public void SetBombReference(Bomb bombReference, bool shouldCancelPhysics)
         {
             instigatorBomb = bombReference;
+            if (cancelPhysics)
+            {
+                return;
+            }
             cancelPhysics = shouldCancelPhysics;
         }
 
@@ -87,7 +90,6 @@ namespace Bomber.Core
                 other.GetComponent<Bomb>().ExplodeBomb(instigatorBomb);
             }
         }
-
 
     }
 

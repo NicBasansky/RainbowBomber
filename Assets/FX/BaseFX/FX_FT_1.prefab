@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4975502991904770065, guid: 190b9364d5f0bcd4cace78236e1a1e60,
+        type: 3}
+      propertyPath: m_EnableGPUInstancing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5003527762206962817, guid: 190b9364d5f0bcd4cace78236e1a1e60,
         type: 3}
       propertyPath: looping

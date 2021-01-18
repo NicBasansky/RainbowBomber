@@ -24,12 +24,16 @@ namespace Bomber.Items
         [SerializeField] float flashAccelTime = 0.2f;
 
         Vector3 explosionCentre;
+        Vector3 halfwayPoint;
         bool shouldCancelPhysics = false;
         bool explosionCentreUpdated = false;
-        Vector3 halfwayPoint; // remove
+        bool hitByAnotherBomb = false;
+
 
         private void OnEnable()
         {
+            hitByAnotherBomb = false;
+            shouldCancelPhysics = false;
             StartCoroutine(RunBombSequence());
         }
 
@@ -69,6 +73,7 @@ namespace Bomber.Items
 
         public void ExplodeBomb(Bomb instigatingBomb)
         {
+            if (hitByAnotherBomb) return;
             StopCoroutine(RunBombSequence());
 
             // ActivateExplosionFX();
@@ -77,48 +82,21 @@ namespace Bomber.Items
 
             if (instigatingBomb != null) // explosion from another bomb
             {
+                shouldCancelPhysics = true;
+                hitByAnotherBomb = true;
                 IncreaseExplosionSize(instigatingBomb);
                 ActivateExplosionFX();
+
             }
             else
             {
                 //physics in here
                 ActivateExplosionFX();
-                //physics in here
-                // CheckForOverlappingPhysicsObjects();
             }
 
             ResetBombParameters();
 
             gameObject.SetActive(false);
-        }
-
-        private void IncreaseExplosionSize(Bomb otherBomb)
-        {
-            Vector3 vectorToOtherbomb = otherBomb.transform.position - transform.position;
-            float distance = Vector3.Distance(transform.position, otherBomb.transform.position);//GetNewExplosionPoint());
-            halfwayPoint = Vector3.Lerp(transform.position, transform.position + vectorToOtherbomb, 0.5f);
-            SetNewExplosionPoint(halfwayPoint);
-            // if (distance >= theshroldDistanceToIncreaseExplosion)
-            // {
-            //     currentExplosionRadius = (distance / 2) * 1.5f;
-            // }
-            // else
-            // {
-            currentExplosionRadius *= explosionIncreaseMultiplier; // TODO configure
-            //}
-            otherBomb.CancelPhysics();
-        }
-
-        private void SetNewExplosionPoint(Vector3 halfwayPoint)
-        {
-            explosionCentre = halfwayPoint;
-            explosionCentreUpdated = true;
-        }
-
-        public Vector3 GetNewExplosionPoint()
-        {
-            return explosionCentre;
         }
 
         private void ActivateExplosionFX()
@@ -131,7 +109,33 @@ namespace Bomber.Items
                 // null check?
                 fx.GetComponent<ExplosionHitDetector>().SetBombReference(this, shouldCancelPhysics);
             }
+            shouldCancelPhysics = false;
         }
+
+        private void IncreaseExplosionSize(Bomb otherBomb)
+        {
+            Vector3 explosionPoint = CalculateExplosionPoint(otherBomb);
+            SetNewExplosionPoint(explosionPoint);
+
+            currentExplosionRadius *= explosionIncreaseMultiplier; // TODO configure
+
+            //otherBomb.CancelPhysics();
+        }
+
+        private void SetNewExplosionPoint(Vector3 halfwayPoint)
+        {
+            explosionCentre = halfwayPoint;
+            explosionCentreUpdated = true;
+        }
+
+        public Vector3 CalculateExplosionPoint(Bomb otherBomb)
+        {
+            Vector3 vectorToOtherbomb = otherBomb.transform.position - transform.position;
+            float distance = Vector3.Distance(transform.position, otherBomb.transform.position);//GetNewExplosionPoint());
+            return Vector3.Lerp(transform.position, transform.position + vectorToOtherbomb, 0.75f);
+
+        }
+
 
 
 
@@ -199,10 +203,10 @@ namespace Bomber.Items
         }
 
 
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(explosionCentre, currentExplosionRadius);
-        }
+        // private void OnDrawGizmos()
+        // {
+        //     Gizmos.color = Color.red;
+        //     Gizmos.DrawWireSphere(explosionCentre, currentExplosionRadius);
+        // }
     }
 }
