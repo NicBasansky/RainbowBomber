@@ -243,40 +243,50 @@ namespace Bomber.Control
         {
             hitByPhysics = true;
 
-            FreezeRigidbodyRotation(false);
-
-            agent.enabled = false;
-            //anim.enabled = false;
-            rb.isKinematic = false;
-
-            faceChanger.ChangeAppearance(true);
+            EnableComponents(false);
 
             rb.AddExplosionForce(explosionForce, sourcePosition, radius, knockbackUpwardsModifier);
 
             yield return new WaitForSeconds(knockbackParalisisSeconds); // TODO could be the cause of future problems
 
-            faceChanger.ChangeAppearance(false);
+            if (!isDead) // TODO figure out why things are getting enabled after death
+            {
+                EnableComponents(true);
+            }
 
-            FreezeRigidbodyRotation(false);
-            agent.enabled = true;
-            //anim.enabled = true;
-            rb.isKinematic = true;
+        }
+
+        private void EnableComponents(bool isEnabled)
+        {
+            FreezeRigidbodyRotation(isEnabled);
+
+            agent.enabled = isEnabled;
+            //anim.enabled = isEnabled;
+            rb.isKinematic = isEnabled;
+
+            if (faceChanger != null)
+            {
+                faceChanger.ChangeAppearance(!isEnabled);
+            }
         }
 
         private void OnDeath()
         {
-            print("OnDeath Called by " + gameObject.name);
             agent.enabled = false;
             anim.SetBool("die", true);
             isDead = true;
             FreezeRigidbodyRotation(false);
-            faceChanger.ChangeAppearance(true);
+            rb.isKinematic = false;
+            if (faceChanger != null)
+            {
+                faceChanger.ChangeAppearance(true);
+            }
+            gameObject.tag = "PhysicsObject";
         }
 
         private void FreezeRigidbodyRotation(bool shouldFreeze)
         {
             rb.freezeRotation = shouldFreeze;
-
         }
 
         private bool IsInAttackRange()

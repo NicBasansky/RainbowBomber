@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 1865583992}
   m_Layer: 0
   m_Name: Enemy_Slime_Base
-  m_TagString: Untagged
+  m_TagString: Slime
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -180,7 +180,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damagePerBomb: 1
   dropDelay: 4
+  placementOffsetX: 0
   placementOffsetY: 2
+  placementOffsetZ: 0
 --- !u!1 &8814988431866828301
 GameObject:
   m_ObjectHideFlags: 0

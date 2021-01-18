@@ -79,10 +79,11 @@ MonoBehaviour:
   timeToExplode: 3
   explosionPrefab: {fileID: 6357242220132679749, guid: 9310c7f15e3a79a47a26e18f42d46ce6,
     type: 3}
-  initialExplosionRadius: 6
   currentExplosionRadius: 6
-  explosionForce: 2000
-  upwardsModifier: 1
+  explosionForce: 3000
+  upwardsModifier: 15
+  theshroldDistanceToIncreaseExplosion: 3
+  explosionIncreaseMultiplier: 4
   maxFlashSpeed: 10
   flashSpeedMultiplier: 1.3
   flashAccelTime: 0.2

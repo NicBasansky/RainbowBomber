@@ -58,9 +58,6 @@ namespace Bomber.Core
             isDead = true;
 
             onDeath.Invoke();
-            // play death animation
-            // stop moving
-            // destroy / return to object pool
         }
 
         private IEnumerator BecomeInvincible()
