@@ -183,6 +183,7 @@ MonoBehaviour:
   placementOffsetX: 0
   placementOffsetY: 2
   placementOffsetZ: 0
+  initialExplosionRadius: 5
 --- !u!1 &8814988431866828301
 GameObject:
   m_ObjectHideFlags: 0

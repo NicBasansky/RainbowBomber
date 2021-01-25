@@ -10,15 +10,31 @@ namespace Bomber.Core
     public class ExplosionHitDetector : MonoBehaviour
     {
         [SerializeField] Transform baseTransform = null;
+        [SerializeField] float colliderOverlapTime = 0.2f;
         float explosionRadius = 0f;
         float explosionForce = 0f;
         Bomb instigatorBomb = null;
+        float timeSinceEnabled = Mathf.Infinity;
+        bool isDisabled = false;
 
         public void SetupExplosion(float force, float radius)
         {
             explosionForce = force;
             explosionRadius = radius;
             GetComponent<SphereCollider>().radius = explosionRadius;
+
+            timeSinceEnabled = 0;
+            isDisabled = false;
+        }
+
+        private void Update()
+        {
+            timeSinceEnabled += Time.deltaTime;
+            if (timeSinceEnabled > colliderOverlapTime)
+            {
+                DisableCollider();
+            }
+
         }
 
         private void OnTriggerEnter(Collider other)
@@ -71,6 +87,15 @@ namespace Bomber.Core
             if (other.gameObject.tag == "Bomb")
             {
                 other.GetComponent<Bomb>().ExplodeBomb();
+            }
+        }
+
+        private void DisableCollider()
+        {
+            if (!isDisabled)
+            {
+                isDisabled = true;
+                GetComponent<SphereCollider>().enabled = false;
             }
         }
     }
