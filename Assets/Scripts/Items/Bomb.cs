@@ -11,45 +11,27 @@ namespace Bomber.Items
         [SerializeField] float timeToExplode = 3.0f;
         [SerializeField] GameObject explosionPrefab;
         //[SerializeField] float initialExplosionRadius = 3.0f;
-        [SerializeField] float currentExplosionRadius = 3.0f; // todo make private
-        [SerializeField] float explosionForce = 1000f;
         [SerializeField] float upwardsModifier = 1f;
         [SerializeField] float theshroldDistanceToIncreaseExplosion = 3f;
         [SerializeField] float explosionIncreaseMultiplier = 2.5f;
         float damage = 0;
+        float explosionRadius = 0f;
+        [SerializeField] float explosionForce = 1500f;
 
         [Header("Flashing")]
         [SerializeField] float maxFlashSpeed = 3f;
         [SerializeField] float flashSpeedMultiplier = 1.3f;
         [SerializeField] float flashAccelTime = 0.2f;
 
-        Vector3 explosionCentre;
-        Vector3 halfwayPoint;
-        bool shouldCancelPhysics = false;
-        bool explosionCentreUpdated = false;
-        bool hitByAnotherBomb = false;
-
 
         private void OnEnable()
         {
-            hitByAnotherBomb = false;
-            shouldCancelPhysics = false;
             StartCoroutine(RunBombSequence());
-        }
-
-        private void Update()
-        {
-            if (!explosionCentreUpdated)
-            {
-                explosionCentre = transform.position;
-            }
         }
 
         public void SetupBomb(float radius, float damage)
         {
-            //currentExplosionRadius = initialExplosionRadius; TODO need?
-            currentExplosionRadius = radius;
-            //print("new explosionRadius: " + currentExplosionRadius.ToString());
+            explosionRadius = radius;
 
             this.damage = damage;
         }
@@ -59,42 +41,17 @@ namespace Bomber.Items
             StartCoroutine(BombFlash());
             yield return new WaitForSeconds(timeToExplode);
 
-            //GameObject fx = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-            //fx.GetComponentInChildren<ExplosionParticleScaler>().MultiplyParticleScale(currentExplosionRadius);
             ActivateExplosionFX();
-
-            //CheckForOverlappingPhysicsObjects();
-
-            ResetBombParameters();
 
             gameObject.SetActive(false);
 
         }
 
-        public void ExplodeBomb(Bomb instigatingBomb)
+        public void ExplodeBomb()
         {
-            if (hitByAnotherBomb) return;
             StopCoroutine(RunBombSequence());
 
-            // ActivateExplosionFX();
-            // //physics in here
-            // CheckForOverlappingPhysicsObjects();
-
-            if (instigatingBomb != null) // explosion from another bomb
-            {
-                shouldCancelPhysics = true;
-                hitByAnotherBomb = true;
-                IncreaseExplosionSize(instigatingBomb);
-                ActivateExplosionFX();
-
-            }
-            else
-            {
-                //physics in here
-                ActivateExplosionFX();
-            }
-
-            ResetBombParameters();
+            ActivateExplosionFX();
 
             gameObject.SetActive(false);
         }
@@ -104,70 +61,10 @@ namespace Bomber.Items
             GameObject fx = Pool.singleton.Get("BombFX");
             if (fx != null)
             {
-                fx.SetActive(true);
+                fx.GetComponent<ExplosionHitDetector>().SetupExplosion(explosionForce, explosionRadius);
                 fx.transform.position = transform.position;
-                // null check?
-                fx.GetComponent<ExplosionHitDetector>().SetBombReference(this, shouldCancelPhysics);
+                fx.SetActive(true);
             }
-            shouldCancelPhysics = false;
-        }
-
-        private void IncreaseExplosionSize(Bomb otherBomb)
-        {
-            Vector3 explosionPoint = CalculateExplosionPoint(otherBomb);
-            SetNewExplosionPoint(explosionPoint);
-
-            currentExplosionRadius *= explosionIncreaseMultiplier; // TODO configure
-
-            //otherBomb.CancelPhysics();
-        }
-
-        private void SetNewExplosionPoint(Vector3 halfwayPoint)
-        {
-            explosionCentre = halfwayPoint;
-            explosionCentreUpdated = true;
-        }
-
-        public Vector3 CalculateExplosionPoint(Bomb otherBomb)
-        {
-            Vector3 vectorToOtherbomb = otherBomb.transform.position - transform.position;
-            float distance = Vector3.Distance(transform.position, otherBomb.transform.position);//GetNewExplosionPoint());
-            return Vector3.Lerp(transform.position, transform.position + vectorToOtherbomb, 0.75f);
-
-        }
-
-
-
-
-        private void CheckForOverlappingPhysicsObjects() // there will be problems if two destructable crates hit eachother
-        {
-            //bool destructableFound = false;
-            Collider[] hits = Physics.OverlapSphere(explosionCentre, currentExplosionRadius);
-            // foreach (Collider hit in hits) // TODO bring back for destructive crates
-            // {
-            //     Destructable destructable = hit.GetComponent<Destructable>();
-            //     if (destructable == null) continue;
-
-            //     destructable.BeginDestruction(hits);
-            //     destructableFound = true;
-            // }
-
-            // if (destructableFound) return; // don't apply physics if there is a destructable nearby
-
-            foreach (Collider hit in hits)
-            {
-                if (hit.gameObject.tag == "PhysicsObject")
-                {
-                    ApplyExplosionForce(hit);
-                    continue;
-                }
-            }
-        }
-
-        private void ApplyExplosionForce(Collider hit)
-        {
-            hit.transform.GetComponent<Rigidbody>().AddExplosionForce(explosionForce, explosionCentre,
-            currentExplosionRadius, 3.0f);
         }
 
         IEnumerator BombFlash()
@@ -181,32 +78,11 @@ namespace Bomber.Items
             }
         }
 
-        public void CancelPhysics()
+
+        private void OnDrawGizmos()
         {
-            shouldCancelPhysics = true;
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, explosionRadius);
         }
-
-
-        private void ResetBlastRadius()
-        {
-            currentExplosionRadius = 1f;
-        }
-
-        private void ResetBombParameters()
-        {
-            ResetBlastRadius();
-            shouldCancelPhysics = false;
-            explosionCentreUpdated = false;
-            halfwayPoint = Vector3.zero;
-            currentExplosionRadius = 3.0f;
-
-        }
-
-
-        // private void OnDrawGizmos()
-        // {
-        //     Gizmos.color = Color.red;
-        //     Gizmos.DrawWireSphere(explosionCentre, currentExplosionRadius);
-        // }
     }
 }

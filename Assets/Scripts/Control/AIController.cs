@@ -32,14 +32,12 @@ namespace Bomber.Control
         BombDropper bombDropper = null;
         GameObject target;
 
-        bool attacking = false;
         bool isPatrolling = false;
         bool maxAllowedTimeSpecified = false;
         Vector3 walkPoint;
         bool walkPointSet = false;
         float timeOnCurrentPath = Mathf.Infinity;
         float maxTimeOnCurrentPath = 0;
-        bool hitByPhysics = false;
         bool isDead = false;
 
         NavMeshAgent agent;
@@ -102,7 +100,6 @@ namespace Bomber.Control
             anim.SetTrigger("idle");
             if (!agent.isActiveAndEnabled || !agent.isOnNavMesh) return;
 
-            hitByPhysics = false;
             agent.isStopped = false;
             transform.LookAt(target.transform);
             agent.SetDestination(target.transform.position);
@@ -118,12 +115,8 @@ namespace Bomber.Control
         private void AttackBehaviour()
         {
             if (!agent.isOnNavMesh) return;
-            hitByPhysics = false;
 
-            FreezeRigidbodyRotation(true);
-
-            attacking = true;
-            //transform.LookAt(target.transform.position);
+            rb.freezeRotation = true;
             anim.ResetTrigger("idle");
             anim.SetBool("isAttacking", true);
 
@@ -139,9 +132,7 @@ namespace Bomber.Control
         {
             if (!agent.isOnNavMesh) return;
 
-            FreezeRigidbodyRotation(true);
-
-            hitByPhysics = false;
+            rb.freezeRotation = false;
 
             if (agent.isActiveAndEnabled && !walkPointSet)
             {
@@ -242,8 +233,6 @@ namespace Bomber.Control
 
         public IEnumerator KnockbackCoroutine(float explosionForce, Vector3 sourcePosition, float radius)
         {
-            hitByPhysics = true;
-
             EnableComponents(false);
 
             rb.AddExplosionForce(explosionForce, sourcePosition, radius, knockbackUpwardsModifier);
@@ -259,10 +248,8 @@ namespace Bomber.Control
 
         private void EnableComponents(bool isEnabled)
         {
-            FreezeRigidbodyRotation(isEnabled);
-
+            rb.freezeRotation = isEnabled;
             agent.enabled = isEnabled;
-            //anim.enabled = isEnabled;
             rb.isKinematic = isEnabled;
 
             if (faceChanger != null)
@@ -273,21 +260,12 @@ namespace Bomber.Control
 
         private void OnDeath()
         {
-            agent.enabled = false;
             anim.SetBool("die", true);
             isDead = true;
-            FreezeRigidbodyRotation(false);
-            rb.isKinematic = false;
-            if (faceChanger != null)
-            {
-                faceChanger.ChangeAppearance(true);
-            }
-            gameObject.tag = "PhysicsObject";
-        }
 
-        private void FreezeRigidbodyRotation(bool shouldFreeze)
-        {
-            rb.freezeRotation = shouldFreeze;
+            EnableComponents(false);
+
+            gameObject.tag = "PhysicsObject"; // TODO make enemies disappear after death
         }
 
         private bool IsInAttackRange()
@@ -311,12 +289,8 @@ namespace Bomber.Control
 
         public void AffectByExplosion(float explosionForce, Vector3 sourcePosition, float radius)
         {
-            // if (!hitByPhysics)
-            {
-                StartCoroutine(KnockbackCoroutine(explosionForce, sourcePosition, radius));
-            }
+            StartCoroutine(KnockbackCoroutine(explosionForce, sourcePosition, radius));
         }
-
 
     }
 }

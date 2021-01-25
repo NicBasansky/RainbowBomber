@@ -10,29 +10,28 @@ namespace Bomber.Core
     public class ExplosionHitDetector : MonoBehaviour
     {
         [SerializeField] Transform baseTransform = null;
-        [SerializeField] float peripheralExplosionForce = 1000f;
+        float explosionRadius = 0f;
+        float explosionForce = 0f;
         Bomb instigatorBomb = null;
-        bool cancelPhysics = false;
 
-        private void OnEnable() // reset values
+        public void SetupExplosion(float force, float radius)
         {
-            instigatorBomb = null;
-            cancelPhysics = false;
+            explosionForce = force;
+            explosionRadius = radius; // TODO use
+            GetComponent<SphereCollider>().radius = explosionRadius;
         }
 
         private void OnTriggerEnter(Collider other)
         {
             AffectHealthIfExposed(other);
-
             CheckIfIsBomb(other);
-
         }
 
         private void AffectHealthIfExposed(Collider other)
         {
-            if (/*!cancelPhysics && */other.gameObject.tag == "PhysicsObject")
+            if (other.gameObject.tag == "PhysicsObject")
             {
-                other.GetComponent<Rigidbody>().AddExplosionForce(peripheralExplosionForce, transform.position, 7f);
+                other.GetComponent<Rigidbody>().AddExplosionForce(explosionForce, transform.position, 7f);
                 return;
             }
 
@@ -48,46 +47,29 @@ namespace Bomber.Core
                     bool isExposed = true;
                     if (Physics.Raycast(baseTransform.position, direction, out hitInfo))
                     {
-                        //isExposed = (hitInfo.collider == health.GetComponent<Collider>());
-                        if (hitInfo.transform.tag == "Environment")
-                        {
-                            isExposed = false;
-                        }
-                    }
+                        isExposed = (hitInfo.collider == health.GetComponent<Collider>());
 
+                    }
+                    // TODO fix the length of time the explosion collider is active for
                     if (isExposed)
                     {
                         health.AffectHealth(1f);
 
-                        //if (!cancelPhysics)
+                        IBombExplosion bombExplosion = health.GetComponent<IBombExplosion>(); // if there are multiple components affected by the explosion then change it here
+                        if (bombExplosion != null)
                         {
-                            //print("an explosion is happening in the hit detector!");
-                            IBombExplosion bombExplosion = health.GetComponent<IBombExplosion>(); // if there are multiple components affected by the explosion then change it here
-                            if (bombExplosion != null)
-                            {
-                                bombExplosion.AffectByExplosion(peripheralExplosionForce, gameObject.transform.position, 7.0f);
-                            }
+                            bombExplosion.AffectByExplosion(explosionForce, gameObject.transform.position, 7.0f);
                         }
                     }
                 }
             }
         }
 
-        public void SetBombReference(Bomb bombReference, bool shouldCancelPhysics)
-        {
-            instigatorBomb = bombReference;
-            if (cancelPhysics)
-            {
-                return;
-            }
-            cancelPhysics = shouldCancelPhysics;
-        }
-
         private void CheckIfIsBomb(Collider other)
         {
             if (other.gameObject.tag == "Bomb")
             {
-                other.GetComponent<Bomb>().ExplodeBomb(instigatorBomb);
+                other.GetComponent<Bomb>().ExplodeBomb();
             }
         }
 

@@ -12,8 +12,8 @@ namespace Bomber.Items
         [SerializeField] float placementOffsetX = 0.0f;
         [SerializeField] float placementOffsetY = 1.0f;
         [SerializeField] float placementOffsetZ = 0f;
+        [SerializeField] float initialExplosionRadius = 5.0f;
         float timeSinceLastDroppedBomb = Mathf.Infinity;
-        float initialExplosionRadius = 3.0f;
         float accumulativeBlastRadiusMultiplier = 1f;
 
         void Update() // later, could make it so if the player drops a bomb then all the rest do
