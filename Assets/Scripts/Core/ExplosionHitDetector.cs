@@ -30,7 +30,7 @@ namespace Bomber.Core
 
         private void AffectHealthIfExposed(Collider other)
         {
-            if (!cancelPhysics && other.gameObject.tag == "PhysicsObject")
+            if (/*!cancelPhysics && */other.gameObject.tag == "PhysicsObject")
             {
                 other.GetComponent<Rigidbody>().AddExplosionForce(peripheralExplosionForce, transform.position, 7f);
                 return;
@@ -59,7 +59,7 @@ namespace Bomber.Core
                     {
                         health.AffectHealth(1f);
 
-                        if (!cancelPhysics)
+                        //if (!cancelPhysics)
                         {
                             //print("an explosion is happening in the hit detector!");
                             IBombExplosion bombExplosion = health.GetComponent<IBombExplosion>(); // if there are multiple components affected by the explosion then change it here

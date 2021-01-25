@@ -311,7 +311,7 @@ namespace Bomber.Control
 
         public void AffectByExplosion(float explosionForce, Vector3 sourcePosition, float radius)
         {
-            if (!hitByPhysics)
+            // if (!hitByPhysics)
             {
                 StartCoroutine(KnockbackCoroutine(explosionForce, sourcePosition, radius));
             }
