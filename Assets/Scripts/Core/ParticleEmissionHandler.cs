@@ -11,8 +11,6 @@ namespace Bomber.Core
         [SerializeField] GameObject baseGameObject = null;
         ParticleSystem[] particleSystems;
 
-
-
         private void Awake()
         {
             particleSystems = GetComponentsInChildren<ParticleSystem>();
@@ -57,7 +55,5 @@ namespace Bomber.Core
             ParticleSystem.EmissionModule emissionModule = ps.emission;
             emissionModule.enabled = enabled;
         }
-
     }
-
 }

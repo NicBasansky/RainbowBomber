@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Bomber.Items;
-using UnityEngine.AI;
 using UnityEngine.InputSystem;
 using Bomber.Core;
-
 
 namespace Bomber.Control
 {
@@ -77,28 +75,22 @@ namespace Bomber.Control
             float horizontal = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
             float vertical = Input.GetAxis("Vertical") * Time.deltaTime * speed;
 
-            //if (!isHitByPhysics)
-            {
-                //transform.Translate(new Vector3(horizontal, 0, vertical));
-                rb.AddForce(new Vector3(horizontal, 0, vertical).normalized * thrust);
+            rb.AddForce(new Vector3(horizontal, 0, vertical).normalized * thrust);
 
-                var gamepad = Gamepad.current;
-                if (gamepad != null)
+            var gamepad = Gamepad.current;
+            if (gamepad != null)
+            {
+                if (gamepad.bButton.isPressed)
                 {
-                    if (gamepad.bButton.isPressed)
-                    {
-                        DropBomb();
-                    }
-                }
-                // boost movement
-                if (Input.GetKeyDown("space") && !isBoosting) // controller??
-                {
-                    StartCoroutine(BoostSpeedCoroutine(new Vector3(horizontal, 0, vertical).normalized, boostThrust));
+                    DropBomb();
                 }
             }
 
-
-
+            // boost movement
+            if (Input.GetKeyDown("space") && !isBoosting) // controller??
+            {
+                StartCoroutine(BoostSpeedCoroutine(new Vector3(horizontal, 0, vertical).normalized, boostThrust));
+            }
         }
 
         public void BoostForwardSpeed(Vector3 boostDirection, float boostAmount)
@@ -115,7 +107,7 @@ namespace Bomber.Control
         {
             isBoosting = true;
             rb.AddForce(boostDirection * boostAmount);
-            print(boostDirection.ToString());
+            //print(boostDirection.ToString());
 
             yield return new WaitForSeconds(boostDuration);
             isBoosting = false;
@@ -123,8 +115,6 @@ namespace Bomber.Control
 
         public IEnumerator KnockbackCoroutine(float explosionForce, Vector3 sourcePosition, float radius)
         {
-            //Vector3 explosionPoint = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1.5f);
-
             rb.AddExplosionForce(explosionForce, sourcePosition, radius, knockbackUpwardsModifier);
 
             isParalized = true;
@@ -132,7 +122,6 @@ namespace Bomber.Control
             yield return new WaitForSeconds(knockbackParalisisSeconds);
 
             isParalized = false;
-
         }
 
         private void DropBomb()
@@ -143,7 +132,6 @@ namespace Bomber.Control
         private void OnDeath()
         {
             isDead = true;
-            //faceChanger.ChangeAppearance(true);
         }
 
         public void ApplyPowerUp(PowerUp details)
@@ -156,12 +144,7 @@ namespace Bomber.Control
 
         public void AffectByExplosion(float explosionForce, Vector3 sourcePosition, float radius)
         {
-            //if (!isHitByPhysics)
-            {
-                StartCoroutine(KnockbackCoroutine(explosionForce, sourcePosition, radius));
-            }
-
+            StartCoroutine(KnockbackCoroutine(explosionForce, sourcePosition, radius));
         }
     }
-
 }

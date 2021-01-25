@@ -23,14 +23,8 @@ namespace Bomber.Control
         public LayerMask whatIsGround;
 
         [Header("Knockback")]
-        // [SerializeField] float knockbackPower = 10f;
-        // [SerializeField] float knockbackRadius = 3f;
         [SerializeField] float knockbackUpwardsModifier = 3.0f;
         [SerializeField] float knockbackParalisisSeconds = 1.5f;
-
-
-        BombDropper bombDropper = null;
-        GameObject target;
 
         bool isPatrolling = false;
         bool maxAllowedTimeSpecified = false;
@@ -40,6 +34,8 @@ namespace Bomber.Control
         float maxTimeOnCurrentPath = 0;
         bool isDead = false;
 
+        BombDropper bombDropper = null;
+        GameObject target;
         NavMeshAgent agent;
         Rigidbody rb;
         Animator anim;
@@ -243,7 +239,6 @@ namespace Bomber.Control
             {
                 EnableComponents(true);
             }
-
         }
 
         private void EnableComponents(bool isEnabled)
@@ -287,6 +282,7 @@ namespace Bomber.Control
         //     Gizmos.DrawWireSphere(transform.position, attackRadius);
         // }
 
+        // Interface
         public void AffectByExplosion(float explosionForce, Vector3 sourcePosition, float radius)
         {
             StartCoroutine(KnockbackCoroutine(explosionForce, sourcePosition, radius));

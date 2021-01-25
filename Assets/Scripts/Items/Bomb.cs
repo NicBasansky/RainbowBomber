@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Bomber.Core;
-using System;
 
 namespace Bomber.Items
 {
@@ -10,18 +9,16 @@ namespace Bomber.Items
     {
         [SerializeField] float timeToExplode = 3.0f;
         [SerializeField] GameObject explosionPrefab;
-        //[SerializeField] float initialExplosionRadius = 3.0f;
-        [SerializeField] float upwardsModifier = 1f;
-        [SerializeField] float theshroldDistanceToIncreaseExplosion = 3f;
-        [SerializeField] float explosionIncreaseMultiplier = 2.5f;
-        float damage = 0;
-        float explosionRadius = 0f;
         [SerializeField] float explosionForce = 1500f;
+        [SerializeField] float upwardsModifier = 1f;
 
         [Header("Flashing")]
         [SerializeField] float maxFlashSpeed = 3f;
         [SerializeField] float flashSpeedMultiplier = 1.3f;
         [SerializeField] float flashAccelTime = 0.2f;
+
+        float damage = 0;
+        float explosionRadius = 0f;
 
 
         private void OnEnable()
@@ -44,7 +41,6 @@ namespace Bomber.Items
             ActivateExplosionFX();
 
             gameObject.SetActive(false);
-
         }
 
         public void ExplodeBomb()
@@ -78,11 +74,10 @@ namespace Bomber.Items
             }
         }
 
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, explosionRadius);
-        }
+        // private void OnDrawGizmos()
+        // {
+        //     Gizmos.color = Color.red;
+        //     Gizmos.DrawWireSphere(transform.position, explosionRadius);
+        // }
     }
 }

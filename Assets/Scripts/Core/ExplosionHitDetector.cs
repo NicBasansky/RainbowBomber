@@ -17,7 +17,7 @@ namespace Bomber.Core
         public void SetupExplosion(float force, float radius)
         {
             explosionForce = force;
-            explosionRadius = radius; // TODO use
+            explosionRadius = radius;
             GetComponent<SphereCollider>().radius = explosionRadius;
         }
 
@@ -27,12 +27,12 @@ namespace Bomber.Core
             CheckIfIsBomb(other);
         }
 
-        private void AffectHealthIfExposed(Collider other)
+        private bool AffectHealthIfExposed(Collider other)
         {
             if (other.gameObject.tag == "PhysicsObject")
             {
                 other.GetComponent<Rigidbody>().AddExplosionForce(explosionForce, transform.position, 7f);
-                return;
+                return true;
             }
 
             if (other.gameObject.tag == "Slime" || other.gameObject.tag == "Player")
@@ -40,7 +40,7 @@ namespace Bomber.Core
                 Health health = other.GetComponent<Health>();
                 if (health != null)
                 {
-                    if (health.GetIsInvincible()) return;
+                    if (health.GetIsInvincible()) return false;
 
                     RaycastHit hitInfo;
                     Vector3 direction = health.transform.position - baseTransform.position;
@@ -48,9 +48,8 @@ namespace Bomber.Core
                     if (Physics.Raycast(baseTransform.position, direction, out hitInfo))
                     {
                         isExposed = (hitInfo.collider == health.GetComponent<Collider>());
-
                     }
-                    // TODO fix the length of time the explosion collider is active for
+
                     if (isExposed)
                     {
                         health.AffectHealth(1f);
@@ -60,9 +59,11 @@ namespace Bomber.Core
                         {
                             bombExplosion.AffectByExplosion(explosionForce, gameObject.transform.position, 7.0f);
                         }
+                        return true;
                     }
                 }
             }
+            return false;
         }
 
         private void CheckIfIsBomb(Collider other)
@@ -72,7 +73,5 @@ namespace Bomber.Core
                 other.GetComponent<Bomb>().ExplodeBomb();
             }
         }
-
     }
-
 }
