@@ -8,6 +8,11 @@ namespace Bomber.Core
     {
         ParticleSystem ps;
         [SerializeField] GameObject targetToDestroy = null;
+        [Tooltip("Will kill after timer only if greater than 0")]
+        [SerializeField] float destroyTimer = 0f;
+        [SerializeField] ParticleSystem particlesToStopLooping = null;
+
+        private float timeSinceSpawned = 0;
 
         private void Awake()
         {
@@ -16,17 +21,37 @@ namespace Bomber.Core
 
         private void Update()
         {
+            if (particlesToStopLooping != null)
+            {
+                particlesToStopLooping.loop = false;
+            }
+
             if (!ps.IsAlive())
             {
-                if (targetToDestroy != null)
-                {
-                    Destroy(targetToDestroy);
-                }
-                else
-                {
-                    Destroy(gameObject);
-                }
+                DestroyTarget();
 
+            }
+
+            if (destroyTimer > 0)
+            {
+                timeSinceSpawned += Time.deltaTime;
+
+                if (timeSinceSpawned > destroyTimer)
+                {
+                    DestroyTarget();
+                }
+            }
+        }
+
+        private void DestroyTarget()
+        {
+            if (targetToDestroy != null)
+            {
+                Destroy(targetToDestroy);
+            }
+            else
+            {
+                Destroy(gameObject);
             }
         }
     }

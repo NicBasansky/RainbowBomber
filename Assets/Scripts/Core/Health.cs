@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Bomber.Core
 {
-
     public class Health : MonoBehaviour
     {
         [SerializeField] float startingHealth = 3f;
         [SerializeField] float invincibilityDuration = 1.5f;
         [SerializeField] float invinsibilityDeltaTime = 0.15f;
         [SerializeField] GameObject model;
+        [SerializeField] GameObject RainbowHead;
+
+        [Header("FX")]
+        [SerializeField] ParticleSystem deathFX;
 
         public event Action onDeath;
 
@@ -59,7 +61,19 @@ namespace Bomber.Core
             health = 0;
             isDead = true;
 
+            Instantiate(deathFX, transform.position, Quaternion.identity);
+            BodyVisible(false);
+
             onDeath.Invoke();
+
+        }
+
+        // TODO make AI stop following upon player death
+        public void BodyVisible(bool isVisible)
+        {
+            model.SetActive(isVisible); // TODO make active again
+            GetComponent<TrailRenderer>().enabled = isVisible;
+            RainbowHead.SetActive(isVisible);
         }
 
         private IEnumerator BecomeInvincible()
@@ -82,6 +96,12 @@ namespace Bomber.Core
             ScaleModelTo(initialScale);
 
             isInvincible = false;
+        }
+
+        public void ResetHealth()
+        {
+            health = startingHealth;
+            StartCoroutine(BecomeInvincible());
         }
 
         public bool GetIsInvincible()

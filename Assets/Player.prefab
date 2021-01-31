@@ -55,10 +55,11 @@ MonoBehaviour:
   gravity: 20
   boostThrust: 10000
   boostDuration: 2
-  knockbackPower: 10
-  knockbackRadius: 3
-  knockbackUpwardsModifier: 10
+  explosionForceMulitiplier: 1
+  knockbackUpwardsModifier: 13
   knockbackParalisisSeconds: 1.5
+  deathWitnessDelay: 2.5
+  restartSpeed: 0.6
 --- !u!54 &1153168073
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -67,7 +68,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1818679884671909245}
   serializedVersion: 2
-  m_Mass: 20
+  m_Mass: 2
   m_Drag: 0.5
   m_AngularDrag: 3
   m_UseGravity: 1
@@ -104,6 +105,8 @@ MonoBehaviour:
   invincibilityDuration: 1.5
   invinsibilityDeltaTime: 0.15
   model: {fileID: 4498852869859726532}
+  RainbowHead: {fileID: 7288687196542187867}
+  deathFX: {fileID: 198663536934198432, guid: 0587bb0130e85ac4cbbaf85b31e8cd6b, type: 3}
   health: 0
 --- !u!114 &8014716908013607328
 MonoBehaviour:
@@ -122,6 +125,7 @@ MonoBehaviour:
   placementOffsetX: 0
   placementOffsetY: 1
   placementOffsetZ: 0
+  initialExplosionRadius: 5
 --- !u!96 &7942258322549159095
 TrailRenderer:
   serializedVersion: 2
@@ -131,7 +135,7 @@ TrailRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1818679884671909245}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 0
@@ -467,6 +471,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44e9c4076423e4643827c2fbc4b18c80, type: 3}
+--- !u!1 &7288687196542187867 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1739096776086156, guid: 44e9c4076423e4643827c2fbc4b18c80,
+    type: 3}
+  m_PrefabInstance: {fileID: 7287021904517671895}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7291523836194943535 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4505367660026360, guid: 44e9c4076423e4643827c2fbc4b18c80,

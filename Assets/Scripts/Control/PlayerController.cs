@@ -15,26 +15,36 @@ namespace Bomber.Control
         [SerializeField] float boostThrust = 700f;
         [SerializeField] float boostDuration = 2.0f;
 
+
+
         [Header("Knockback")]
-        [SerializeField] float knockbackPower = 10f;
-        [SerializeField] float knockbackRadius = 3f;
+        [SerializeField] float explosionForceMulitiplier = 1f;
         [SerializeField] float knockbackUpwardsModifier = 3.0f;
         [SerializeField] float knockbackParalisisSeconds = 1.5f;
+
+        [Header("Restarting after death")]
+        [SerializeField] float deathWitnessDelay = 3.0f;
+        [SerializeField] [Range(0, 1f)] float restartLerpSpeed = 0.3f;
+        [SerializeField] float restartSpeed = 5.0f;
+        [SerializeField] float acceptanceDistToStart = 0.4f;
 
         float startingThrust;
         bool isBoosting = false;
         bool isDead = false;
         bool isHitByPhysics = false;
         bool isParalized = false;
+        bool shouldMoveToStart = false;
 
         Rigidbody rb;
         BombDropper bombDropper;
+        Transform startPad;
 
 
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
             bombDropper = GetComponent<BombDropper>();
+            startPad = FindObjectOfType<StartingPad>().transform;
         }
 
         private void OnEnable()
@@ -60,6 +70,11 @@ namespace Bomber.Control
             if (Input.GetKeyDown(KeyCode.B) && !isParalized)
             {
                 DropBomb();
+            }
+
+            if (shouldMoveToStart)
+            {
+                MoveTowardsStartingPad();
             }
         }
 
@@ -115,7 +130,7 @@ namespace Bomber.Control
 
         public IEnumerator KnockbackCoroutine(float explosionForce, Vector3 sourcePosition, float radius)
         {
-            rb.AddExplosionForce(explosionForce, sourcePosition, radius, knockbackUpwardsModifier);
+            rb.AddExplosionForce(explosionForce * explosionForceMulitiplier, sourcePosition, radius, knockbackUpwardsModifier);
 
             isParalized = true;
 
@@ -132,6 +147,41 @@ namespace Bomber.Control
         private void OnDeath()
         {
             isDead = true;
+            StartCoroutine(RestartPlayer());
+        }
+
+        IEnumerator RestartPlayer()
+        {
+
+            yield return new WaitForSeconds(deathWitnessDelay);
+
+            shouldMoveToStart = true;
+            GetComponent<SphereCollider>().enabled = false;
+            // start moving to starting point
+            // make ai ok to attack player
+        }
+
+        private void MoveTowardsStartingPad()
+        {
+            rb.isKinematic = true;
+
+            transform.position = Vector3.Lerp(transform.position, startPad.position, Time.deltaTime * restartLerpSpeed);
+
+            // Vector3 direction = Vector3.Normalize(startPad.position - transform.position);
+            //transform.position += direction * restartSpeed * Time.deltaTime;
+            if (Vector3.Distance(transform.position, startPad.position) <= acceptanceDistToStart)
+            {
+                GetComponent<SphereCollider>().enabled = true;
+                transform.position = startPad.position;
+                rb.isKinematic = false;
+                shouldMoveToStart = false;
+
+                Health health = GetComponent<Health>();
+                health.BodyVisible(true);
+                health.ResetHealth();
+
+                isDead = false;
+            }
         }
 
         public void ApplyPowerUp(PowerUp details)

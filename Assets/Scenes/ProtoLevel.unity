@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 860a66ca4259b384f9ec01b687f71c3c, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 0}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -362,6 +362,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CoinPickup (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 6.42e-43
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: -1.8170144e+13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 6.4e-43
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
@@ -697,6 +712,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CoinPickup (41)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 6.42e-43
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: -9.494273e-18
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 6.42e-43
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
@@ -1101,6 +1131,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: CoinPickup (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 5.2264036e+24
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: NaN
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 0.7115775
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
 --- !u!1001 &250310784
@@ -1243,6 +1293,24 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1811926301}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &286389798 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4437423887605254650, guid: 008ee7d3f187afe4685abb17b13d9b7f,
+    type: 3}
+  m_PrefabInstance: {fileID: 4262189969810526445}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &286389800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286389798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2caf647af532a9c4e95b9dd44ad53635, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &302351589 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4547981697554675878, guid: 8aff95eadb778274aaffb00c6cb76ffd,
@@ -1315,6 +1383,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CoinPickup (19)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: NaN
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: NaN
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: NaN
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: NaN
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
@@ -1390,6 +1478,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CoinPickup (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 9.1837e-41
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
@@ -1599,6 +1697,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CoinPickup (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
@@ -1850,6 +1953,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CoinPickup (40)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: NaN
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
@@ -2169,6 +2277,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: CoinPickup (32)
       objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 0.09765625
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: NaN
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 14
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
 --- !u!4 &534744487 stripped
@@ -2243,6 +2366,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CoinPickup (29)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 6.42e-43
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: -1.33384594e-17
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 6.42e-43
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 2.3510647e-38
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
@@ -2497,6 +2640,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CoinPickup (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: -3.307308e-15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
@@ -3066,6 +3214,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: CoinPickup (20)
       objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 6.42e-43
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: -1.01252664e-17
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 6.42e-43
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 2.73e-43
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
 --- !u!1001 &742955099
@@ -3273,6 +3441,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CoinPickup (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 6.42e-43
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 2.49476e-40
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: -3.307374e-15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
@@ -4072,6 +4255,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: CoinPickup (25)
       objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: NaN
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: NaN
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: NaN
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: NaN
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
 --- !u!4 &905466412 stripped
@@ -4233,6 +4436,16 @@ PrefabInstance:
       propertyPath: scoreHUD
       value: 
       objectReference: {fileID: 1395064543}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: NaN
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 1.01e-43
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
 --- !u!1001 &935198838
@@ -4653,6 +4866,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: CoinPickup (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 0.7115775
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
 --- !u!4 &1024905455 stripped
@@ -4943,6 +5171,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: CoinPickup (37)
       objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 4.7993834e+29
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: -2.1077139e+9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 10125147
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 0.000000002457657
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
 --- !u!4 &1132454164 stripped
@@ -5029,6 +5277,21 @@ PrefabInstance:
       propertyPath: scoreHUD
       value: 
       objectReference: {fileID: 1395064543}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 6.42e-43
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: NaN
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 6.3250305e+28
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
 --- !u!1001 &1150823709
@@ -5466,6 +5729,21 @@ PrefabInstance:
       propertyPath: scoreHUD
       value: 
       objectReference: {fileID: 1395064543}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: -3.3073655e-15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 6.42e-43
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: -5.035482e+19
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
 --- !u!1001 &1242975689
@@ -5771,6 +6049,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: CoinPickup (34)
       objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 2.4209629e-29
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: -1.3943514e-26
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 347460.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: -1.2992354e+38
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
 --- !u!4 &1385504311 stripped
@@ -6012,6 +6310,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CoinPickup (22)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: -1.7281006e+38
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 0.07421875
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
@@ -6259,6 +6572,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: CoinPickup (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: NaN
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: NaN
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: NaN
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: NaN
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
 --- !u!4 &1531444185 stripped
@@ -6502,6 +6835,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: CoinPickup (38)
       objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 7.2760333e-23
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 28598414
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 37071116
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: -8.8859886e-23
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
 --- !u!4 &1600848459 stripped
@@ -6656,6 +7009,26 @@ PrefabInstance:
       propertyPath: scoreHUD
       value: 
       objectReference: {fileID: 1395064543}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 1.7394456e+33
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: -2.2660315e-17
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 6.42e-43
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 6.136e-42
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
 --- !u!1001 &1611088099
@@ -6881,6 +7254,16 @@ PrefabInstance:
       propertyPath: scoreHUD
       value: 
       objectReference: {fileID: 1395064543}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: -654338560
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 2.3177e-41
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
 --- !u!4 &1652286870 stripped
@@ -6967,6 +7350,21 @@ PrefabInstance:
       propertyPath: scoreHUD
       value: 
       objectReference: {fileID: 1395064543}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: -1.7281006e+38
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 0.40234375
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
 --- !u!1001 &1678894680
@@ -7255,6 +7653,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: CoinPickup (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 6.42e-43
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 1.058e-42
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: -1.7323069e-15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
 --- !u!4 &1709896429 stripped
@@ -7335,6 +7748,26 @@ PrefabInstance:
       propertyPath: scoreHUD
       value: 
       objectReference: {fileID: 1395064543}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: -3.0696802e-15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: -5.9736435e+34
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 1567687.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 4.22598e-25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
 --- !u!4 &1714241355 stripped
@@ -7421,6 +7854,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CoinPickup (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 1.85e-43
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: -1.2712942e+38
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 4.5904e-41
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: -1.4069317e-18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
@@ -7559,6 +8012,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CoinPickup (28)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: NaN
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: -1.4304692e-15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
@@ -8264,6 +8727,26 @@ PrefabInstance:
       propertyPath: scoreHUD
       value: 
       objectReference: {fileID: 1395064543}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: NaN
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: NaN
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 6.45e-43
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: NaN
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
 --- !u!4 &1843615236 stripped
@@ -8344,6 +8827,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CoinPickup (31)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 9.1834e-41
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: -1.3342006e-17
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 6.42e-43
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 2.73e-43
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
@@ -8896,6 +9399,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: CoinPickup (35)
       objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: -3.372573e-33
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 3.2168314e-13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 67548.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: -8.431345e+37
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
 --- !u!1001 &2016154182
@@ -9037,6 +9560,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CoinPickup (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: -1.430498e-15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 6.42e-43
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: -5.1600626e+19
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
@@ -9193,6 +9731,26 @@ PrefabInstance:
       propertyPath: scoreHUD
       value: 
       objectReference: {fileID: 1395064543}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 2.6174355
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: -5.4829315e+24
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 1297348.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: -7725130.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
 --- !u!4 &2045395835 stripped
@@ -9347,6 +9905,21 @@ PrefabInstance:
       propertyPath: scoreHUD
       value: 
       objectReference: {fileID: 1395064543}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 1.9159066e-36
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 4.5905e-41
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: NaN
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
 --- !u!1001 &2079600009
@@ -9555,6 +10128,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CoinPickup (26)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 1e-45
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 266.26666
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 83.36667
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
@@ -11160,17 +11753,17 @@ PrefabInstance:
     - target: {fileID: 5251687309982298834, guid: e30db5be74647fd4198a9d37f822e575,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.19321442
       objectReference: {fileID: 0}
     - target: {fileID: 5251687309982298834, guid: e30db5be74647fd4198a9d37f822e575,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.7
+      value: 0.70000076
       objectReference: {fileID: 0}
     - target: {fileID: 5251687309982298834, guid: e30db5be74647fd4198a9d37f822e575,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.019195557
       objectReference: {fileID: 0}
     - target: {fileID: 5251687309982298834, guid: e30db5be74647fd4198a9d37f822e575,
         type: 3}
@@ -11222,6 +11815,41 @@ PrefabInstance:
       propertyPath: scoreHUD
       value: 
       objectReference: {fileID: 1395064543}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: NaN
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 1.04e-43
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 2.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421936693068652948, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_Range
+      value: 3.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 8542796081820270886, guid: e30db5be74647fd4198a9d37f822e575,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30db5be74647fd4198a9d37f822e575, type: 3}
 --- !u!64 &3826941818433675543
@@ -11876,6 +12504,80 @@ Transform:
   m_Father: {fileID: 420973996799361670}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &4262189969810526445
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1854713441}
+    m_Modifications:
+    - target: {fileID: 2709847748519602204, guid: 008ee7d3f187afe4685abb17b13d9b7f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 101
+      objectReference: {fileID: 0}
+    - target: {fileID: 2709847748519602204, guid: 008ee7d3f187afe4685abb17b13d9b7f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 12.499999
+      objectReference: {fileID: 0}
+    - target: {fileID: 2709847748519602204, guid: 008ee7d3f187afe4685abb17b13d9b7f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 2709847748519602204, guid: 008ee7d3f187afe4685abb17b13d9b7f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2709847748519602204, guid: 008ee7d3f187afe4685abb17b13d9b7f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2709847748519602204, guid: 008ee7d3f187afe4685abb17b13d9b7f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2709847748519602204, guid: 008ee7d3f187afe4685abb17b13d9b7f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2709847748519602204, guid: 008ee7d3f187afe4685abb17b13d9b7f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 2709847748519602204, guid: 008ee7d3f187afe4685abb17b13d9b7f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2709847748519602204, guid: 008ee7d3f187afe4685abb17b13d9b7f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2709847748519602204, guid: 008ee7d3f187afe4685abb17b13d9b7f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728302342798043192, guid: 008ee7d3f187afe4685abb17b13d9b7f,
+        type: 3}
+      propertyPath: m_Name
+      value: StartingPad
+      objectReference: {fileID: 0}
+    - target: {fileID: 6389380090818476103, guid: 008ee7d3f187afe4685abb17b13d9b7f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 20
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 008ee7d3f187afe4685abb17b13d9b7f, type: 3}
 --- !u!1 &4363490600141563471
 GameObject:
   m_ObjectHideFlags: 0
@@ -12644,12 +13346,12 @@ PrefabInstance:
     - target: {fileID: 1860040175063691086, guid: ee8c6cd6fcb4e7c43ba692f2385594fa,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 51.4
+      value: 52.9
       objectReference: {fileID: 0}
     - target: {fileID: 1860040175063691086, guid: ee8c6cd6fcb4e7c43ba692f2385594fa,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 31.2
+      value: 30.7
       objectReference: {fileID: 0}
     - target: {fileID: 1860040175063691086, guid: ee8c6cd6fcb4e7c43ba692f2385594fa,
         type: 3}
@@ -12659,17 +13361,37 @@ PrefabInstance:
     - target: {fileID: 1860040175617629266, guid: ee8c6cd6fcb4e7c43ba692f2385594fa,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 51.4
+      value: 52.9
       objectReference: {fileID: 0}
     - target: {fileID: 1860040175617629266, guid: ee8c6cd6fcb4e7c43ba692f2385594fa,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 31.2
+      value: 30.7
       objectReference: {fileID: 0}
     - target: {fileID: 1860040175617629266, guid: ee8c6cd6fcb4e7c43ba692f2385594fa,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 99
+      objectReference: {fileID: 0}
+    - target: {fileID: 1860040175617629266, guid: ee8c6cd6fcb4e7c43ba692f2385594fa,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.38268343
+      objectReference: {fileID: 0}
+    - target: {fileID: 1860040175617629266, guid: ee8c6cd6fcb4e7c43ba692f2385594fa,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1860040175617629266, guid: ee8c6cd6fcb4e7c43ba692f2385594fa,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1860040175617629266, guid: ee8c6cd6fcb4e7c43ba692f2385594fa,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.92387956
       objectReference: {fileID: 0}
     - target: {fileID: 1860040175617629267, guid: ee8c6cd6fcb4e7c43ba692f2385594fa,
         type: 3}
@@ -12816,12 +13538,12 @@ PrefabInstance:
     - target: {fileID: 6263959389042114694, guid: ee8c6cd6fcb4e7c43ba692f2385594fa,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 63.5
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 6263959389042114694, guid: ee8c6cd6fcb4e7c43ba692f2385594fa,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 21
+      value: 20.5
       objectReference: {fileID: 0}
     - target: {fileID: 6263959389042114694, guid: ee8c6cd6fcb4e7c43ba692f2385594fa,
         type: 3}
@@ -12848,6 +13570,36 @@ PrefabInstance:
       propertyPath: knockbackParalisisSeconds
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6263959389042114698, guid: ee8c6cd6fcb4e7c43ba692f2385594fa,
+        type: 3}
+      propertyPath: knockbackRadius
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6263959389042114698, guid: ee8c6cd6fcb4e7c43ba692f2385594fa,
+        type: 3}
+      propertyPath: knockbackUpwardsModifier
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6263959389042114698, guid: ee8c6cd6fcb4e7c43ba692f2385594fa,
+        type: 3}
+      propertyPath: explosionForceMulitiplier
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6263959389042114698, guid: ee8c6cd6fcb4e7c43ba692f2385594fa,
+        type: 3}
+      propertyPath: restartSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6263959389042114698, guid: ee8c6cd6fcb4e7c43ba692f2385594fa,
+        type: 3}
+      propertyPath: restartLerpSpeed
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6263959389042114698, guid: ee8c6cd6fcb4e7c43ba692f2385594fa,
+        type: 3}
+      propertyPath: acceptanceDistToStart
+      value: 1.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6263959389042114701, guid: ee8c6cd6fcb4e7c43ba692f2385594fa,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -12856,7 +13608,7 @@ PrefabInstance:
     - target: {fileID: 7106594353088039550, guid: ee8c6cd6fcb4e7c43ba692f2385594fa,
         type: 3}
       propertyPath: startingHealth
-      value: 15
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8195443568646302004, guid: ee8c6cd6fcb4e7c43ba692f2385594fa,
         type: 3}
@@ -14963,6 +15715,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 12.499999
+      objectReference: {fileID: 0}
+    - target: {fileID: 7746898992616732526, guid: bb531061db805e6469efd39fe9241208,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7746983893304213246, guid: bb531061db805e6469efd39fe9241208,
         type: 3}
