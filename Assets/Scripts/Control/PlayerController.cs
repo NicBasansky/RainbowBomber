@@ -24,9 +24,11 @@ namespace Bomber.Control
 
         [Header("Restarting after death")]
         [SerializeField] float deathWitnessDelay = 3.0f;
-        [SerializeField] [Range(0, 1f)] float restartLerpSpeed = 0.3f;
+        //[SerializeField] [Range(0, 1f)] float restartLerpSpeed = 0.3f;
         [SerializeField] float restartSpeed = 5.0f;
         [SerializeField] float acceptanceDistToStart = 0.4f;
+        [SerializeField] GameObject getReadyCanvas = null;
+        [SerializeField] float getReadyUIDisplaySeconds = 4.0f;
 
         float startingThrust;
         bool isBoosting = false;
@@ -62,6 +64,7 @@ namespace Bomber.Control
             // todo see if this affects things other than the player
             Physics.gravity = new Vector3(0, -gravity, 0);
             startingThrust = thrust;
+            StartCoroutine(DisplayGetReadyUI());
 
         }
 
@@ -139,6 +142,13 @@ namespace Bomber.Control
             isParalized = false;
         }
 
+        public IEnumerator DisplayGetReadyUI()
+        {
+            getReadyCanvas.SetActive(true);
+            yield return new WaitForSeconds(getReadyUIDisplaySeconds);
+            getReadyCanvas.SetActive(false);
+        }
+
         private void DropBomb()
         {
             bombDropper.DropBomb();
@@ -157,18 +167,25 @@ namespace Bomber.Control
 
             shouldMoveToStart = true;
             GetComponent<SphereCollider>().enabled = false;
+            StartCoroutine(DisplayGetReadyUI());
             // start moving to starting point
             // make ai ok to attack player
         }
 
         private void MoveTowardsStartingPad()
         {
+            if (startPad == null)
+            {
+                print("No start pad in scene!");
+                return;
+            }
+
             rb.isKinematic = true;
 
-            transform.position = Vector3.Lerp(transform.position, startPad.position, Time.deltaTime * restartLerpSpeed);
+            //transform.position = Vector3.Lerp(transform.position, startPad.position, Time.deltaTime * restartLerpSpeed);
 
-            // Vector3 direction = Vector3.Normalize(startPad.position - transform.position);
-            //transform.position += direction * restartSpeed * Time.deltaTime;
+            Vector3 direction = Vector3.Normalize(startPad.position - transform.position);
+            transform.position += direction * restartSpeed * Time.deltaTime;
             if (Vector3.Distance(transform.position, startPad.position) <= acceptanceDistToStart)
             {
                 GetComponent<SphereCollider>().enabled = true;
@@ -181,6 +198,7 @@ namespace Bomber.Control
                 health.ResetHealth();
 
                 isDead = false;
+                //StartCoroutine(DisplayGetReadyUI());
             }
         }
 

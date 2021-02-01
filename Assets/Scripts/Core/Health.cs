@@ -22,6 +22,12 @@ namespace Bomber.Core
         public float health; // todo make private
         bool isDead = false;
         Vector3 initialScale;
+        TrailRenderer trail = null;
+
+        private void Awake()
+        {
+            trail = GetComponent<TrailRenderer>();
+        }
 
         void Start()
         {
@@ -58,6 +64,7 @@ namespace Bomber.Core
 
         private void Die()
         {
+            print("Die called");
             health = 0;
             isDead = true;
 
@@ -71,9 +78,11 @@ namespace Bomber.Core
         // TODO make AI stop following upon player death
         public void BodyVisible(bool isVisible)
         {
-            model.SetActive(isVisible); // TODO make active again
-            GetComponent<TrailRenderer>().enabled = isVisible;
+            model.SetActive(isVisible);
             RainbowHead.SetActive(isVisible);
+
+            trail.Clear();
+            trail.enabled = isVisible;
         }
 
         private IEnumerator BecomeInvincible()
@@ -101,6 +110,7 @@ namespace Bomber.Core
         public void ResetHealth()
         {
             health = startingHealth;
+            isDead = false;
             StartCoroutine(BecomeInvincible());
         }
 
