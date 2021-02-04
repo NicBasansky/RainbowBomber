@@ -107,6 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseTransform: {fileID: 2729142433195460002}
+  colliderOverlapTime: 0.2
 --- !u!1 &1201272485
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,6 +350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseTransform: {fileID: 2729142433195460002}
+  colliderOverlapTime: 0.2
 --- !u!1 &6357242220132679749
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,6 +365,7 @@ GameObject:
   - component: {fileID: 5571515378784436023}
   - component: {fileID: 7840394619103551522}
   - component: {fileID: 3340315021466913315}
+  - component: {fileID: 5462368811111984102}
   m_Layer: 0
   m_Name: BaseExplosion
   m_TagString: BombFX
@@ -416,6 +419,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseTransform: {fileID: 2729142433195460002}
+  colliderOverlapTime: 0.2
 --- !u!65 &5571515378784436023
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -455,6 +459,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3, y: 0.3, z: 7}
   m_Center: {x: 0, y: 0, z: -5.07}
+--- !u!114 &5462368811111984102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6357242220132679749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 253a28a87542b4a41882791145213ee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetToDeactivate: {fileID: 6357242220132679749}
+  delay: 4
 --- !u!1001 &2022146904
 PrefabInstance:
   m_ObjectHideFlags: 0

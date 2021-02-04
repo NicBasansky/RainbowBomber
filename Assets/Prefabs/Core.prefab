@@ -711,7 +711,7 @@ PrefabInstance:
     - target: {fileID: 8546584864642982209, guid: 67369053d08cb264ba19034b31d507ed,
         type: 3}
       propertyPath: m_Name
-      value: ScoreCanvas
+      value: HUD
       objectReference: {fileID: 0}
     - target: {fileID: 8546584864642982212, guid: 67369053d08cb264ba19034b31d507ed,
         type: 3}
@@ -866,6 +866,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 5751996502827579094}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5347334671682833976 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 425237038960916718, guid: 67369053d08cb264ba19034b31d507ed,
+    type: 3}
+  m_PrefabInstance: {fileID: 5751996502827579094}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edbe218e0a0f7ba4a99ec0477c3d2e21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5751996502936535958
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -931,7 +943,7 @@ PrefabInstance:
     - target: {fileID: 6197800773086227675, guid: f3125e2df0c4b19498fae19a8d0e7829,
         type: 3}
       propertyPath: m_Lens.m_SensorSize.x
-      value: 1.7783595
+      value: 1.7782427
       objectReference: {fileID: 0}
     - target: {fileID: 6197800773103107797, guid: f3125e2df0c4b19498fae19a8d0e7829,
         type: 3}
@@ -1184,6 +1196,11 @@ PrefabInstance:
       propertyPath: getReadyCanvas
       value: 
       objectReference: {fileID: 4629092316455416566}
+    - target: {fileID: 1818679884671909242, guid: 617455d29a8932845991d3ebcfbe5dfa,
+        type: 3}
+      propertyPath: healthHUD
+      value: 
+      objectReference: {fileID: 5347334671682833976}
     - target: {fileID: 1818679884671909245, guid: 617455d29a8932845991d3ebcfbe5dfa,
         type: 3}
       propertyPath: m_Name

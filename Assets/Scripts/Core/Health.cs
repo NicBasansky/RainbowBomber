@@ -41,7 +41,7 @@ namespace Bomber.Core
             {
 
                 health -= delta;
-                //print(gameObject.name + " is at " + health + " health"); // todo remove
+                print(gameObject.name + " is at " + health + " health"); // todo remove
                 if (!CheckIsDead())
                 {
                     StartCoroutine(BecomeInvincible());
@@ -64,7 +64,6 @@ namespace Bomber.Core
 
         private void Die()
         {
-            print("Die called");
             health = 0;
             isDead = true;
 
@@ -118,6 +117,12 @@ namespace Bomber.Core
         {
             return isInvincible;
         }
+
+        public bool GetIsDead()
+        {
+            return isDead;
+        }
+
 
         private void ScaleModelTo(Vector3 scale)
         {

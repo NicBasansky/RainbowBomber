@@ -14,6 +14,7 @@ namespace Bomber.Control
         [SerializeField] float gravity = 9.82f;
         [SerializeField] float boostThrust = 700f;
         [SerializeField] float boostDuration = 2.0f;
+        [SerializeField] HealthHUD healthHUD = null;
 
 
 
@@ -167,8 +168,14 @@ namespace Bomber.Control
 
             shouldMoveToStart = true;
             GetComponent<SphereCollider>().enabled = false;
+
+            if (healthHUD != null)
+            {
+                healthHUD.ResetHealthUI();
+            }
+
             StartCoroutine(DisplayGetReadyUI());
-            // start moving to starting point
+
             // make ai ok to attack player
         }
 
@@ -213,6 +220,11 @@ namespace Bomber.Control
         public void AffectByExplosion(float explosionForce, Vector3 sourcePosition, float radius)
         {
             StartCoroutine(KnockbackCoroutine(explosionForce, sourcePosition, radius));
+
+            if (healthHUD != null)
+            {
+                healthHUD.ReduceHealthUI();
+            }
         }
     }
 }

@@ -21,10 +21,17 @@ namespace Bomber.Core
         {
             explosionForce = force;
             explosionRadius = radius;
-            GetComponent<SphereCollider>().radius = explosionRadius;
+            SetupSphereCollider();
 
             timeSinceEnabled = 0;
             isDisabled = false;
+        }
+
+        private void SetupSphereCollider()
+        {
+            var sphere = GetComponent<SphereCollider>();
+            sphere.radius = explosionRadius;
+            sphere.enabled = true;
         }
 
         private void Update()
@@ -68,7 +75,10 @@ namespace Bomber.Core
 
                     if (isExposed)
                     {
-                        health.AffectHealth(1f);
+                        if (!health.GetIsDead())
+                        {
+                            health.AffectHealth(1f);
+                        }
 
                         IBombExplosion bombExplosion = health.GetComponent<IBombExplosion>(); // if there are multiple components affected by the explosion then change it here
                         if (bombExplosion != null)
