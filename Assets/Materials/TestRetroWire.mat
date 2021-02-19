@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BlackMatte
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Name: TestRetroWire
+  m_Shader: {fileID: 4800000, guid: 0a64e75c92386b54884b53adfb31e237, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -55,13 +55,13 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _mainTex:
-        m_Texture: {fileID: 2800000, guid: b4106b3c439d6634ba6878ffd5fb1761, type: 3}
+    - _cubeMap:
+        m_Texture: {fileID: 8900000, guid: 18ec2d52be8f4524a97c25a2ed27838e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _overlay:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: f6dc86f9ba044da44bd300736426f7ee, type: 3}
+        m_Scale: {x: 11.15, y: 30.03}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
@@ -69,26 +69,28 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.239
+    - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Metallic: 0.308
+    - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _ScrollX: 1.44
+    - _ScrollY: 1.11
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
-    - _brightness: 3.32
-    - _cellSize: 1
-    - _emissive: 0.5
-    - _lineWidth: 0.1
+    - _brightness: 4.19
+    - _cellSize: 3.2
+    - _lineWidth: 0.026
+    - _overlayAlpha: 1
+    - _overlayBrightness: 3.71
     - _scrollX: 0.88
     - _scrollY: 1.1
     m_Colors:
-    - _Color: {r: 0.3301887, g: 0.3301887, b: 0.3301887, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _color: {r: 1, g: 1, b: 1, a: 1}
-    - _lineColor: {r: 1, g: 1, b: 1, a: 1}
-    - _mainColor: {r: 1, g: 1, b: 1, a: 1}
+    - _lineColor: {r: 1, g: 0, b: 0.9046192, a: 1}
+    - _mainColor: {r: 0, g: 0, b: 0, a: 0}
