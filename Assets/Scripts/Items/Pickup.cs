@@ -71,8 +71,6 @@ namespace Bomber.Items
             }
         }
 
-
-
         private void ApplyPowerUp()
         {
             foreach (var powerUp in player.GetComponents<IPowerUp>())

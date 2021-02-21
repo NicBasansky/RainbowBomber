@@ -67,8 +67,15 @@ namespace Bomber.Core
             health = 0;
             isDead = true;
 
-            Instantiate(deathFX, transform.position, Quaternion.identity);
-            BodyVisible(false);
+            if (deathFX != null)
+            {
+                Instantiate(deathFX, transform.position, Quaternion.identity);
+            }
+            
+            if (gameObject.CompareTag("Player"))
+            {
+                BodyVisible(false);
+            }
 
             onDeath.Invoke();
 

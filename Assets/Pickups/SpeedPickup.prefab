@@ -19,6 +19,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1498531352819104030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3458622362282549964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1daabbd6b4cdf34da5b917f8fe3946d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetToDestroy: {fileID: 7286384062779810351}
 --- !u!1001 &3457011958313417766
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36,7 +49,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4930809354931310, guid: 3be0a16ee9b9e0348b1fcb0dc05e9d58, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.2
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4930809354931310, guid: 3be0a16ee9b9e0348b1fcb0dc05e9d58, type: 3}
       propertyPath: m_LocalPosition.z
@@ -86,6 +99,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 23945203683926744, guid: 3be0a16ee9b9e0348b1fcb0dc05e9d58,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 597348b0c24de5942a880c9b29d0b91c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3be0a16ee9b9e0348b1fcb0dc05e9d58, type: 3}
 --- !u!1 &3458622362282549964 stripped
@@ -101,21 +119,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4484917263113029138, guid: 20ed5351c0dcbf74ca678d799c5e65a9,
-        type: 3}
-      propertyPath: powerUpDetails.powerUpType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4484917263113029138, guid: 20ed5351c0dcbf74ca678d799c5e65a9,
-        type: 3}
-      propertyPath: powerUpDetails.scoreContribution
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4484917263113029138, guid: 20ed5351c0dcbf74ca678d799c5e65a9,
-        type: 3}
-      propertyPath: powerUpDetails.speedMultiplier
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4484917263113029138, guid: 20ed5351c0dcbf74ca678d799c5e65a9,
         type: 3}
       propertyPath: powerUpDetails
@@ -182,6 +185,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4484917263113029165, guid: 20ed5351c0dcbf74ca678d799c5e65a9,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4484917263113029165, guid: 20ed5351c0dcbf74ca678d799c5e65a9,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4484917263113029165, guid: 20ed5351c0dcbf74ca678d799c5e65a9,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6350247721121746342, guid: 20ed5351c0dcbf74ca678d799c5e65a9,
         type: 3}
       propertyPath: m_Enabled
@@ -190,6 +208,12 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 6350247721121746342, guid: 20ed5351c0dcbf74ca678d799c5e65a9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 20ed5351c0dcbf74ca678d799c5e65a9, type: 3}
+--- !u!1 &7286384062779810351 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4484917263113029139, guid: 20ed5351c0dcbf74ca678d799c5e65a9,
+    type: 3}
+  m_PrefabInstance: {fileID: 6567321165940941884}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7286384062779810321 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4484917263113029165, guid: 20ed5351c0dcbf74ca678d799c5e65a9,

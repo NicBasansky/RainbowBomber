@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IncrSpeed_PU
   m_EditorClassIdentifier: 
   powerUpType: 0
-  scoreContribution: 0
-  speedMultiplier: 1.2
-  duration: 0
+  scoreContribution: 40
+  speedMultiplier: 1.5
+  duration: 5
   blastRadiusMultiplier: 1

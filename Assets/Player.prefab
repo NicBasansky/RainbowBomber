@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3264128626501384078}
   - component: {fileID: 8014716908013607328}
   - component: {fileID: 7942258322549159095}
+  - component: {fileID: 3814400411938985405}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -50,18 +51,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3f319c7267b09f4887e1698fcc496f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  thrust: 400
+  speed: 3
+  thrust: 105
   gravity: 20
-  boostThrust: 10000
+  boostThrust: 4000
   boostDuration: 2
-  explosionForceMulitiplier: 1
-  knockbackUpwardsModifier: 13
-  knockbackParalisisSeconds: 1.5
+  healthHUD: {fileID: 0}
+  explosionForceMulitiplier: 1.5
+  knockbackUpwardsModifier: 15
+  knockbackParalisisSeconds: 0
   deathWitnessDelay: 2.5
-  restartLerpSpeed: 0.3
   restartSpeed: 30
   acceptanceDistToStart: 1.2
+  getReadyCanvas: {fileID: 0}
+  getReadyUIDisplaySeconds: 4
 --- !u!54 &1153168073
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -243,6 +246,18 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &3814400411938985405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818679884671909245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7010a16d7525d474b8740992db254263, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4498852869859726532
 GameObject:
   m_ObjectHideFlags: 0

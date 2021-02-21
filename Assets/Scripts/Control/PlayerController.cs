@@ -8,7 +8,7 @@ using Bomber.UI;
 
 namespace Bomber.Control
 {
-    public class PlayerController : MonoBehaviour, IPowerUp, IBombExplosion
+    public class PlayerController : MonoBehaviour, IBombExplosion
     {
         [SerializeField] float speed = 5.0f;
         [SerializeField] float thrust = 1.0f;
@@ -41,14 +41,14 @@ namespace Bomber.Control
 
         Rigidbody rb;
         BombDropper bombDropper;
-        Transform startPad;
+        StartingPad startPad;
 
 
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
             bombDropper = GetComponent<BombDropper>();
-            startPad = FindObjectOfType<StartingPad>().transform;
+            startPad = FindObjectOfType<StartingPad>();
         }
 
         private void OnEnable()
@@ -66,7 +66,11 @@ namespace Bomber.Control
             // todo see if this affects things other than the player
             Physics.gravity = new Vector3(0, -gravity, 0);
             startingThrust = thrust;
-            StartCoroutine(DisplayGetReadyUI());
+            
+            if (getReadyCanvas != null)
+            {
+                StartCoroutine(DisplayGetReadyUI());
+            }
 
         }
 
@@ -117,12 +121,7 @@ namespace Bomber.Control
         {
             rb.AddForce(boostDirection * boostAmount);
         }
-
-        private void PermanentlyIncreaseSpeed(float multiplier)
-        {
-            thrust *= multiplier;
-        }
-
+        
         private IEnumerator BoostSpeedCoroutine(Vector3 boostDirection, float boostAmount)
         {
             isBoosting = true;
@@ -190,14 +189,12 @@ namespace Bomber.Control
 
             rb.isKinematic = true;
 
-            //transform.position = Vector3.Lerp(transform.position, startPad.position, Time.deltaTime * restartLerpSpeed);
-
-            Vector3 direction = Vector3.Normalize(startPad.position - transform.position);
+            Vector3 direction = Vector3.Normalize(startPad.transform.position - transform.position);
             transform.position += direction * restartSpeed * Time.deltaTime;
-            if (Vector3.Distance(transform.position, startPad.position) <= acceptanceDistToStart)
+            if (Vector3.Distance(transform.position, startPad.transform.position) <= acceptanceDistToStart)
             {
                 GetComponent<SphereCollider>().enabled = true;
-                transform.position = startPad.position;
+                transform.position = startPad.transform.position;
                 rb.isKinematic = false;
                 shouldMoveToStart = false;
 
@@ -210,12 +207,14 @@ namespace Bomber.Control
             }
         }
 
-        public void ApplyPowerUp(PowerUp details)
+        public void SetThrust(float thrust)
         {
-            if (details.powerUpType == PowerUpType.SpeedBuff)
-            {
-                PermanentlyIncreaseSpeed(details.speedMultiplier);
-            }
+            this.thrust = thrust;
+        }
+
+        public float GetThrust()
+        {
+            return thrust;
         }
 
         public void AffectByExplosion(float explosionForce, Vector3 sourcePosition, float radius)
