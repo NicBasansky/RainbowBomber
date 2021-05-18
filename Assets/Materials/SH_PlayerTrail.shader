@@ -141,7 +141,7 @@
 				half3 viewDir = normalize(_WorldSpaceCameraPos - vertexWorldPos);
 				half3 normal = UnityObjectToWorldNormal(v.normal);
 
-				o.reflectedDir = reflect(viewDir, normal);
+				//o.reflectedDir = reflect(viewDir, normal);
 			
 
 				o.rimPower = saturate(dot(viewDir, normal));

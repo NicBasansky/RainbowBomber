@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using Bomber.UI;
 
 namespace Bomber.Core
 {
@@ -27,6 +28,7 @@ namespace Bomber.Core
         private void Awake()
         {
             trail = GetComponent<TrailRenderer>();
+
         }
 
         void Start()
@@ -41,7 +43,7 @@ namespace Bomber.Core
             {
 
                 health -= delta;
-                print(gameObject.name + " is at " + health + " health"); // todo remove
+                //print(gameObject.name + " is at " + health + " health"); // todo remove
                 if (!CheckIsDead())
                 {
                     StartCoroutine(BecomeInvincible());
@@ -75,6 +77,17 @@ namespace Bomber.Core
             if (gameObject.CompareTag("Player"))
             {
                 BodyVisible(false);
+            }
+            else // if enemy only
+            {
+                ScoreHUD scoreHUD = FindObjectOfType<ScoreHUD>();
+                if (scoreHUD != null)
+                {
+                    scoreHUD.IncrementKillCount();
+                }
+
+                // update quest in ScoreHUD
+
             }
 
             onDeath.Invoke();

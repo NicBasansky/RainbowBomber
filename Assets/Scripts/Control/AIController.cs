@@ -26,7 +26,6 @@ namespace Bomber.Control
         [SerializeField] float knockbackUpwardsModifier = 3.0f;
         [SerializeField] float knockbackParalisisSeconds = 1.5f;
 
-        bool isPatrolling = false;
         bool maxAllowedTimeSpecified = false;
         Vector3 walkPoint;
         bool walkPointSet = false;
@@ -61,11 +60,6 @@ namespace Bomber.Control
             GetComponent<Health>().onDeath += OnDeath;
         }
 
-        private void Start()
-        {
-            rb.isKinematic = true;
-        }
-
         void Update()
         {
             if (isDead) return;
@@ -76,7 +70,6 @@ namespace Bomber.Control
 
                 if (IsInAttackRange())
                 {
-                    isPatrolling = false;
                     AttackBehaviour();
                 }
                 else

@@ -17,8 +17,6 @@ namespace Bomber.Control
         [SerializeField] float boostDuration = 2.0f;
         [SerializeField] HealthHUD healthHUD = null;
 
-
-
         [Header("Knockback")]
         [SerializeField] float explosionForceMulitiplier = 1f;
         [SerializeField] float knockbackUpwardsModifier = 3.0f;
@@ -38,12 +36,13 @@ namespace Bomber.Control
         bool isHitByPhysics = false;
         bool isParalized = false;
         bool shouldMoveToStart = false;
+        bool isJumping = false;
 
         Rigidbody rb;
         BombDropper bombDropper;
         StartingPad startPad;
-
-
+   
+   
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();

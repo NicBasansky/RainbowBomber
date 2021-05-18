@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Bomber.UI;
 using Bomber.Core;
+using Bomber.Quests;
 
 namespace Bomber.Items
 {
@@ -18,12 +19,14 @@ namespace Bomber.Items
         ScoreHUD scoreHUD;
         GameObject player;
         Animator animator;
+        
 
         private void Awake()
         {
             player = GameObject.FindWithTag("Player");
             scoreHUD = FindObjectOfType<ScoreHUD>();
             animator = GetComponentInChildren<Animator>();
+            
         }
 
         private void OnTriggerEnter(Collider other)
@@ -45,6 +48,10 @@ namespace Bomber.Items
                     {
                         scoreHUD.UpdateScore(Mathf.RoundToInt(scoreContribution));
                     }
+                    if (isCoin)
+                    {
+                        scoreHUD.IncrementCoinCount();
+                    }
                 }
 
                 if (powerUpDetails != null)
@@ -56,6 +63,8 @@ namespace Bomber.Items
                 {
                     animator.SetTrigger("onPickedUp");
                 }
+
+                
 
                 // play sound
 

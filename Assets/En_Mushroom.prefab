@@ -368,10 +368,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da368835933b69c4796ea22767ff8695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 5
+  startingHealth: 3
   invincibilityDuration: 1.5
   invinsibilityDeltaTime: 0.15
   model: {fileID: 8814988431866828301}
+  RainbowHead: {fileID: 0}
+  deathFX: {fileID: 0}
   health: 3
 --- !u!114 &1865583992
 MonoBehaviour:

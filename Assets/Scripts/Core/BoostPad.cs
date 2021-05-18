@@ -15,6 +15,7 @@ namespace Bomber.Core
             {
                 other.GetComponent<PlayerController>().BoostForwardSpeed(transform.forward, speedBoost);
             }
+
         }
     }
 
