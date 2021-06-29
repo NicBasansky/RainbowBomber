@@ -11,6 +11,11 @@ PrefabInstance:
       propertyPath: startingHealth
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1080436724, guid: d9fd93236ceb4ec4a8cd28b5675f8274, type: 3}
+      propertyPath: deathFX
+      value: 
+      objectReference: {fileID: 198856239026640498, guid: 036c56664be74604c9dd2612fe8ef752,
+        type: 3}
     - target: {fileID: 1865583992, guid: d9fd93236ceb4ec4a8cd28b5675f8274, type: 3}
       propertyPath: initialExplosionRadius
       value: 5

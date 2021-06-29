@@ -12,6 +12,7 @@ namespace Bomber.Control
     {
         [SerializeField] float speed = 5.0f;
         [SerializeField] float thrust = 1.0f;
+        [SerializeField] float torque = 100f;
         [SerializeField] float gravity = 9.82f;
         [SerializeField] float boostThrust = 700f;
         [SerializeField] float boostDuration = 2.0f;
@@ -99,7 +100,7 @@ namespace Bomber.Control
             float vertical = Input.GetAxis("Vertical") * Time.deltaTime * speed;
 
             rb.AddForce(new Vector3(horizontal, 0, vertical).normalized * thrust);
-
+            rb.AddTorque(new Vector3(vertical, 0, horizontal) * torque);
             var gamepad = Gamepad.current;
             if (gamepad != null)
             {

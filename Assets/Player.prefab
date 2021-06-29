@@ -55,6 +55,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   thrust: 105
+  torque: 100
   gravity: 20
   boostThrust: 4000
   boostDuration: 2
@@ -306,6 +307,7 @@ MonoBehaviour:
   jumpForce: 2900
   jumpFX: {fileID: 1597810799027298, guid: 4e247fdc18ae0224c8f93c2aa4a1f3f3, type: 3}
   jumpOnRange: 2
+  spherecastRadius: 0.7
 --- !u!1 &4498852869859726532
 GameObject:
   m_ObjectHideFlags: 0

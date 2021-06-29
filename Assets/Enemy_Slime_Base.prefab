@@ -109,6 +109,9 @@ MonoBehaviour:
   maxSpeed: 4
   minAllowedSecondsOnCurrentPath: 3
   maxAllowedSecondsOnCurrentPath: 7
+  attackCooldown: 3.5
+  rotSpeed: 1
+  fleeDistance: 11
   whatIsGround:
     serializedVersion: 2
     m_Bits: 512
@@ -149,6 +152,8 @@ MonoBehaviour:
   invincibilityDuration: 1.5
   invinsibilityDeltaTime: 0.15
   model: {fileID: 8814988431866828301}
+  RainbowHead: {fileID: 0}
+  deathFX: {fileID: 198856239026640498, guid: 036c56664be74604c9dd2612fe8ef752, type: 3}
   health: 3
 --- !u!54 &8470082566747028776
 Rigidbody:

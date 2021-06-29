@@ -20,6 +20,9 @@ namespace Bomber.Control
         [SerializeField] float maxSpeed = 7.0f;
         [SerializeField] float minAllowedSecondsOnCurrentPath = 3.0f;
         [SerializeField] float maxAllowedSecondsOnCurrentPath = 7.0f;
+        [SerializeField] float attackCooldown = 3.5f;
+        [SerializeField] float rotSpeed = 1f;
+        [SerializeField] float fleeDistance = 11f;
         public LayerMask whatIsGround;
 
         [Header("Knockback")]
@@ -30,8 +33,10 @@ namespace Bomber.Control
         Vector3 walkPoint;
         bool walkPointSet = false;
         float timeOnCurrentPath = Mathf.Infinity;
+        float timeSinceLastAttack = Mathf.Infinity;
         float maxTimeOnCurrentPath = 0;
         bool isDead = false;
+        bool hasAttacked = false;
 
         BombDropper bombDropper = null;
         GameObject target;
@@ -60,13 +65,13 @@ namespace Bomber.Control
             GetComponent<Health>().onDeath += OnDeath;
         }
 
-        void Update()
+        void LateUpdate()
         {
             if (isDead) return;
 
             if (IsInChaseRange())
             {
-                MoveTo();
+                MoveToPlayer();
 
                 if (IsInAttackRange())
                 {
@@ -81,17 +86,37 @@ namespace Bomber.Control
             {
                 PatrolBehaviour();
                 timeOnCurrentPath += Time.deltaTime;
+                timeSinceLastAttack += Time.deltaTime;
             }
         }
 
-        private void MoveTo()
+        private void MoveToPlayer()
         {
             anim.SetTrigger("idle");
             if (!agent.isActiveAndEnabled || !agent.isOnNavMesh) return;
 
             agent.isStopped = false;
-            transform.LookAt(target.transform);
-            agent.SetDestination(target.transform.position);
+
+            TurnToFace(target.transform.position);
+
+
+            // This bit makes enemies move back a bit after attacking
+            if (!hasAttacked)
+            {
+                agent.SetDestination(target.transform.position);
+
+            }
+            if (hasAttacked && timeSinceLastAttack < attackCooldown)
+            {
+                Flee();
+               
+            }
+            else if (hasAttacked && timeSinceLastAttack > attackCooldown)
+            {
+                hasAttacked = false;
+            }
+
+            
             agent.speed = maxSpeed; // to change speeds when patrolling
             anim.SetTrigger("walk");
 
@@ -99,6 +124,24 @@ namespace Bomber.Control
             {
                 agent.isStopped = true;
             }
+        }
+
+        private void Flee()
+        {
+
+            Vector3 fleeVector = transform.position - target.transform.position;
+            Vector3 fleePosition = transform.position + fleeVector * fleeDistance;
+            agent.SetDestination(fleePosition);// * -1);
+        }
+
+        private void TurnToFace(Vector3 location)
+        {
+            Vector3 lookAtGoal = new Vector3(location.x - transform.position.x,
+                                            0,
+                                            location.z - transform.position.z);
+            transform.rotation = Quaternion.Slerp(transform.rotation, 
+                                            Quaternion.LookRotation(lookAtGoal),
+                                            Time.deltaTime * rotSpeed);
         }
 
         private void AttackBehaviour()
@@ -109,12 +152,17 @@ namespace Bomber.Control
             anim.ResetTrigger("idle");
             anim.SetBool("isAttacking", true);
 
+
             if (IsPlayerInLineOfSight())
             {
                 bombDropper.DropBomb();
-            }
 
-            // move away?
+                // Uncomment to have enemies run away after dropping bomb
+                
+                //hasAttacked = true;
+                //timeSinceLastAttack = 0;
+            } 
+           
         }
 
         private void PatrolBehaviour()
@@ -131,11 +179,11 @@ namespace Bomber.Control
             if (walkPointSet)
             {
                 agent.SetDestination(walkPoint);
-                transform.LookAt(walkPoint);
+                TurnToFace(walkPoint);
             }
 
             float distanceToWalkPoint = Vector3.Distance(transform.position, walkPoint);
-            if (distanceToWalkPoint <= 1.0f || IsTakingTooLongOnCurrentpath())
+            if (distanceToWalkPoint <= 1.0f || IsTakingTooLongOnCurrentpath()) // prevents getting stuck
             {
                 walkPointSet = false;
                 maxAllowedTimeSpecified = false;
@@ -238,7 +286,7 @@ namespace Bomber.Control
         {
             rb.freezeRotation = isEnabled;
             agent.enabled = isEnabled;
-            rb.isKinematic = isEnabled;
+            //rb.isKinematic = isEnabled;
 
             if (faceChanger != null)
             {

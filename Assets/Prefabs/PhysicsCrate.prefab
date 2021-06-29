@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8921278274667240711}
   - component: {fileID: 7398447237309628062}
   - component: {fileID: 4789340610975060255}
+  - component: {fileID: 2298605935510041245}
   m_Layer: 0
   m_Name: PhysicsCrate
   m_TagString: PhysicsObject
@@ -63,6 +64,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!208 &2298605935510041245
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1717396495394432518}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &7623458330526510734
 GameObject:
   m_ObjectHideFlags: 0

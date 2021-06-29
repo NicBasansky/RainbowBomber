@@ -24,11 +24,13 @@ namespace Bomber.Core
         bool isDead = false;
         Vector3 initialScale;
         TrailRenderer trail = null;
+        ScoreHUD scoreHUD;
+
 
         private void Awake()
         {
             trail = GetComponent<TrailRenderer>();
-
+            scoreHUD = FindObjectOfType<ScoreHUD>();
         }
 
         void Start()
@@ -64,24 +66,23 @@ namespace Bomber.Core
             return false;
         }
 
-        private void Die()
+        public void Die()
         {
             health = 0;
-            isDead = true;
-
+            bool isPlayer = gameObject.CompareTag("Player");
             if (deathFX != null)
             {
                 Instantiate(deathFX, transform.position, Quaternion.identity);
             }
             
-            if (gameObject.CompareTag("Player"))
+            if (isPlayer)
             {
                 BodyVisible(false);
             }
             else // if enemy only
             {
-                ScoreHUD scoreHUD = FindObjectOfType<ScoreHUD>();
-                if (scoreHUD != null)
+                // check if is dead so kill count isn't incremented if was first killed then thrown off the map
+                if (!isDead && scoreHUD != null)
                 {
                     scoreHUD.IncrementKillCount();
                 }
@@ -89,10 +90,15 @@ namespace Bomber.Core
                 // update quest in ScoreHUD
 
             }
-
+            isDead = true;
             onDeath.Invoke();
 
+            if (!isPlayer)
+                Destroy(gameObject, 0.2f);
+
         }
+
+        
 
         // TODO make AI stop following upon player death
         public void BodyVisible(bool isVisible)

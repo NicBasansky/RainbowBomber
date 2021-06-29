@@ -8,7 +8,11 @@ namespace Bomber.Core
     {
         private void OnTriggerEnter(Collider other)
         {
-            Destroy(gameObject); // TODO make player die and restart scene
+            Health health = other.GetComponent<Health>();
+            if (health != null)
+            {
+                health.Die();
+            }
         }
     }
 
