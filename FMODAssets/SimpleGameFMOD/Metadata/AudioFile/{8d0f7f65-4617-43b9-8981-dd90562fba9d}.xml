@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{8d0f7f65-4617-43b9-8981-dd90562fba9d}">
+		<property name="assetPath">
+			<value>Bomb/bubble_effect_04.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.56141666666666667</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{ab4fe8dc-a88e-4891-aa62-88b0ad097dc4}</destination>
+		</relationship>
+	</object>
+</objects>

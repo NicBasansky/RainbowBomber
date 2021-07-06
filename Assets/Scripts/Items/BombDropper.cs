@@ -32,6 +32,7 @@ namespace Bomber.Items
                     bomb.SetActive(true);
                     bomb.transform.position = transform.position + new Vector3(placementOffsetX, placementOffsetY, placementOffsetZ);//spawnPosition.transform.position;
                     bomb.GetComponent<Bomb>().SetupBomb(GetExplosionRadius(), damagePerBomb);
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Bomb/DropBomb", transform.position);
                 }
                 timeSinceLastDroppedBomb = 0;
             }

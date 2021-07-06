@@ -45,7 +45,7 @@ namespace Neon2.SlimeSystem
 
             fsm = new FSM();
 
-            slimeAnimatorController.Init(slimeController.slimeAudioController);
+            //slimeAnimatorController.Init(slimeController.slimeAudioController);
 
             this.slimeVisual.Init();
             this.slimeVisual.UpdatePropertyBlock();
