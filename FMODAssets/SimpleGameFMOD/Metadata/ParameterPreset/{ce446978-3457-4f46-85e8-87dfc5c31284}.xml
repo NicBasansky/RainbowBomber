@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="ParameterPreset" id="{ce446978-3457-4f46-85e8-87dfc5c31284}">
+		<property name="name">
+			<value>PitchShiftOnKey</value>
+		</property>
+		<relationship name="folder">
+			<destination>{c1579297-7122-49d7-976d-00365193c1e6}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{ee6055f3-efd9-49d5-8934-87b0f3ae6fe5}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{ee6055f3-efd9-49d5-8934-87b0f3ae6fe5}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

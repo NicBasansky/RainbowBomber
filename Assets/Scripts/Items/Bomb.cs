@@ -47,6 +47,7 @@ namespace Bomber.Items
         {
             StopCoroutine(RunBombSequence());
 
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Bomb/BombExplosion", transform.position);
             ActivateExplosionFX();
 
             gameObject.SetActive(false);

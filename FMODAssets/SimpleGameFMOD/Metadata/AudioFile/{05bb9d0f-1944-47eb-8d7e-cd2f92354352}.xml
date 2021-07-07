@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.01.00">
-	<object class="AudioFile" id="{d9585560-bc65-47cd-9072-3ff6160340e8}">
+	<object class="AudioFile" id="{05bb9d0f-1944-47eb-8d7e-cd2f92354352}">
 		<property name="assetPath">
-			<value>EnemyLaunching/fart_squirt_03.wav</value>
+			<value>OnHitEmotes/voice_fun_small_character_emote_scared_02.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>48</value>
@@ -11,7 +11,7 @@
 			<value>2</value>
 		</property>
 		<property name="length">
-			<value>0.69999999999999996</value>
+			<value>0.72014583333333337</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{ab4fe8dc-a88e-4891-aa62-88b0ad097dc4}</destination>

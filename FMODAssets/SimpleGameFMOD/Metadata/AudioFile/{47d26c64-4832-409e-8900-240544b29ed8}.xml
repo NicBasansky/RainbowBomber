@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{47d26c64-4832-409e-8900-240544b29ed8}">
+		<property name="assetPath">
+			<value>Pickups/collect_coin_03_3st.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.70530612244897961</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{ab4fe8dc-a88e-4891-aa62-88b0ad097dc4}</destination>
+		</relationship>
+	</object>
+</objects>

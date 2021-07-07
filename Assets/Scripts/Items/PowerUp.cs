@@ -10,5 +10,8 @@ namespace Bomber.Items
         public float speedMultiplier = 1;
         public float duration = 0.0f;
         public float blastRadiusMultiplier = 1f;
+        public string pickupSoundFMODPath = "";
+        
+        
     }
 }

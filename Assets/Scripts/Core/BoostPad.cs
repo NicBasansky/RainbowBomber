@@ -14,6 +14,8 @@ namespace Bomber.Core
             if (other.gameObject.tag == "Player")
             {
                 other.GetComponent<PlayerController>().BoostForwardSpeed(transform.forward, speedBoost);
+
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Environmental/ZoomPad", transform.position);
             }
 
         }

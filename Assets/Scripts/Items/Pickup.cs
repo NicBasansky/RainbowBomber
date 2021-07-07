@@ -51,6 +51,15 @@ namespace Bomber.Items
                     if (isCoin)
                     {
                         scoreHUD.IncrementCoinCount();
+                        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Pickups/CoinPickup", transform.position);
+                    }
+                    else
+                    {
+                        if (powerUpDetails.pickupSoundFMODPath != string.Empty)
+                        {
+                            FMODUnity.RuntimeManager.PlayOneShot(powerUpDetails.pickupSoundFMODPath,        transform.position);
+
+                        }
                     }
                 }
 

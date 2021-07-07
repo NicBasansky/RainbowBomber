@@ -23,6 +23,7 @@ namespace Bomber.Control
         [SerializeField] float attackCooldown = 3.5f;
         [SerializeField] float rotSpeed = 1f;
         [SerializeField] float fleeDistance = 11f;
+        GameObject groundObject;
         public LayerMask whatIsGround;
 
         [Header("Knockback")]
@@ -37,6 +38,7 @@ namespace Bomber.Control
         float maxTimeOnCurrentPath = 0;
         bool isDead = false;
         bool hasAttacked = false;
+        bool beenHit = false;
 
         BombDropper bombDropper = null;
         GameObject target;
@@ -53,6 +55,7 @@ namespace Bomber.Control
             rb = GetComponent<Rigidbody>();
             target = GameObject.FindWithTag("Player");
             faceChanger = GetComponent<EnemyFaceChanger>();
+            groundObject = GameObject.FindGameObjectWithTag("whatIsGround");
         }
 
         private void OnEnable()
@@ -63,6 +66,29 @@ namespace Bomber.Control
         private void OnDisable()
         {
             GetComponent<Health>().onDeath += OnDeath;
+        }
+
+        private void Update()
+        {
+            if (beenHit)
+            {
+                HitRecovery();
+            }
+        }
+
+        private void HitRecovery()
+        {
+            if (Vector3.Distance(transform.position, new Vector3(transform.position.x, groundObject.transform.position.y, transform.position.z)) < 1f)
+            {
+
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/EnemyLaunching/EnemyLand", transform.position);
+
+                if (!isDead)
+                {
+                    EnableComponents(true);
+                }
+                beenHit = false;
+            }
         }
 
         void LateUpdate()
@@ -274,12 +300,18 @@ namespace Bomber.Control
 
             rb.AddExplosionForce(explosionForce, sourcePosition, radius, knockbackUpwardsModifier);
 
-            yield return new WaitForSeconds(knockbackParalisisSeconds); // TODO could be the cause of future problems
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/EnemyLaunching/EnemyLaunch", transform.position);
+
+            beenHit = true;
+
+            yield return true;
+
+            /*yield return new WaitForSeconds(knockbackParalisisSeconds); // TODO could be the cause of future problems
 
             if (!isDead)
             {
                 EnableComponents(true);
-            }
+            }*/
         }
 
         private void EnableComponents(bool isEnabled)

@@ -534,10 +534,10 @@ MonoBehaviour:
   m_Name: FMODStudioSettings
   m_EditorClassIdentifier: 
   SwitchSettingsMigration: 1
-  HasSourceProject: 1
-  HasPlatforms: 1
+  HasSourceProject: 0
+  HasPlatforms: 0
   sourceProjectPath: FMODAssets/SimpleGame_Audio/SimpleGame_Audio.fspro
-  sourceBankPath: FMODAssets/SimpleGame_Audio/Build
+  sourceBankPath: FMODAssets/SimpleGameFMOD/Build/Desktop
   SourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1

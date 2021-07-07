@@ -73,11 +73,13 @@ namespace Bomber.Core
             if (deathFX != null)
             {
                 Instantiate(deathFX, transform.position, Quaternion.identity);
+                
             }
             
             if (isPlayer)
             {
                 BodyVisible(false);
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/DeathSizzle", transform.position);
             }
             else // if enemy only
             {
