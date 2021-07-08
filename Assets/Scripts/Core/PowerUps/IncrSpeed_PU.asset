@@ -17,3 +17,4 @@ MonoBehaviour:
   speedMultiplier: 1.5
   duration: 5
   blastRadiusMultiplier: 1
+  pickupSoundFMODPath: event:/SFX/Pickups/ZoomPickup
