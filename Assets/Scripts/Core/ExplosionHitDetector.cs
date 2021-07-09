@@ -11,17 +11,21 @@ namespace Bomber.Core
     {
         [SerializeField] Transform baseTransform = null;
         [SerializeField] float colliderOverlapTime = 0.2f;
+        [SerializeField] AutoScaler ringScaler;
         float explosionRadius = 0f;
         float explosionForce = 0f;
         Bomb instigatorBomb = null;
         float timeSinceEnabled = Mathf.Infinity;
         bool isDisabled = false;
 
-        public void SetupExplosion(float force, float radius)
+        public void SetupExplosion(float force, float radius, BombExplosionLevel bombLevel)
         {
             explosionForce = force;
             explosionRadius = radius;
+
+            SetupRingExplosion(bombLevel);
             SetupSphereCollider();
+
 
             timeSinceEnabled = 0;
             isDisabled = false;
@@ -32,6 +36,29 @@ namespace Bomber.Core
             var sphere = GetComponent<SphereCollider>();
             sphere.radius = explosionRadius;
             sphere.enabled = true;
+        }
+
+        private void SetupRingExplosion(BombExplosionLevel bombLevel)
+        {
+            switch (bombLevel)
+            {
+                case BombExplosionLevel.Base:
+                    ringScaler.gameObject.SetActive(false);
+                    break;
+                case BombExplosionLevel.RingMin:
+                    ringScaler.gameObject.SetActive(true);
+                    ringScaler.SetParams(new Vector3(2, 1, 2), 0.1f, 3);
+                    break;
+                case BombExplosionLevel.RingMid:
+                    ringScaler.gameObject.SetActive(true);
+                    ringScaler.SetParams(new Vector3(4, 1, 4), 0.4f, 5);
+                    break;
+                case BombExplosionLevel.RingMax:
+                    ringScaler.gameObject.SetActive(true);
+                    ringScaler.SetParams(new Vector3(10, 1, 10), 0.3f, 15);
+                    break;
+            
+            }
         }
 
         private void Update()

@@ -19,6 +19,7 @@ namespace Bomber.Items
 
         float damage = 0;
         float explosionRadius = 0f;
+        BombExplosionLevel bombLevel;
 
 
         private void OnEnable()
@@ -26,11 +27,12 @@ namespace Bomber.Items
             StartCoroutine(RunBombSequence());
         }
 
-        public void SetupBomb(float radius, float damage)
+        public void SetupBomb(float radius, float damage, BombExplosionLevel bombLevel)
         {
             explosionRadius = radius;
 
             this.damage = damage;
+            this.bombLevel = bombLevel;
         }
 
         IEnumerator RunBombSequence() // todo rework explosion scalar
@@ -47,7 +49,6 @@ namespace Bomber.Items
         {
             StopCoroutine(RunBombSequence());
 
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Bomb/BombExplosion", transform.position);
             ActivateExplosionFX();
 
             gameObject.SetActive(false);
@@ -58,7 +59,9 @@ namespace Bomber.Items
             GameObject fx = Pool.singleton.Get("BombFX");
             if (fx != null)
             {
-                fx.GetComponent<ExplosionHitDetector>().SetupExplosion(explosionForce, explosionRadius);
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Bomb/BombExplosion", transform.position);
+
+                fx.GetComponent<ExplosionHitDetector>().SetupExplosion(explosionForce, explosionRadius, bombLevel);
                 fx.transform.position = transform.position;
                 fx.SetActive(true);
             }

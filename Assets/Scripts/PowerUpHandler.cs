@@ -34,6 +34,9 @@ namespace Bomber.Items
                 case PowerUpType.SpeedBuff:
                     SpeedBuffPowerUp();
                     break;
+                case PowerUpType.BlastRadius:
+                    IncreaseBlastRadius();
+                    break;
                 default:
                     break;
             }           
@@ -46,6 +49,12 @@ namespace Bomber.Items
                 StopCoroutine(speedBoostCoroutine);
             }
             speedBoostCoroutine = StartCoroutine(TempSpeedBoost(currentPowerUp.speedMultiplier));
+        }
+
+        private void IncreaseBlastRadius()
+        {
+            //BombDropper bombDropper = GetComponent<BombDropper>();
+            //bombDropper.
         }
 
         private IEnumerator TempSpeedBoost(float multiplier)
