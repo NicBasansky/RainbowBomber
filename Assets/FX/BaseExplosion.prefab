@@ -368,7 +368,7 @@ GameObject:
   - component: {fileID: 7840394619103551522}
   - component: {fileID: 3340315021466913315}
   - component: {fileID: 5462368811111984102}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: BaseExplosion
   m_TagString: BombFX
   m_Icon: {fileID: 0}
@@ -1109,6 +1109,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387557181455958249, guid: 9c7b2a0ecc6db774faaea7b5d3986871,
+        type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387557181455958249, guid: 9c7b2a0ecc6db774faaea7b5d3986871,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 8972554483522250800, guid: 9c7b2a0ecc6db774faaea7b5d3986871,
         type: 3}

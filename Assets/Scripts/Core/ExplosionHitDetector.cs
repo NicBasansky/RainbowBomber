@@ -46,16 +46,16 @@ namespace Bomber.Core
                     ringScaler.gameObject.SetActive(false);
                     break;
                 case BombExplosionLevel.RingMin:
-                    ringScaler.gameObject.SetActive(true);
                     ringScaler.SetParams(new Vector3(2, 1, 2), 0.1f, 3);
+                    ringScaler.gameObject.SetActive(true);
                     break;
                 case BombExplosionLevel.RingMid:
-                    ringScaler.gameObject.SetActive(true);
                     ringScaler.SetParams(new Vector3(4, 1, 4), 0.4f, 5);
+                    ringScaler.gameObject.SetActive(true);
                     break;
                 case BombExplosionLevel.RingMax:
-                    ringScaler.gameObject.SetActive(true);
                     ringScaler.SetParams(new Vector3(10, 1, 10), 0.3f, 15);
+                    ringScaler.gameObject.SetActive(true);
                     break;
             
             }
@@ -75,6 +75,19 @@ namespace Bomber.Core
         {
             AffectHealthIfExposed(other);
             CheckIfIsBomb(other);
+            CheckIfIsDissolvable(other);
+        }
+
+        private void CheckIfIsDissolvable(Collider other)
+        {
+            if (other.gameObject.tag == "Environment")
+            {
+                Dissolver dissolver = other.GetComponent<Dissolver>();
+                if (dissolver != null)
+                {
+                    dissolver.Dissolve();
+                }
+            }
         }
 
         private bool AffectHealthIfExposed(Collider other)
@@ -84,6 +97,8 @@ namespace Bomber.Core
                 other.GetComponent<Rigidbody>().AddExplosionForce(explosionForce, transform.position, 7f);
                 return true;
             }
+
+
 
             if (other.gameObject.tag == "Slime" || other.gameObject.tag == "Player")
             {

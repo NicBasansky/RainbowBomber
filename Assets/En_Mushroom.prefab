@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 8199019553640259577}
   - component: {fileID: 5568081649071735125}
   - component: {fileID: 7931376312528327804}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,7 +254,7 @@ GameObject:
   - component: {fileID: 1865583992}
   - component: {fileID: 504760763603030053}
   - component: {fileID: 2953381589453304254}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: En_Mushroom
   m_TagString: Slime
   m_Icon: {fileID: 0}
@@ -396,6 +396,10 @@ MonoBehaviour:
   placementOffsetY: 0.5
   placementOffsetZ: -1.7
   initialExplosionRadius: 5
+  maxExplosionRadius: 8.5
+  currentExplosionRadius: 0
+  numPowerupsToMaxBlastRadius: 4
+  bombExplosionLevel: 0
 --- !u!114 &504760763603030053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,7 +441,7 @@ GameObject:
   - component: {fileID: 8814988431866828300}
   - component: {fileID: 8814988431866828302}
   - component: {fileID: 8814988431866828303}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CapsuleBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -522,7 +526,7 @@ GameObject:
   - component: {fileID: 8814988432155313387}
   - component: {fileID: 8814988432155313389}
   - component: {fileID: 8814988432155313386}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Nose
   m_TagString: Untagged
   m_Icon: {fileID: 0}

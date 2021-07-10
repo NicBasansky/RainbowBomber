@@ -17,8 +17,17 @@ public class Dissolver : MonoBehaviour
     {
         meshRenderer = this.GetComponent<MeshRenderer>();
 
-        Dissolve();
+        //Dissolve();
     }
+
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.tag == "BombFX")
+    //    {
+    //        Dissolve();
+    //    }
+    //}
+   
 
     public void Dissolve()
     {

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5586352232639416391}
   - component: {fileID: 6523268922504871327}
   - component: {fileID: 3771427862458449452}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Bomb
   m_TagString: Bomb
   m_Icon: {fileID: 0}
@@ -115,6 +115,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: FX_FuseSparks
       objectReference: {fileID: 0}
+    - target: {fileID: 1303429800363182, guid: d0b03b7d8ba3c3746bc420572dd35ebb, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1550740553195888, guid: d0b03b7d8ba3c3746bc420572dd35ebb, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1782305870657630, guid: d0b03b7d8ba3c3746bc420572dd35ebb, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 4585846784071322, guid: d0b03b7d8ba3c3746bc420572dd35ebb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -184,6 +196,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Fuse
       objectReference: {fileID: 0}
+    - target: {fileID: 5507654888841682716, guid: 6510696db2cf00f459f7afd5b991f7d4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 5511001647416875078, guid: 6510696db2cf00f459f7afd5b991f7d4,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -233,6 +250,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SM_Primitive_Sphere_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 9142386179129764002, guid: 6510696db2cf00f459f7afd5b991f7d4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 9148423837970270956, guid: 6510696db2cf00f459f7afd5b991f7d4,
         type: 3}

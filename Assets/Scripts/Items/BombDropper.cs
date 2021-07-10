@@ -47,9 +47,9 @@ namespace Bomber.Items
                 GameObject bomb = Pool.singleton.Get("Bomb");
                 if (bomb != null)
                 {
-                    bomb.SetActive(true);
                     bomb.transform.position = transform.position + new Vector3(placementOffsetX, placementOffsetY, placementOffsetZ);//spawnPosition.transform.position;
                     bomb.GetComponent<Bomb>().SetupBomb(GetExplosionRadius(), damagePerBomb, bombExplosionLevel);
+                    bomb.SetActive(true);
                     FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Bomb/DropBomb", transform.position);
                 }
                 timeSinceLastDroppedBomb = 0;
@@ -88,11 +88,11 @@ namespace Bomber.Items
             // TODO increase damage
         }
 
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, currentExplosionRadius);
-        }
+        //private void OnDrawGizmos()
+        //{
+        //    Gizmos.color = Color.red;
+        //    Gizmos.DrawWireSphere(transform.position, currentExplosionRadius);
+        //}
 
 
 

@@ -41,6 +41,7 @@ namespace Bomber.Core
 
         public void AffectHealth(float delta)
         {
+            //print("Affect health called on " + name);
             if (!isInvincible)
             {
 

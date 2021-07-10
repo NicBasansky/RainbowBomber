@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 8470082566747028776}
   - component: {fileID: 1865583992}
   - component: {fileID: 6138799097062781336}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -333,6 +333,10 @@ MonoBehaviour:
   placementOffsetY: 2
   placementOffsetZ: 0
   initialExplosionRadius: 5
+  maxExplosionRadius: 8.5
+  currentExplosionRadius: 0
+  numPowerupsToMaxBlastRadius: 4
+  bombExplosionLevel: 0
 --- !u!114 &6138799097062781336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,7 +365,7 @@ GameObject:
   - component: {fileID: 8814988431866828300}
   - component: {fileID: 8814988431866828302}
   - component: {fileID: 8814988431866828303}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -443,7 +447,7 @@ GameObject:
   - component: {fileID: 8814988432155313387}
   - component: {fileID: 8814988432155313389}
   - component: {fileID: 8814988432155313386}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Nose
   m_TagString: Untagged
   m_Icon: {fileID: 0}

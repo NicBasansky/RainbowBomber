@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1080436724}
   - component: {fileID: 8470082566747028776}
   - component: {fileID: 1865583992}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Enemy_Slime_Base
   m_TagString: Slime
   m_Icon: {fileID: 0}
@@ -189,6 +189,10 @@ MonoBehaviour:
   placementOffsetY: 2
   placementOffsetZ: 0
   initialExplosionRadius: 5
+  maxExplosionRadius: 8.5
+  currentExplosionRadius: 0
+  numPowerupsToMaxBlastRadius: 4
+  bombExplosionLevel: 0
 --- !u!1 &8814988431866828301
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,7 +204,7 @@ GameObject:
   - component: {fileID: 8814988431866828300}
   - component: {fileID: 8814988431866828302}
   - component: {fileID: 8814988431866828303}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SlimeBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}

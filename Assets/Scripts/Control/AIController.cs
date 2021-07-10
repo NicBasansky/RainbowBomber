@@ -118,7 +118,8 @@ namespace Bomber.Control
 
         private void MoveToPlayer()
         {
-            anim.SetTrigger("idle");
+            anim.ResetTrigger("idle");
+            anim.SetTrigger("walk");
             if (!agent.isActiveAndEnabled || !agent.isOnNavMesh) return;
 
             agent.isStopped = false;
@@ -144,7 +145,8 @@ namespace Bomber.Control
 
             
             agent.speed = maxSpeed; // to change speeds when patrolling
-            anim.SetTrigger("walk");
+            //anim.ResetTrigger("idle");
+            //anim.SetTrigger("walk");
 
             if (Vector3.Distance(transform.position, target.transform.position) <= stoppingDist)
             {
@@ -175,7 +177,7 @@ namespace Bomber.Control
             if (!agent.isOnNavMesh) return;
 
             rb.freezeRotation = true;
-            anim.ResetTrigger("idle");
+            anim.ResetTrigger("walk");
             anim.SetBool("isAttacking", true);
 
 
@@ -219,38 +221,44 @@ namespace Bomber.Control
 
         private bool SearchWalkPoint()
         {
-            float randomX = Random.Range(-walkPointRange, walkPointRange);
-            float randomZ = Random.Range(-walkPointRange, walkPointRange);
+            int numTries = 30;
+            NavMeshHit hit;
+            Vector3 testLocation;
 
-            walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
-
-            if (Physics.Raycast(walkPoint, -Vector3.up, 2f, whatIsGround))
+            for (int i = 0; i < numTries; i++)
             {
-                // TODO see if this nav mesh testing is necessary, could be good in case they choose a random spot on top of a pillar
-                NavMeshHit hit;
-                Vector3 testLocation;
-                if (NavMesh.SamplePosition(walkPoint, out hit, 2.0f, NavMesh.AllAreas))
+                float randomX = Random.Range(-walkPointRange, walkPointRange);
+                float randomZ = Random.Range(-walkPointRange, walkPointRange);
+
+                walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
+
+                if (Physics.Raycast(walkPoint, -Vector3.up, 2f, whatIsGround))
                 {
-                    testLocation = hit.position;
-
-                    NavMeshPath path = new NavMeshPath();
-                    bool hasPath = NavMesh.CalculatePath(transform.position, testLocation, NavMesh.AllAreas, path);
-
-                    if (!hasPath)
-                        return false;
-
-                    if (path.status != NavMeshPathStatus.PathComplete)
+                    // TODO see if this nav mesh testing is necessary, could be good in case they choose a random spot on top of a pillar
+                    if (NavMesh.SamplePosition(walkPoint, out hit, 2.0f, NavMesh.AllAreas))
                     {
-                        return false;
+                        testLocation = hit.position;
+
+                        NavMeshPath path = new NavMeshPath();
+                        bool hasPath = NavMesh.CalculatePath(transform.position, testLocation, NavMesh.AllAreas, path);
+
+                        if (!hasPath)
+                            continue;
+
+                        if (path.status != NavMeshPathStatus.PathComplete)
+                        {
+                            continue;
+                        }
+
+                        if (GetPathLength(path) > maxNavPathLength)
+                            continue;
+
+                        walkPointSet = true;
+                        return true;
                     }
-
-                    if (GetPathLength(path) > maxNavPathLength)
-                        return false;
-
-                    walkPointSet = true;
-                    return true;
                 }
             }
+            
             return false;
         }
 
@@ -306,12 +314,13 @@ namespace Bomber.Control
 
             yield return true;
 
-            /*yield return new WaitForSeconds(knockbackParalisisSeconds); // TODO could be the cause of future problems
+            yield return new WaitForSeconds(knockbackParalisisSeconds); 
+            // TODO could be the cause of future problems
 
             if (!isDead)
             {
                 EnableComponents(true);
-            }*/
+            }
         }
 
         private void EnableComponents(bool isEnabled)
