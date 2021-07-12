@@ -1,0 +1,6 @@
+tree("Root")
+	while IsHealthLessThan(2)
+		while PlayerIsTooClose
+			sequence
+				TakeCover
+				MoveToDestination

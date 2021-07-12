@@ -33,12 +33,18 @@ namespace Bomber.Items
 
             this.damage = damage;
             this.bombLevel = bombLevel;
+            ActiveBombManager.Instance.Register(this.gameObject);
         }
 
-        IEnumerator RunBombSequence() // todo rework explosion scalar
+        IEnumerator RunBombSequence() 
         {
             StartCoroutine(BombFlash());
+            
+            //Notify neighbour Ai
+            
             yield return new WaitForSeconds(timeToExplode);
+
+            ActiveBombManager.Instance.Unregister(this.gameObject);
 
             ActivateExplosionFX();
 
@@ -50,7 +56,7 @@ namespace Bomber.Items
             StopCoroutine(RunBombSequence());
 
             ActivateExplosionFX();
-
+            ActiveBombManager.Instance.Unregister(this.gameObject);
             gameObject.SetActive(false);
         }
 

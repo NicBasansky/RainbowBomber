@@ -25,24 +25,53 @@ namespace Bomber.Items
         [SerializeField] float currentExplosionRadius = 0;
         [SerializeField] int numPowerupsToMaxBlastRadius = 4;
         [SerializeField] BombExplosionLevel bombExplosionLevel;
+        [SerializeField] int currentNumBombs = 3;
+        [SerializeField] int maxNumBombs = 3;
+        [SerializeField] float secondsToReload = 2f;
+
         float timeSinceLastDroppedBomb = Mathf.Infinity;
+        float timeSinceReload = 0;
         float accumulativeBlastRadiusMultiplier = 1f;
 
         void Start()
         {
             currentExplosionRadius = initialExplosionRadius;
+            currentNumBombs = Mathf.Min(currentNumBombs, maxNumBombs);
+
         }
 
-        void Update() // later, could make it so if the player drops a bomb then all the rest do
+        void Update() 
         {
 
             timeSinceLastDroppedBomb += Time.deltaTime;
+            timeSinceReload += Time.deltaTime;
+
+            if (timeSinceLastDroppedBomb > secondsToReload)
+            {
+                ReloadBomb();
+            }
         }
 
+        private void ReloadBomb() // TODO Hook up UI for num bombs available
+        {
+            
+            if (timeSinceReload > secondsToReload)
+            {
+                currentNumBombs++;
+                currentNumBombs = Mathf.Min(currentNumBombs, maxNumBombs);
+                timeSinceReload = 0;
+
+            }
+        }
+
+        public int GetCurrentNumBombs()
+        {
+            return currentNumBombs;
+        }
 
         public void DropBomb()
         {
-            if (timeSinceLastDroppedBomb > dropDelay)
+            if (timeSinceLastDroppedBomb > dropDelay && currentNumBombs > 0)
             {
                 GameObject bomb = Pool.singleton.Get("Bomb");
                 if (bomb != null)
@@ -51,6 +80,8 @@ namespace Bomber.Items
                     bomb.GetComponent<Bomb>().SetupBomb(GetExplosionRadius(), damagePerBomb, bombExplosionLevel);
                     bomb.SetActive(true);
                     FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Bomb/DropBomb", transform.position);
+
+                    currentNumBombs--;
                 }
                 timeSinceLastDroppedBomb = 0;
             }
