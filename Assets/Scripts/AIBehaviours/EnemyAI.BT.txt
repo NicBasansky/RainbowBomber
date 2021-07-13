@@ -5,43 +5,46 @@ tree("Root")
 
 tree("Patrol")
 	fallback
-		//tree("Flee")
-		tree("FleeFromBombs")
-		fallback
-			tree("Attack")
-			tree("DetectEnemy")
-			tree("HideAndReload")
-			tree("ChaseEnemy")
-			random
-				tree("LookAround")
-				tree("Wander")
+		tree("FleeFromBombs")		
+		tree("Attack")
+		tree("DetectEnemy")
+		tree("HideAndReload")
+		tree("ChaseEnemy")
+		random
+			tree("LookAround")
+			tree("Wander")
 
 tree("Attack")
 	while IsAggro
 		while not IsAmmoLessThan(1)
 			while CanSeePlayer
 				parallel
-					repeat	
+					repeat													
+						sequence
+							TargetPlayer
+							LookAtTarget
+							
+					repeat													
 						fallback
-							tree("FleeFromBombs")
-							sequence
-								TargetPlayer
-								LookAtTarget	
+							while IsInAttackRange
+								sequence
+									Wait(0.5)
+									Attack
+									tree("FleeFromBombs")
+									MoveToDestination
+							//while not IsInAttackRange
+								//Fail	
+								
+									
+								
+							
 
-					repeat				
-						fallback
-							tree("FleeFromBombs")				
-							fallback
-									while IsInAttackRange
-										sequence
-											Wait(0.5)
-											Attack
+tree("PlayerAsDestination")	
+	sequence
+		TargetPlayer
+		//LookAtTarget
+		SetTargetAsDestination
 
-									while not IsInAttackRange					
-										sequence
-											SetTargetAsDestination
-											//MoveToDestination
-				
 
 tree("DetectEnemy")
 	while not IsAggro
@@ -64,19 +67,27 @@ tree("HideAndReload")
 
 tree("ChaseEnemy")
 	while IsAggro
-		fallback
-			while not CanSeePlayer
-				parallel
-					repeat
-						sequence
-							TargetLastSeenPosition
-							SetTargetAsDestination
-							MoveToDestination
+		while not IsFleeingFromBombs
+			while not IsInAttackRange
+				fallback
+					while CanSeePlayer
+						repeat
+							sequence
+								TargetPlayer
+								SetTargetAsDestination
+						
+					while not CanSeePlayer
+						parallel
+							repeat
+								sequence
+									TargetLastSeenPosition
+									SetTargetAsDestination
+									MoveToDestination
 
-					sequence
-						Wait(3.0)
-						Fail
-			tree("SearchAround")
+							sequence
+								Wait(3.0)
+								Fail
+					tree("SearchAround")
 
 tree("SearchAround")
 	//While the enemy is not visible,
@@ -95,14 +106,15 @@ tree("SearchAround")
 		
 		
 tree("FleeFromBombs")
-	fallback
+	//parallel
 		sequence
 			FleeFromBombs
+			//SetTargetAsDestination
 			MoveToDestination		
-		while IsInAttackRange
-			sequence
-				Wait(0.5)
-				Attack
+		//while IsInAttackRange
+			//sequence
+				//Wait(0.5)
+				//Attack
 
 tree("Dead")
 	sequence

@@ -18,9 +18,9 @@ public class ActiveBombManager : Singleton<ActiveBombManager>
 
     public void Unregister(GameObject go)
     {
-        foreach(GameObject b in bombs)
+        foreach (GameObject b in bombs)
         {
-            if ( ReferenceEquals(b, go) )
+            if (ReferenceEquals(b, go))
             {
                 bombs.Remove(b);
                 break;
@@ -28,5 +28,5 @@ public class ActiveBombManager : Singleton<ActiveBombManager>
         }
     }
 
-
+   
 }

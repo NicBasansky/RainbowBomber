@@ -30,7 +30,7 @@ public class BT_AIController : MonoBehaviour, IBombExplosion
     bool aggro = false;
     bool isFleeingFromBombs = false;
     float fleeMultiplier = 10.0f;
-    float bombDetectionDist = 10f;
+    float bombDetectionDist = 3.5f;
     bool beenHit = false;
     bool isDead = false;
 
@@ -47,7 +47,7 @@ public class BT_AIController : MonoBehaviour, IBombExplosion
 
     private void Awake()
     {
-        //player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         bomber = GetComponent<BombDropper>();
         health = GetComponent<Health>();
@@ -90,7 +90,7 @@ public class BT_AIController : MonoBehaviour, IBombExplosion
     public void ApplyKnockback(float explosionForce, Vector3 sourcePosition, float radius)
     {
         EnableComponents(false);
-
+        
         rb.AddExplosionForce(explosionForce, sourcePosition, radius, knockbackUpwardsModifier);
 
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/EnemyLaunching/EnemyLaunch", transform.position);
@@ -111,7 +111,9 @@ public class BT_AIController : MonoBehaviour, IBombExplosion
     private void EnableComponents(bool isEnabled)
     {
         rb.freezeRotation = isEnabled;
+        
         agent.enabled = isEnabled;
+
         //rb.isKinematic = isEnabled;
 
         if (faceChanger != null)
@@ -434,6 +436,36 @@ public class BT_AIController : MonoBehaviour, IBombExplosion
     {
         aggro = false;
         Task.current.Succeed();
+    }
+
+    [Task]
+    private bool BombsNearby()
+    {
+        bool near = false;
+        if (Task.isInspected)
+            Task.current.debugInfo = string.Format("bombsNearby={0}", near);
+
+        var bombs = ActiveBombManager.Instance.GetAllActiveBombs();
+        if (bombs.Count == 0)
+        {
+            return false;      
+        }
+
+        int numBombs = 0;
+        foreach (var b in bombs)
+        {
+            if (Vector3.Distance(transform.position, b.transform.position) > bombDetectionDist + 5.0f)
+                continue;
+
+            numBombs++;
+
+            if (numBombs > 0)
+            {
+                near = true;
+                return true;
+            }
+        }
+        return false;
     }
 
     [Task] // TODO remove
