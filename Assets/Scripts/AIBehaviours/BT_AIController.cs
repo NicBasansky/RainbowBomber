@@ -14,6 +14,7 @@ public class BT_AIController : MonoBehaviour, IBombExplosion
     [SerializeField] float attackDist = 4f;
     [SerializeField] float aggroCoolDownSecs = 3f;
     [SerializeField] float knockbackUpwardsModifier = 3.0f;
+    [SerializeField] GameObject shadowGo;
 
     NavMeshAgent agent;
     public Vector3 destination;
@@ -33,6 +34,8 @@ public class BT_AIController : MonoBehaviour, IBombExplosion
     float bombDetectionDist = 3.5f;
     bool beenHit = false;
     bool isDead = false;
+    float recoveryTimer = Mathf.Infinity;
+    float recoveryDelay = 2.0f;
 
 
     private void OnEnable()
@@ -61,6 +64,7 @@ public class BT_AIController : MonoBehaviour, IBombExplosion
         //TODO appropriate for bomb dropping?
         agent.stoppingDistance = attackDist - 2; // For a little buffer 
 
+        
 
     }
 
@@ -68,27 +72,34 @@ public class BT_AIController : MonoBehaviour, IBombExplosion
     {
         if (beenHit)
         {
+            recoveryTimer += Time.deltaTime;
             HitRecovery();
         }
     }
 
     private void HitRecovery()
     {
-        if (Vector3.Distance(transform.position, new Vector3(transform.position.x, groundObject.transform.position.y, transform.position.z)) < 2f)
+        if (recoveryTimer > recoveryDelay)
         {
-
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/EnemyLaunching/EnemyLand", transform.position);
-
-            if (!isDead)
+            if (Vector3.Distance(transform.position, new Vector3(transform.position.x, groundObject.transform.position.y, transform.position.z)) < 2f)
             {
-                EnableComponents(true);
+
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/EnemyLaunching/EnemyLand", transform.position);
+
+                if (!isDead)
+                {
+                    EnableComponents(true);
+                }
+
+                beenHit = false;
             }
-            beenHit = false;
+
         }
     }
 
     public void ApplyKnockback(float explosionForce, Vector3 sourcePosition, float radius)
     {
+
         EnableComponents(false);
         
         rb.AddExplosionForce(explosionForce, sourcePosition, radius, knockbackUpwardsModifier);
@@ -96,7 +107,7 @@ public class BT_AIController : MonoBehaviour, IBombExplosion
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/EnemyLaunching/EnemyLaunch", transform.position);
 
         beenHit = true;
-
+        recoveryTimer = 0;
         //yield return true;
 
         //yield return new WaitForSeconds(knockbackParalisisSeconds);
@@ -110,11 +121,15 @@ public class BT_AIController : MonoBehaviour, IBombExplosion
 
     private void EnableComponents(bool isEnabled)
     {
+
+        rb.isKinematic = isEnabled;
+        rb.detectCollisions = !isEnabled;
+
         rb.freezeRotation = isEnabled;
-        
+
+        shadowGo.SetActive(isEnabled);
         agent.enabled = isEnabled;
 
-        //rb.isKinematic = isEnabled;
 
         if (faceChanger != null)
         {
@@ -331,7 +346,6 @@ public class BT_AIController : MonoBehaviour, IBombExplosion
         RaycastHit hit;
         bool seeWall = false;
 
-        Debug.DrawRay(transform.position, player.position - transform.position, Color.red);
         if (Physics.Raycast(transform.position, distance, out hit))
         {
             if (hit.collider.gameObject.tag == "Environment")
@@ -346,6 +360,7 @@ public class BT_AIController : MonoBehaviour, IBombExplosion
 
         if (distance.magnitude < visibleRange && !seeWall)
         {
+            Debug.DrawRay(transform.position, player.position - transform.position, Color.red);
             return true;
         }
         else

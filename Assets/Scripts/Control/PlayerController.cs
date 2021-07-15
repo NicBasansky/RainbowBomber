@@ -39,11 +39,15 @@ namespace Bomber.Control
         bool shouldMoveToStart = false;
         bool isJumping = false;
 
+        Vector3 moveVec = Vector3.zero;
+        float horizontal = 0.0f;
+        float vertical = 0.0f;
+
         Rigidbody rb;
         BombDropper bombDropper;
         StartingPad startPad;
-   
-   
+
+
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
@@ -66,7 +70,7 @@ namespace Bomber.Control
             // todo see if this affects things other than the player
             Physics.gravity = new Vector3(0, -gravity, 0);
             startingThrust = thrust;
-            
+
             if (getReadyCanvas != null)
             {
                 StartCoroutine(DisplayGetReadyUI());
@@ -92,29 +96,59 @@ namespace Bomber.Control
             ProcessInputs();
         }
 
+        public void OnMove(InputValue input)
+        {
+            var inputVec = input.Get<Vector2>();
+            moveVec = new Vector3(inputVec.x, 0, inputVec.y);
+            Debug.Log("Horiz: " + inputVec.x + " Vert: " + inputVec.y);
+        }
+
+        public void OnDropBomb()
+        {
+            DropBomb();
+            print("Dropped bomb");
+        }
+
         void ProcessInputs()
         {
             if (isDead || isParalized) return;
 
-            float horizontal = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
-            float vertical = Input.GetAxis("Vertical") * Time.deltaTime * speed;
+
+            //horizontal = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
+            //vertical = Input.GetAxis("Vertical") * Time.deltaTime * speed;
+
+
+            //var gamepad = Gamepad.current;
+            //if (gamepad != null)
+            //{
+            //    if (gamepad.bButton.isPressed)
+            //    {
+            //        DropBomb();
+            //    }
+            //    //horizontal = gamepad.leftStick.ReadValue().x * Time.deltaTime * speed;
+            //    //vertical = gamepad.leftStick.ReadValue().y * Time.deltaTime * speed;
+
+
+
+            //    //if (gamepad.leftStick.)
+            //}
+
+            horizontal = moveVec.x * speed * Time.deltaTime;
+            vertical = moveVec.z * speed * Time.deltaTime;
+            //Debug.Log("Horiz: " + horizontal + " Vert: " + vertical);
 
             rb.AddForce(new Vector3(horizontal, 0, vertical).normalized * thrust);
             rb.AddTorque(new Vector3(vertical, 0, horizontal) * torque);
-            var gamepad = Gamepad.current;
-            if (gamepad != null)
-            {
-                if (gamepad.bButton.isPressed)
-                {
-                    DropBomb();
-                }
-            }
 
             // boost movement
             if (Input.GetKeyDown("space") && !isBoosting) // controller??
             {
                 StartCoroutine(BoostSpeedCoroutine(new Vector3(horizontal, 0, vertical).normalized, boostThrust));
             }
+
+            
+
+            //Debug.Log("rHoriz: " + rHoriz + " rVert: " + rVert);
         }
 
         public void BoostForwardSpeed(Vector3 boostDirection, float boostAmount)

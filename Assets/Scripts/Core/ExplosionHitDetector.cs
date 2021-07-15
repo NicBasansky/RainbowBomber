@@ -122,11 +122,16 @@ namespace Bomber.Core
                             health.AffectHealth(1f);
                         }
 
-                        IBombExplosion bombExplosion = health.GetComponent<IBombExplosion>(); // if there are multiple components affected by the explosion then change it here
-                        if (bombExplosion != null)
+                        IBombExplosion[] bombReactors = health.GetComponents<IBombExplosion>(); // if there are multiple components affected by the explosion then change it here
+                        if (bombReactors != null && bombReactors.Length > 0)
                         {
-                            bombExplosion.AffectByExplosion(explosionForce, gameObject.transform.position, 7.0f);
+                            foreach(IBombExplosion b in bombReactors)
+                            {
+                                b.AffectByExplosion(explosionForce, transform.position, 7.0f);
+
+                            }
                         }
+
                         return true;
                     }
                 }

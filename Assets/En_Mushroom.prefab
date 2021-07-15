@@ -453,6 +453,7 @@ MonoBehaviour:
   attackDist: 4
   aggroCoolDownSecs: 3
   knockbackUpwardsModifier: 3
+  shadowGo: {fileID: 3541870763542817200}
   destination: {x: 0, y: 0, z: 0}
 --- !u!114 &5075127158674040512
 MonoBehaviour:

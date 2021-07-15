@@ -55,7 +55,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   thrust: 105
-  torque: 100
+  torque: 10
   gravity: 20
   boostThrust: 4000
   boostDuration: 2
@@ -134,6 +134,13 @@ MonoBehaviour:
   placementOffsetY: 1
   placementOffsetZ: 0
   initialExplosionRadius: 5
+  maxExplosionRadius: 8.5
+  currentExplosionRadius: 0
+  numPowerupsToMaxBlastRadius: 4
+  bombExplosionLevel: 0
+  currentNumBombs: 3
+  maxNumBombs: 3
+  secondsToReload: 2
 --- !u!96 &7942258322549159095
 TrailRenderer:
   serializedVersion: 2
