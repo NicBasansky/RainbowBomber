@@ -49,6 +49,22 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""AirTarget"",
+                    ""type"": ""Button"",
+                    ""id"": ""c3d5c98d-97d2-40ba-8f5c-7093cad9d7a9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)""
+                },
+                {
+                    ""name"": ""MoveRightStick"",
+                    ""type"": ""Value"",
+                    ""id"": ""044611b6-26b9-4880-bae9-f9072752d18f"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -58,7 +74,7 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/start"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -69,7 +85,7 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -91,7 +107,7 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/leftStick/up"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -102,7 +118,7 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/leftStick/down"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -113,7 +129,7 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/leftStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -124,7 +140,7 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/leftStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -146,7 +162,7 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
+                    ""groups"": """",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -157,7 +173,7 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
+                    ""groups"": """",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -168,7 +184,7 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
+                    ""groups"": """",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -179,7 +195,7 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
+                    ""groups"": """",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -201,7 +217,7 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/upArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
+                    ""groups"": """",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -212,7 +228,7 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/downArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
+                    ""groups"": """",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -223,7 +239,7 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
+                    ""groups"": """",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -234,7 +250,7 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
+                    ""groups"": """",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -243,9 +259,9 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""8ef7d3e1-aee9-407a-8504-5c1c8fbce5b9"",
                     ""path"": ""<Keyboard>/b"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
+                    ""groups"": """",
                     ""action"": ""DropBomb"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -254,12 +270,89 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""5d49a2ad-c67c-481d-bb51-be4aa14eec02"",
                     ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""DropBomb"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""550f8858-8661-4725-ac5b-681d070f6713"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AirTarget"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b77fbff7-fe47-4721-9b7f-d7e67a78f58e"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AirTarget"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""8cf83ff5-7972-4af3-99c9-76705af661ae"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveRightStick"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""9e7f2b46-aa1c-4aef-b3de-6ffc72b33e06"",
+                    ""path"": ""<Gamepad>/rightStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveRightStick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""cb51cc48-846a-480b-b5ae-1f3f6f0c5d8d"",
+                    ""path"": ""<Gamepad>/rightStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveRightStick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""1badd73c-6083-4955-96e2-d65fd8deb9cc"",
+                    ""path"": ""<Gamepad>/rightStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveRightStick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""94ab31ac-819a-4e6d-bfb2-a6e1717d7b02"",
+                    ""path"": ""<Gamepad>/rightStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveRightStick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -300,6 +393,8 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_DropBomb = m_Player.FindAction("DropBomb", throwIfNotFound: true);
+        m_Player_AirTarget = m_Player.FindAction("AirTarget", throwIfNotFound: true);
+        m_Player_MoveRightStick = m_Player.FindAction("MoveRightStick", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -353,6 +448,8 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_DropBomb;
+    private readonly InputAction m_Player_AirTarget;
+    private readonly InputAction m_Player_MoveRightStick;
     public struct PlayerActions
     {
         private @MasterInputControls m_Wrapper;
@@ -361,6 +458,8 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @DropBomb => m_Wrapper.m_Player_DropBomb;
+        public InputAction @AirTarget => m_Wrapper.m_Player_AirTarget;
+        public InputAction @MoveRightStick => m_Wrapper.m_Player_MoveRightStick;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -382,6 +481,12 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
                 @DropBomb.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDropBomb;
                 @DropBomb.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDropBomb;
                 @DropBomb.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDropBomb;
+                @AirTarget.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAirTarget;
+                @AirTarget.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAirTarget;
+                @AirTarget.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAirTarget;
+                @MoveRightStick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveRightStick;
+                @MoveRightStick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveRightStick;
+                @MoveRightStick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveRightStick;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -398,6 +503,12 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
                 @DropBomb.started += instance.OnDropBomb;
                 @DropBomb.performed += instance.OnDropBomb;
                 @DropBomb.canceled += instance.OnDropBomb;
+                @AirTarget.started += instance.OnAirTarget;
+                @AirTarget.performed += instance.OnAirTarget;
+                @AirTarget.canceled += instance.OnAirTarget;
+                @MoveRightStick.started += instance.OnMoveRightStick;
+                @MoveRightStick.performed += instance.OnMoveRightStick;
+                @MoveRightStick.canceled += instance.OnMoveRightStick;
             }
         }
     }
@@ -426,5 +537,7 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
         void OnDropBomb(InputAction.CallbackContext context);
+        void OnAirTarget(InputAction.CallbackContext context);
+        void OnMoveRightStick(InputAction.CallbackContext context);
     }
 }

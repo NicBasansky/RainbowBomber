@@ -17,6 +17,13 @@ namespace Bomber.Control
         [SerializeField] float boostThrust = 700f;
         [SerializeField] float boostDuration = 2.0f;
         [SerializeField] HealthHUD healthHUD = null;
+        [SerializeField] SphereCollider sphere = null;
+        [SerializeField] PauseHandler pauseHandler;
+        [SerializeField] TimeManager timeManager;
+        [SerializeField] GameObject mainCamera;
+        [SerializeField] GameObject aimCamera;
+        [SerializeField] Transform aimLookTransform;
+
 
         [Header("Knockback")]
         [SerializeField] float explosionForceMulitiplier = 1f;
@@ -37,11 +44,19 @@ namespace Bomber.Control
         bool isHitByPhysics = false;
         bool isParalized = false;
         bool shouldMoveToStart = false;
-        bool isJumping = false;
+        //bool isJumping = false;
+        bool allowRightStickMovement = false;
+        bool isAiming = false;
+        bool aimInputCalled = false;
+        bool isReleasingAim = false;
+        float minHeightToAim = 5.0f;
+        GameObject ground;
 
         Vector3 moveVec = Vector3.zero;
         float horizontal = 0.0f;
         float vertical = 0.0f;
+        Vector3 rightStickVec = Vector3.zero;
+        float aimRotPower = 5.0f;
 
         Rigidbody rb;
         BombDropper bombDropper;
@@ -53,6 +68,7 @@ namespace Bomber.Control
             rb = GetComponent<Rigidbody>();
             bombDropper = GetComponent<BombDropper>();
             startPad = FindObjectOfType<StartingPad>();
+            ground = GameObject.FindGameObjectWithTag("whatIsGround");
         }
 
         private void OnEnable()
@@ -67,6 +83,8 @@ namespace Bomber.Control
 
         void Start()
         {
+           
+
             // todo see if this affects things other than the player
             Physics.gravity = new Vector3(0, -gravity, 0);
             startingThrust = thrust;
@@ -80,6 +98,7 @@ namespace Bomber.Control
 
         private void Update()
         {
+
             if (Input.GetKeyDown(KeyCode.B) && !isParalized)
             {
                 DropBomb();
@@ -89,6 +108,17 @@ namespace Bomber.Control
             {
                 MoveTowardsStartingPad();
             }
+
+            if (aimInputCalled)
+            {
+                AimWhileInAir();
+        
+            }
+            if (isReleasingAim)
+            {
+                ReleaseAirAim();
+            }
+            //print("TimeScale: " + Time.timeScale);
         }
 
         void FixedUpdate()
@@ -96,49 +126,84 @@ namespace Bomber.Control
             ProcessInputs();
         }
 
+        // Input message
         public void OnMove(InputValue input)
         {
             var inputVec = input.Get<Vector2>();
             moveVec = new Vector3(inputVec.x, 0, inputVec.y);
-            Debug.Log("Horiz: " + inputVec.x + " Vert: " + inputVec.y);
+ 
         }
 
+        public void OnMoveRightStick(InputValue input)
+        {
+            var inputVec = input.Get<Vector2>();
+            rightStickVec = new Vector3(inputVec.x, 0, inputVec.y);
+            
+        }
+
+        // Input message
         public void OnDropBomb()
         {
             DropBomb();
-            print("Dropped bomb");
+            
         }
+
+        public void OnPause()
+        {
+            pauseHandler.Pause();
+        }
+
+        // Input message
+        public void OnAirTarget()
+        {
+            print("AimWhileInAir called"); 
+            if (!aimInputCalled)
+            {
+                aimInputCalled = true;
+                isReleasingAim = false;
+                
+            }
+            else
+            {
+                aimInputCalled = false;
+                isReleasingAim = true;
+            }
+            
+            
+        }
+
 
         void ProcessInputs()
         {
             if (isDead || isParalized) return;
 
-
-            //horizontal = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
-            //vertical = Input.GetAxis("Vertical") * Time.deltaTime * speed;
-
-
-            //var gamepad = Gamepad.current;
-            //if (gamepad != null)
-            //{
-            //    if (gamepad.bButton.isPressed)
-            //    {
-            //        DropBomb();
-            //    }
-            //    //horizontal = gamepad.leftStick.ReadValue().x * Time.deltaTime * speed;
-            //    //vertical = gamepad.leftStick.ReadValue().y * Time.deltaTime * speed;
-
-
-
-            //    //if (gamepad.leftStick.)
-            //}
-
             horizontal = moveVec.x * speed * Time.deltaTime;
             vertical = moveVec.z * speed * Time.deltaTime;
-            //Debug.Log("Horiz: " + horizontal + " Vert: " + vertical);
 
             rb.AddForce(new Vector3(horizontal, 0, vertical).normalized * thrust);
             rb.AddTorque(new Vector3(vertical, 0, horizontal) * torque);
+
+            //if (allowRightStickMovement)
+            {
+                aimLookTransform.rotation *= Quaternion.AngleAxis(rightStickVec.x * aimRotPower, Vector3.up);
+                aimLookTransform.rotation *= Quaternion.AngleAxis(rightStickVec.z * aimRotPower, Vector3.right);
+            }
+            Vector3 angles = aimLookTransform.transform.localEulerAngles;
+            angles.z = 0;
+            // clamp the rotation
+            var angle = aimLookTransform.transform.localEulerAngles.x;
+            //angle = Mathf.Clamp(angle, 0, 40);
+            //if (angle < 0)
+            //{
+            //    angles.x = 0; 
+            //}
+            //if (angle > 40)
+            //{
+            //    angles.x = 40;
+            //}
+           // if (angle > 180 && angle < 340)
+
+            aimLookTransform.localEulerAngles = angles;
 
             // boost movement
             if (Input.GetKeyDown("space") && !isBoosting) // controller??
@@ -146,9 +211,53 @@ namespace Bomber.Control
                 StartCoroutine(BoostSpeedCoroutine(new Vector3(horizontal, 0, vertical).normalized, boostThrust));
             }
 
-            
+        }
 
-            //Debug.Log("rHoriz: " + rHoriz + " rVert: " + rVert);
+        
+        // TODO is this called in an update somewhere?? maybe should only be called once in the pressed event callback
+        private void AimWhileInAir()
+        {
+            // if not grounded and a certain height off the ground
+            if (!isAiming && !IsGrounded() && (transform.position.y - ground.transform.position.y) > minHeightToAim)
+            {
+                isAiming = true;
+                allowRightStickMovement = true;
+                timeManager.BulletTime();
+               
+            }
+            else
+                ReleaseAirAim();
+
+
+            // adjust camera
+
+            mainCamera.SetActive(false);
+            aimCamera.SetActive(true);
+            // start a coroutine to show the reticle a little after the cam has had a chance to blend
+
+            // make a target reticle appear
+            // move the reticle with right stick
+            // if Right Trigger then 
+            // launch player towards reticle
+
+            // once makes contact with anything, make a big explosion
+
+
+
+        }
+
+        private void ReleaseAirAim()
+        {
+            isAiming = false;
+            allowRightStickMovement = false;
+            mainCamera.SetActive(true);
+            aimCamera.SetActive(false);
+            aimLookTransform.rotation = Quaternion.identity;
+
+            // start a coroutine to show the reticle a little after the cam has had a chance to blend
+            timeManager.ReleaseBulletTime();
+           
+
         }
 
         public void BoostForwardSpeed(Vector3 boostDirection, float boostAmount)
@@ -201,7 +310,8 @@ namespace Bomber.Control
             yield return new WaitForSeconds(deathWitnessDelay);
 
             shouldMoveToStart = true;
-            GetComponent<SphereCollider>().enabled = false;
+            sphere.enabled = false;
+            //GetComponent<SphereCollider>().enabled = false;
 
             if (healthHUD != null)
             {
@@ -227,7 +337,7 @@ namespace Bomber.Control
             transform.position += direction * restartSpeed * Time.deltaTime;
             if (Vector3.Distance(transform.position, startPad.transform.position) <= acceptanceDistToStart)
             {
-                GetComponent<SphereCollider>().enabled = true;
+                sphere.enabled = true;
                 transform.position = startPad.transform.position;
                 rb.isKinematic = false;
                 shouldMoveToStart = false;
@@ -259,6 +369,17 @@ namespace Bomber.Control
             {
                 healthHUD.ReduceHealthUI();
             }
+        }
+
+        private bool IsGrounded()
+        {
+            if (Physics.Raycast(transform.position, -Vector3.up, 1.5f, LayerMask.NameToLayer("whatIsGround")))
+            {
+                //Debug.DrawRay(transform.position, -Vector3.up, Color.red);
+                return true;
+            }
+            else
+                return false;
         }
     }
 }

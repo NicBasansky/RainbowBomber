@@ -11,21 +11,31 @@ namespace Bomber.UI
         MasterInputControls controls;
         bool isPaused = false;
 
-        private void Awake()
-        {
-            controls = new MasterInputControls();
+        //private void OnEnable()
+        //{
+        //    controls.Enable();
+        //}
 
-            // The syntax is wierd here. context is var that can be named anything and holds context information
-            // that we don't need but still have to write it. 
-            controls.Player.Pause.performed += context => Pause();
-        }
+        //private void OnDisable()
+        //{
+        //    controls.Disable();
+        //}
+
+        //private void Awake()
+        //{
+        //    controls = new MasterInputControls();
+
+        //    // The syntax is wierd here. context is var that can be named anything and holds context information
+        //    // that we don't need but still have to write it. 
+        //    controls.Player.Pause.performed += context => Pause();
+        //}
 
         private void Start()
         {
             pauseMenu.gameObject.SetActive(false);
         }
 
-        void Pause()
+        public void Pause()
         {
             isPaused = !isPaused;
             
@@ -43,15 +53,7 @@ namespace Bomber.UI
 
         }
 
-        private void OnEnable()
-        {
-            controls.Enable();
-        }
-
-        private void OnDisable()
-        {
-            controls.Disable();
-        }
+        
     }
 
 }

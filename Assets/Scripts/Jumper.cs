@@ -45,7 +45,7 @@ namespace Bomber.Jumper
         {
             // set up fx before jumping
             GameObject fx = Instantiate(jumpFX, transform.position, Quaternion.identity);
-
+           
             // if (IsJumpingOnEnemy())
             // {
             //     fx.GetComponent<JumpResponder>().DoubleJump();

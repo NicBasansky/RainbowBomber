@@ -10,14 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1818679884671909238}
   - component: {fileID: 1818679884671909242}
-  - component: {fileID: 1153168073}
-  - component: {fileID: 9213770246314233712}
   - component: {fileID: 3264128626501384078}
   - component: {fileID: 8014716908013607328}
   - component: {fileID: 7942258322549159095}
   - component: {fileID: 3814400411938985405}
   - component: {fileID: 4415246615377098543}
   - component: {fileID: 3215222056334982448}
+  - component: {fileID: 211246341036399336}
+  - component: {fileID: 9079945415374142049}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -60,6 +60,8 @@ MonoBehaviour:
   boostThrust: 4000
   boostDuration: 2
   healthHUD: {fileID: 0}
+  sphere: {fileID: 5846339746969973760}
+  pauseHandler: {fileID: 0}
   explosionForceMulitiplier: 1.5
   knockbackUpwardsModifier: 15
   knockbackParalisisSeconds: 0
@@ -68,35 +70,7 @@ MonoBehaviour:
   acceptanceDistToStart: 1.2
   getReadyCanvas: {fileID: 0}
   getReadyUIDisplaySeconds: 4
---- !u!54 &1153168073
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1818679884671909245}
-  serializedVersion: 2
-  m_Mass: 2
-  m_Drag: 0.5
-  m_AngularDrag: 3
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!135 &9213770246314233712
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1818679884671909245}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  rb: {fileID: 9079945415374142049}
 --- !u!114 &3264128626501384078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,7 +269,7 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: XBoxController
+  m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -315,6 +289,35 @@ MonoBehaviour:
   jumpFX: {fileID: 1597810799027298, guid: 4e247fdc18ae0224c8f93c2aa4a1f3f3, type: 3}
   jumpOnRange: 2
   spherecastRadius: 0.7
+--- !u!135 &211246341036399336
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818679884671909245}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.75
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &9079945415374142049
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818679884671909245}
+  serializedVersion: 2
+  m_Mass: 4
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &4498852869859726532
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,6 +329,7 @@ GameObject:
   - component: {fileID: 9155597992764320969}
   - component: {fileID: 8629365163933161901}
   - component: {fileID: 8604894017831459524}
+  - component: {fileID: 5846339746969973760}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -394,6 +398,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!135 &5846339746969973760
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4498852869859726532}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &7287021904517671895
 PrefabInstance:
   m_ObjectHideFlags: 0
