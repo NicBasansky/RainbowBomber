@@ -24,6 +24,9 @@ namespace Bomber.Control
         [SerializeField] GameObject aimCamera;
         [SerializeField] Transform aimLookTransform;
 
+        [SerializeField] InputActionAsset controls;
+        private InputAction inputAction;
+        
 
         [Header("Knockback")]
         [SerializeField] float explosionForceMulitiplier = 1f;
@@ -56,7 +59,8 @@ namespace Bomber.Control
         float horizontal = 0.0f;
         float vertical = 0.0f;
         Vector3 rightStickVec = Vector3.zero;
-        float aimRotPower = 5.0f;
+        float aimRotPower = 1.5f;
+        Quaternion lookTransformStartingRotation;
 
         Rigidbody rb;
         BombDropper bombDropper;
@@ -69,6 +73,7 @@ namespace Bomber.Control
             bombDropper = GetComponent<BombDropper>();
             startPad = FindObjectOfType<StartingPad>();
             ground = GameObject.FindGameObjectWithTag("whatIsGround");
+
         }
 
         private void OnEnable()
@@ -83,8 +88,8 @@ namespace Bomber.Control
 
         void Start()
         {
-           
 
+            lookTransformStartingRotation = transform.rotation;
             // todo see if this affects things other than the player
             Physics.gravity = new Vector3(0, -gravity, 0);
             startingThrust = thrust;
@@ -109,15 +114,15 @@ namespace Bomber.Control
                 MoveTowardsStartingPad();
             }
 
-            if (aimInputCalled)
-            {
-                AimWhileInAir();
+            //if (aimInputCalled)
+            //{
+            //    AimWhileInAir();
         
-            }
-            if (isReleasingAim)
-            {
-                ReleaseAirAim();
-            }
+            //}
+            //if (isReleasingAim)
+            //{
+            //    ReleaseAirAim();
+            //}
             //print("TimeScale: " + Time.timeScale);
         }
 
@@ -156,20 +161,15 @@ namespace Bomber.Control
         // Input message
         public void OnAirTarget()
         {
-            print("AimWhileInAir called"); 
-            if (!aimInputCalled)
+            aimInputCalled = !aimInputCalled;
+            if (aimInputCalled)
             {
-                aimInputCalled = true;
-                isReleasingAim = false;
-                
+                AimWhileInAir();
             }
             else
-            {
-                aimInputCalled = false;
-                isReleasingAim = true;
-            }
-            
-            
+            {    
+                ReleaseAirAim();
+            }     
         }
 
 
@@ -183,27 +183,13 @@ namespace Bomber.Control
             rb.AddForce(new Vector3(horizontal, 0, vertical).normalized * thrust);
             rb.AddTorque(new Vector3(vertical, 0, horizontal) * torque);
 
-            //if (allowRightStickMovement)
+            if (allowRightStickMovement)
             {
                 aimLookTransform.rotation *= Quaternion.AngleAxis(rightStickVec.x * aimRotPower, Vector3.up);
-                aimLookTransform.rotation *= Quaternion.AngleAxis(rightStickVec.z * aimRotPower, Vector3.right);
+                aimLookTransform.rotation *= Quaternion.AngleAxis(-rightStickVec.z * aimRotPower, Vector3.right);
             }
-            Vector3 angles = aimLookTransform.transform.localEulerAngles;
-            angles.z = 0;
-            // clamp the rotation
-            var angle = aimLookTransform.transform.localEulerAngles.x;
-            //angle = Mathf.Clamp(angle, 0, 40);
-            //if (angle < 0)
-            //{
-            //    angles.x = 0; 
-            //}
-            //if (angle > 40)
-            //{
-            //    angles.x = 40;
-            //}
-           // if (angle > 180 && angle < 340)
 
-            aimLookTransform.localEulerAngles = angles;
+            MoveRightStickCameraWhileAiming();
 
             // boost movement
             if (Input.GetKeyDown("space") && !isBoosting) // controller??
@@ -213,21 +199,49 @@ namespace Bomber.Control
 
         }
 
-        
+        private void MoveRightStickCameraWhileAiming()
+        {
+            Vector3 angles = aimLookTransform.transform.localEulerAngles;
+            angles.z = 0;
+            // clamp the vertical rotation
+            var angle = aimLookTransform.transform.localEulerAngles.x;
+            if (angle < 180 && angle < 35)
+            {
+                angles.x = 35;
+            }
+            else if (angle < 180 && angle > 80)
+            {
+                angles.x = 80;
+            }
+
+            // clamp the horizontal rotation -25 to 25
+            var hAngle = aimLookTransform.transform.localEulerAngles.y;
+            if (hAngle > 25 && hAngle < 180)
+            {
+                angles.y = 25;
+            }
+            else if (hAngle > 180 && hAngle < 335)
+            {
+                angles.y = 335;
+            }
+
+            aimLookTransform.localEulerAngles = angles;
+        }
+
+
         // TODO is this called in an update somewhere?? maybe should only be called once in the pressed event callback
         private void AimWhileInAir()
         {
             // if not grounded and a certain height off the ground
-            if (!isAiming && !IsGrounded() && (transform.position.y - ground.transform.position.y) > minHeightToAim)
+            if (!IsGrounded() && (transform.position.y - ground.transform.position.y) > minHeightToAim)
             {
-                isAiming = true;
+                
                 allowRightStickMovement = true;
                 timeManager.BulletTime();
                
             }
             else
                 ReleaseAirAim();
-
 
             // adjust camera
 
@@ -246,9 +260,10 @@ namespace Bomber.Control
 
         }
 
+        //float releaseRotSpeed = 10.0f;
         private void ReleaseAirAim()
         {
-            isAiming = false;
+            //isAiming = false;
             allowRightStickMovement = false;
             mainCamera.SetActive(true);
             aimCamera.SetActive(false);
