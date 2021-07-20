@@ -101,9 +101,7 @@ namespace Bomber.Core
 
         }
 
-        
-
-        // TODO make AI stop following upon player death
+       
         public void BodyVisible(bool isVisible)
         {
             model.SetActive(isVisible);

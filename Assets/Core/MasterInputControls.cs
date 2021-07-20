@@ -65,6 +65,14 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""AirLaunch"",
+                    ""type"": ""Button"",
+                    ""id"": ""1dd6864f-5979-47d0-ad09-2dcf543152fc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -353,6 +361,17 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
                     ""action"": ""MoveRightStick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""44305334-0435-4e9f-ba1e-1f1e9ed16483"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AirLaunch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -395,6 +414,7 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
         m_Player_DropBomb = m_Player.FindAction("DropBomb", throwIfNotFound: true);
         m_Player_AirTarget = m_Player.FindAction("AirTarget", throwIfNotFound: true);
         m_Player_MoveRightStick = m_Player.FindAction("MoveRightStick", throwIfNotFound: true);
+        m_Player_AirLaunch = m_Player.FindAction("AirLaunch", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -450,6 +470,7 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_DropBomb;
     private readonly InputAction m_Player_AirTarget;
     private readonly InputAction m_Player_MoveRightStick;
+    private readonly InputAction m_Player_AirLaunch;
     public struct PlayerActions
     {
         private @MasterInputControls m_Wrapper;
@@ -460,6 +481,7 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
         public InputAction @DropBomb => m_Wrapper.m_Player_DropBomb;
         public InputAction @AirTarget => m_Wrapper.m_Player_AirTarget;
         public InputAction @MoveRightStick => m_Wrapper.m_Player_MoveRightStick;
+        public InputAction @AirLaunch => m_Wrapper.m_Player_AirLaunch;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -487,6 +509,9 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
                 @MoveRightStick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveRightStick;
                 @MoveRightStick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveRightStick;
                 @MoveRightStick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveRightStick;
+                @AirLaunch.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAirLaunch;
+                @AirLaunch.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAirLaunch;
+                @AirLaunch.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAirLaunch;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -509,6 +534,9 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
                 @MoveRightStick.started += instance.OnMoveRightStick;
                 @MoveRightStick.performed += instance.OnMoveRightStick;
                 @MoveRightStick.canceled += instance.OnMoveRightStick;
+                @AirLaunch.started += instance.OnAirLaunch;
+                @AirLaunch.performed += instance.OnAirLaunch;
+                @AirLaunch.canceled += instance.OnAirLaunch;
             }
         }
     }
@@ -539,5 +567,6 @@ public class @MasterInputControls : IInputActionCollection, IDisposable
         void OnDropBomb(InputAction.CallbackContext context);
         void OnAirTarget(InputAction.CallbackContext context);
         void OnMoveRightStick(InputAction.CallbackContext context);
+        void OnAirLaunch(InputAction.CallbackContext context);
     }
 }

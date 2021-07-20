@@ -62,6 +62,13 @@ MonoBehaviour:
   healthHUD: {fileID: 0}
   sphere: {fileID: 5846339746969973760}
   pauseHandler: {fileID: 0}
+  timeManager: {fileID: 0}
+  mainCamera: {fileID: 0}
+  aimCamera: {fileID: 0}
+  aimLookTransform: {fileID: 0}
+  launchSmashFX: {fileID: 1121192042590650, guid: 4a0acadf62cc3074bb5058503bfbfbd9,
+    type: 3}
+  parentSpawnedFX: {fileID: 0}
   explosionForceMulitiplier: 1.5
   knockbackUpwardsModifier: 15
   knockbackParalisisSeconds: 0
@@ -70,7 +77,12 @@ MonoBehaviour:
   acceptanceDistToStart: 1.2
   getReadyCanvas: {fileID: 0}
   getReadyUIDisplaySeconds: 4
-  rb: {fileID: 9079945415374142049}
+  aimUI: {fileID: 0}
+  isParalized: 0
+  isAiming: 0
+  isLaunching: 0
+  launchDirection: {x: 0, y: 0, z: 0}
+  launchTarget: {x: 0, y: 0, z: 0}
 --- !u!114 &3264128626501384078
 MonoBehaviour:
   m_ObjectHideFlags: 0

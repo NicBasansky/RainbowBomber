@@ -81,18 +81,22 @@ public class BT_AIController : MonoBehaviour, IBombExplosion
     {
         if (recoveryTimer > recoveryDelay)
         {
-            if (Vector3.Distance(transform.position, new Vector3(transform.position.x, groundObject.transform.position.y, transform.position.z)) < 2f)
+            if (Physics.Raycast(transform.position, -transform.up, 150.0f, LayerMask.NameToLayer("whatIsGround"))) // if above the ground
             {
-
-                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/EnemyLaunching/EnemyLand", transform.position);
-
-                if (!isDead)
+                if (Vector3.Distance(transform.position, new Vector3(transform.position.x, groundObject.transform.position.y, transform.position.z)) < 2f)
                 {
-                    EnableComponents(true);
-                }
 
-                beenHit = false;
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/EnemyLaunching/EnemyLand", transform.position);
+
+                    if (!isDead)
+                    {
+                        EnableComponents(true);
+                    }
+
+                    beenHit = false;
+                }
             }
+            
 
         }
     }
@@ -121,9 +125,9 @@ public class BT_AIController : MonoBehaviour, IBombExplosion
 
     private void EnableComponents(bool isEnabled)
     {
-
+        print("enable components called: " + isEnabled);
         rb.isKinematic = isEnabled;
-        rb.detectCollisions = !isEnabled;
+        //rb.detectCollisions = isEnabled; // was inverted before
 
         rb.freezeRotation = isEnabled;
 
@@ -360,7 +364,7 @@ public class BT_AIController : MonoBehaviour, IBombExplosion
 
         if (distance.magnitude < visibleRange && !seeWall)
         {
-            Debug.DrawRay(transform.position, player.position - transform.position, Color.red);
+            //Debug.DrawRay(transform.position, player.position - transform.position, Color.red);
             return true;
         }
         else

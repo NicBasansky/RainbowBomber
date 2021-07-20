@@ -5,6 +5,8 @@ using Bomber.Items;
 using UnityEngine.InputSystem;
 using Bomber.Core;
 using Bomber.UI;
+//using UnityEngine.AI;
+using System;
 
 namespace Bomber.Control
 {
@@ -22,10 +24,10 @@ namespace Bomber.Control
         [SerializeField] TimeManager timeManager;
         [SerializeField] GameObject mainCamera;
         [SerializeField] GameObject aimCamera;
+        [SerializeField] GameObject launchCam;
         [SerializeField] Transform aimLookTransform;
-
-        [SerializeField] InputActionAsset controls;
-        private InputAction inputAction;
+        [SerializeField] GameObject launchSmashFX;
+        [SerializeField] Transform parentSpawnedFX;
         
 
         [Header("Knockback")]
@@ -38,20 +40,25 @@ namespace Bomber.Control
         //[SerializeField] [Range(0, 1f)] float restartLerpSpeed = 0.3f;
         [SerializeField] float restartSpeed = 5.0f;
         [SerializeField] float acceptanceDistToStart = 0.4f;
+
+        [Header("UI")]
         [SerializeField] GameObject getReadyCanvas = null;
         [SerializeField] float getReadyUIDisplaySeconds = 4.0f;
+        const float reticleVisDelay = 0.2f;
+        [SerializeField] AimReticleUI aimUI;
 
         float startingThrust;
         bool isBoosting = false;
         bool isDead = false;
         bool isHitByPhysics = false;
-        bool isParalized = false;
+        public bool isParalized = false; // make private
         bool shouldMoveToStart = false;
         //bool isJumping = false;
         bool allowRightStickMovement = false;
-        bool isAiming = false;
+        public bool isAiming = false;
         bool aimInputCalled = false;
         bool isReleasingAim = false;
+        public bool isLaunching = false;
         float minHeightToAim = 5.0f;
         GameObject ground;
 
@@ -61,6 +68,13 @@ namespace Bomber.Control
         Vector3 rightStickVec = Vector3.zero;
         float aimRotPower = 1.5f;
         Quaternion lookTransformStartingRotation;
+        public Vector3 launchDirection;
+        float launchSpeed = 65.0f;
+        public Vector3 launchTarget;
+        string[] explosionLayerMasks;
+        float launchExplosionRadius = 7.0f;
+        float launchExplosionForce = 2000f; // TODO tune?
+   
 
         Rigidbody rb;
         BombDropper bombDropper;
@@ -99,6 +113,9 @@ namespace Bomber.Control
                 StartCoroutine(DisplayGetReadyUI());
             }
 
+            explosionLayerMasks = new string[2];
+            explosionLayerMasks[0] = "Enemies";
+            explosionLayerMasks[1] = "DestructableEnv";
         }
 
         private void Update()
@@ -114,22 +131,106 @@ namespace Bomber.Control
                 MoveTowardsStartingPad();
             }
 
-            //if (aimInputCalled)
-            //{
-            //    AimWhileInAir();
-        
-            //}
-            //if (isReleasingAim)
-            //{
-            //    ReleaseAirAim();
-            //}
-            //print("TimeScale: " + Time.timeScale);
+            if (isAiming)
+            {
+                DetectEnemyInReticle();
+            }
+            else
+            {
+                aimInputCalled = false; // TODO useful?
+            }
+
+         
+            
         }
 
         void FixedUpdate()
         {
             ProcessInputs();
         }
+
+
+        private void LateUpdate()
+        {
+            if (isLaunching)
+            {
+                if (!IsGrounded() && (transform.position.y - ground.transform.position.y) > 2.0f)
+                {
+
+                    transform.position += launchDirection * launchSpeed * Time.deltaTime;
+
+                }
+                else
+                {
+                    //rb.velocity = Vector3.zero;
+                    rb.isKinematic = false;
+                    isParalized = false;
+                    isLaunching = false;
+                    launchDirection = Vector3.zero;
+                    mainCamera.SetActive(true);
+                    launchCam.SetActive(false);
+                    aimCamera.SetActive(false);
+                    ExplodeFromLaunch();                  
+                }
+
+                if (transform.position.y <= ground.transform.position.y)
+                {
+                    transform.position = new Vector3(transform.position.x,
+                            ground.transform.position.y + 1.5f, transform.position.z);
+                }
+
+            }
+        }
+
+
+        private void DetectEnemyInReticle()
+        {
+            RaycastHit hit;
+            float maxDistance = 100.0f;
+            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            if(Physics.SphereCast(ray, 5.0f, out hit, maxDistance))
+            {
+
+                if (hit.collider.tag == "Slime")               
+                {
+                    print("Detect Enemy's trying to set has target");
+                    aimUI.SetHasTarget(true);
+                }
+                else
+                {
+                    aimUI.SetHasTarget(false);
+                }
+            }
+        }
+
+        
+
+    private void ExplodeFromLaunch()
+    {
+        Collider[] cols = Physics.OverlapSphere(transform.position, launchExplosionRadius); //, LayerMask.GetMask(explosionLayerMasks));
+        foreach (Collider c in cols)
+        {
+            var ai = c.GetComponent<BT_AIController>();
+            if (ai != null)
+            {
+                ai.GetComponent<Health>().AffectHealth(-1);
+                ai.AffectByExplosion(launchExplosionForce,
+                        new Vector3(transform.position.x, ground.transform.position.y, transform.position.z), launchExplosionRadius);// transform.position, launchExplosionRadius);
+                    var smashFx = Instantiate(launchSmashFX, transform.position, Quaternion.identity, parentSpawnedFX);
+                    
+
+                continue;
+            }
+
+            if (c.attachedRigidbody != null && c.attachedRigidbody != rb)
+            {
+                c.attachedRigidbody.AddExplosionForce(launchExplosionForce, transform.position, launchExplosionRadius);
+
+            }
+
+            var smashFX = Instantiate(launchSmashFX, transform.position, Quaternion.identity, parentSpawnedFX);
+        }
+    }
 
         // Input message
         public void OnMove(InputValue input)
@@ -168,8 +269,18 @@ namespace Bomber.Control
             }
             else
             {    
-                ReleaseAirAim();
+                ReleaseAirAim(false);
             }     
+        }
+
+        private void OnAirLaunch()
+        {
+            if (isAiming)
+            {
+                timeManager.ReleaseBulletTime();
+
+                AirLaunch();
+            }
         }
 
 
@@ -228,31 +339,22 @@ namespace Bomber.Control
             aimLookTransform.localEulerAngles = angles;
         }
 
-
-        // TODO is this called in an update somewhere?? maybe should only be called once in the pressed event callback
         private void AimWhileInAir()
         {
             // if not grounded and a certain height off the ground
             if (!IsGrounded() && (transform.position.y - ground.transform.position.y) > minHeightToAim)
             {
-                
+                isAiming = true;
                 allowRightStickMovement = true;
                 timeManager.BulletTime();
+                StartCoroutine(ShowAimReticle());
+
+                aimCamera.SetActive(true);
+                mainCamera.SetActive(false);
                
             }
             else
-                ReleaseAirAim();
-
-            // adjust camera
-
-            mainCamera.SetActive(false);
-            aimCamera.SetActive(true);
-            // start a coroutine to show the reticle a little after the cam has had a chance to blend
-
-            // make a target reticle appear
-            // move the reticle with right stick
-            // if Right Trigger then 
-            // launch player towards reticle
+                ReleaseAirAim(false);
 
             // once makes contact with anything, make a big explosion
 
@@ -261,18 +363,45 @@ namespace Bomber.Control
         }
 
         //float releaseRotSpeed = 10.0f;
-        private void ReleaseAirAim()
+        private void ReleaseAirAim(bool useLaunchCam)
         {
-            //isAiming = false;
+            isAiming = false;
             allowRightStickMovement = false;
-            mainCamera.SetActive(true);
-            aimCamera.SetActive(false);
             aimLookTransform.rotation = Quaternion.identity;
+            aimUI.EnableAimUI(false);
 
-            // start a coroutine to show the reticle a little after the cam has had a chance to blend
             timeManager.ReleaseBulletTime();
            
+            aimCamera.SetActive(false);
+            if (useLaunchCam)
+            {
+                launchCam.SetActive(true);
+            }
+            else
+            {
+                mainCamera.SetActive(true);
+            }
+        }
+      
+        private IEnumerator ShowAimReticle()
+        {
+            yield return new WaitForSeconds(reticleVisDelay);
 
+            aimUI.EnableAimUI(true);       
+        }
+
+        private void AirLaunch()
+        {
+            RaycastHit hit;        
+            if(Physics.Raycast(Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)), out hit, 100.0f, LayerMask.NameToLayer("whatIsGround")))
+            {           
+                launchTarget = hit.point;
+                launchDirection = (launchTarget - transform.position).normalized;
+                rb.isKinematic = true;
+                isParalized = true; // prevent player inputs while launching
+                isLaunching = true;
+                ReleaseAirAim(true);
+            }
         }
 
         public void BoostForwardSpeed(Vector3 boostDirection, float boostAmount)

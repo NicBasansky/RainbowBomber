@@ -52,6 +52,14 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "AirLaunch",
+                    "type": "Button",
+                    "id": "1dd6864f-5979-47d0-ad09-2dcf543152fc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -340,6 +348,17 @@
                     "action": "MoveRightStick",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "44305334-0435-4e9f-ba1e-1f1e9ed16483",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AirLaunch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
