@@ -13,10 +13,10 @@ namespace Bomber.Control
     public class PlayerController : MonoBehaviour, IBombExplosion
     {
         [SerializeField] float speed = 5.0f;
-        [SerializeField] float thrust = 1.0f;
-        [SerializeField] float torque = 100f;
-        [SerializeField] float gravity = 9.82f;
-        [SerializeField] float boostThrust = 700f;
+        [SerializeField] float thrust = 105f;
+        [SerializeField] float torque = 40f;
+        [SerializeField] float gravity = 20f;
+        [SerializeField] float boostThrust = 4000f;
         [SerializeField] float boostDuration = 2.0f;
         [SerializeField] HealthHUD healthHUD = null;
         [SerializeField] SphereCollider sphere = null;
@@ -31,15 +31,14 @@ namespace Bomber.Control
         
 
         [Header("Knockback")]
-        [SerializeField] float explosionForceMulitiplier = 1f;
-        [SerializeField] float knockbackUpwardsModifier = 3.0f;
+        [SerializeField] float explosionForceMulitiplier = 1.5f;
+        [SerializeField] float knockbackUpwardsModifier = 15f;
         [SerializeField] float knockbackParalisisSeconds = 1.5f;
 
         [Header("Restarting after death")]
-        [SerializeField] float deathWitnessDelay = 3.0f;
-        //[SerializeField] [Range(0, 1f)] float restartLerpSpeed = 0.3f;
-        [SerializeField] float restartSpeed = 5.0f;
-        [SerializeField] float acceptanceDistToStart = 0.4f;
+        [SerializeField] float deathWitnessDelay = 2.5f;
+        [SerializeField] float restartSpeed = 30f;
+        [SerializeField] float acceptanceDistToStart = 1.2f;
 
         [Header("UI")]
         [SerializeField] GameObject getReadyCanvas = null;
@@ -51,14 +50,14 @@ namespace Bomber.Control
         bool isBoosting = false;
         bool isDead = false;
         bool isHitByPhysics = false;
-        public bool isParalized = false; // make private
+        bool isParalized = false;
         bool shouldMoveToStart = false;
         //bool isJumping = false;
         bool allowRightStickMovement = false;
-        public bool isAiming = false;
+        bool isAiming = false;
         bool aimInputCalled = false;
         bool isReleasingAim = false;
-        public bool isLaunching = false;
+        bool isLaunching = false;
         float minHeightToAim = 5.0f;
         GameObject ground;
 
@@ -68,10 +67,9 @@ namespace Bomber.Control
         Vector3 rightStickVec = Vector3.zero;
         float aimRotPower = 1.5f;
         Quaternion lookTransformStartingRotation;
-        public Vector3 launchDirection;
+        Vector3 launchDirection;
         float launchSpeed = 65.0f;
-        public Vector3 launchTarget;
-        string[] explosionLayerMasks;
+        Vector3 launchTarget;
         float launchExplosionRadius = 7.0f;
         float launchExplosionForce = 2000f; // TODO tune?
    
@@ -112,10 +110,6 @@ namespace Bomber.Control
             {
                 StartCoroutine(DisplayGetReadyUI());
             }
-
-            explosionLayerMasks = new string[2];
-            explosionLayerMasks[0] = "Enemies";
-            explosionLayerMasks[1] = "DestructableEnv";
         }
 
         private void Update()
@@ -140,8 +134,6 @@ namespace Bomber.Control
                 aimInputCalled = false; // TODO useful?
             }
 
-         
-            
         }
 
         void FixedUpdate()
@@ -154,25 +146,26 @@ namespace Bomber.Control
         {
             if (isLaunching)
             {
-                if (!IsGrounded() && (transform.position.y - ground.transform.position.y) > 2.0f)
+                // if heading toward the ground and far enough away
+                if (!IsGrounded() && (transform.position.y - ground.transform.position.y) > 1.5f)
                 {
-
+                    // move
                     transform.position += launchDirection * launchSpeed * Time.deltaTime;
 
                 }
-                else
+                else // if we are within acceptable distance from ground
                 {
-                    //rb.velocity = Vector3.zero;
                     rb.isKinematic = false;
                     isParalized = false;
                     isLaunching = false;
                     launchDirection = Vector3.zero;
+                    launchCam.SetActive(false);                  
                     mainCamera.SetActive(true);
-                    launchCam.SetActive(false);
-                    aimCamera.SetActive(false);
                     ExplodeFromLaunch();                  
                 }
 
+                // prevent player from falling through the floor while launching
+                // TODO could potentially interfere with the kill zone or launching off the map
                 if (transform.position.y <= ground.transform.position.y)
                 {
                     transform.position = new Vector3(transform.position.x,
@@ -182,7 +175,6 @@ namespace Bomber.Control
             }
         }
 
-
         private void DetectEnemyInReticle()
         {
             RaycastHit hit;
@@ -190,7 +182,6 @@ namespace Bomber.Control
             Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             if(Physics.SphereCast(ray, 5.0f, out hit, maxDistance))
             {
-
                 if (hit.collider.tag == "Slime")               
                 {
                     print("Detect Enemy's trying to set has target");
@@ -207,7 +198,7 @@ namespace Bomber.Control
 
     private void ExplodeFromLaunch()
     {
-        Collider[] cols = Physics.OverlapSphere(transform.position, launchExplosionRadius); //, LayerMask.GetMask(explosionLayerMasks));
+        Collider[] cols = Physics.OverlapSphere(transform.position, launchExplosionRadius);
         foreach (Collider c in cols)
         {
             var ai = c.GetComponent<BT_AIController>();
@@ -216,9 +207,8 @@ namespace Bomber.Control
                 ai.GetComponent<Health>().AffectHealth(-1);
                 ai.AffectByExplosion(launchExplosionForce,
                         new Vector3(transform.position.x, ground.transform.position.y, transform.position.z), launchExplosionRadius);// transform.position, launchExplosionRadius);
-                    var smashFx = Instantiate(launchSmashFX, transform.position, Quaternion.identity, parentSpawnedFX);
-                    
-
+                var smashFx = Instantiate(launchSmashFX, transform.position, Quaternion.identity, parentSpawnedFX);
+             
                 continue;
             }
 
@@ -355,14 +345,8 @@ namespace Bomber.Control
             }
             else
                 ReleaseAirAim(false);
-
-            // once makes contact with anything, make a big explosion
-
-
-
         }
 
-        //float releaseRotSpeed = 10.0f;
         private void ReleaseAirAim(bool useLaunchCam)
         {
             isAiming = false;
@@ -376,6 +360,7 @@ namespace Bomber.Control
             if (useLaunchCam)
             {
                 launchCam.SetActive(true);
+               
             }
             else
             {
@@ -401,6 +386,7 @@ namespace Bomber.Control
                 isParalized = true; // prevent player inputs while launching
                 isLaunching = true;
                 ReleaseAirAim(true);
+
             }
         }
 

@@ -38,11 +38,14 @@ Shader "Ultimate 10+ Shaders/MyDissolve"
         _NoiseTex ("Noise", 2D) = "white" {}
 		_Emission("Emission", Color) = (1, 1, 1, 1)
 
-        _Cutoff ("Cut off", Range(0, 1)) = 0.25
-        _EdgeWidth ("Edge Width", Range(0, 1)) = 0.05
-        [HDR] _EdgeColor ("Edge Color", Color) = (1,1,1,1)
-        
-        [Enum(UnityEngine.Rendering.CullMode)] _Cull ("Cull", Float) = 2
+		_Cutoff("Cut off", Range(0, 1)) = 0.25
+		_EdgeWidth("Edge Width", Range(0, 1)) = 0.05
+		[HDR] _EdgeColor("Edge Color", Color) = (1,1,1,1)
+
+		[Enum(UnityEngine.Rendering.CullMode)] _Cull("Cull", Float) = 2
+
+		_ScrollX("Scroll X", Range(-5, 5)) = 1
+		_ScrollY("Scroll Y", Range(-5, 5)) = 1
     }
     SubShader
     {
@@ -70,6 +73,9 @@ Shader "Ultimate 10+ Shaders/MyDissolve"
 		fixed4 _Emission;
         fixed4 _EdgeColor;
 
+		float _ScrollX;
+		float _ScrollY;
+
         struct Input
         {
             float2 uv_MainTex;
@@ -87,9 +93,14 @@ Shader "Ultimate 10+ Shaders/MyDissolve"
         half cutoff;
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
-            pixel = tex2D (_MainTex, IN.uv_MainTex) * _Color;
+			_ScrollX *= _Time;
+			_ScrollY *= _Time;
 
-            o.Albedo = pixel.rgb;
+            pixel = (tex2D (_MainTex, IN.uv_MainTex) * _Color);
+
+			float3 noise = (tex2D(_NoiseTex, IN.uv_NoiseTex + float2(_ScrollX, _ScrollY))).rgb;
+			o.Albedo = (noise + pixel.rgb) / 2.0f;
+			//o.Albedo = pixel.rgb;
 
             noisePixel = tex2D (_NoiseTex, IN.uv_NoiseTex);
 

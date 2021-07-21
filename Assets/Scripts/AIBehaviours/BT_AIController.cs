@@ -124,8 +124,7 @@ public class BT_AIController : MonoBehaviour, IBombExplosion
     }
 
     private void EnableComponents(bool isEnabled)
-    {
-        print("enable components called: " + isEnabled);
+    {     
         rb.isKinematic = isEnabled;
         //rb.detectCollisions = isEnabled; // was inverted before
 

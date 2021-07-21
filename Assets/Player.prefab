@@ -55,7 +55,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   thrust: 105
-  torque: 10
+  torque: 40
   gravity: 20
   boostThrust: 4000
   boostDuration: 2
@@ -65,6 +65,7 @@ MonoBehaviour:
   timeManager: {fileID: 0}
   mainCamera: {fileID: 0}
   aimCamera: {fileID: 0}
+  launchCam: {fileID: 0}
   aimLookTransform: {fileID: 0}
   launchSmashFX: {fileID: 1121192042590650, guid: 4a0acadf62cc3074bb5058503bfbfbd9,
     type: 3}
@@ -78,11 +79,6 @@ MonoBehaviour:
   getReadyCanvas: {fileID: 0}
   getReadyUIDisplaySeconds: 4
   aimUI: {fileID: 0}
-  isParalized: 0
-  isAiming: 0
-  isLaunching: 0
-  launchDirection: {x: 0, y: 0, z: 0}
-  launchTarget: {x: 0, y: 0, z: 0}
 --- !u!114 &3264128626501384078
 MonoBehaviour:
   m_ObjectHideFlags: 0

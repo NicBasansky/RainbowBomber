@@ -81,7 +81,7 @@ MonoBehaviour:
   timeToExplode: 3
   explosionPrefab: {fileID: 6357242220132679749, guid: 9310c7f15e3a79a47a26e18f42d46ce6,
     type: 3}
-  explosionForce: 8000
+  explosionForce: 3000
   upwardsModifier: 15
   maxFlashSpeed: 10
   flashSpeedMultiplier: 1.3

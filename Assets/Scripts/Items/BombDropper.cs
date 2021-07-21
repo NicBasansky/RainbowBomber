@@ -21,9 +21,9 @@ namespace Bomber.Items
         [SerializeField] float placementOffsetY = 1.0f;
         [SerializeField] float placementOffsetZ = 0f;
         [SerializeField] float initialExplosionRadius = 5.0f;
-        [SerializeField] float maxExplosionRadius = 8.5f;
+        [SerializeField] float maxExplosionRadius = 10f;
         [SerializeField] float currentExplosionRadius = 0;
-        [SerializeField] int numPowerupsToMaxBlastRadius = 4;
+        [SerializeField] int numPowerupsToMaxBlastRadius = 3;
         [SerializeField] BombExplosionLevel bombExplosionLevel;
         [SerializeField] int currentNumBombs = 3;
         [SerializeField] int maxNumBombs = 3;

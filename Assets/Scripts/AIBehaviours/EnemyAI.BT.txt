@@ -71,8 +71,10 @@ tree("ChaseEnemy")
 			while not IsInAttackRange
 				fallback
 					while CanSeePlayer
-						repeat							
-							SetTargetAsDestination
+						repeat	
+							sequence
+								TargetPlayer
+								SetTargetAsDestination
 						
 					while not CanSeePlayer
 						parallel
