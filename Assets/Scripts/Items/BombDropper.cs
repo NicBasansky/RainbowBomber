@@ -32,12 +32,13 @@ namespace Bomber.Items
         float timeSinceLastDroppedBomb = Mathf.Infinity;
         float timeSinceReload = 0;
         float accumulativeBlastRadiusMultiplier = 1f;
+        BombFeedbackManager feedbackManager;
 
         void Start()
         {
             currentExplosionRadius = initialExplosionRadius;
             currentNumBombs = Mathf.Min(currentNumBombs, maxNumBombs);
-
+            feedbackManager = FindObjectOfType<BombFeedbackManager>();
         }
 
         void Update() 
@@ -77,7 +78,7 @@ namespace Bomber.Items
                 if (bomb != null)
                 {
                     bomb.transform.position = transform.position + new Vector3(placementOffsetX, placementOffsetY, placementOffsetZ);//spawnPosition.transform.position;
-                    bomb.GetComponent<Bomb>().SetupBomb(GetExplosionRadius(), damagePerBomb, bombExplosionLevel);
+                    bomb.GetComponent<Bomb>().SetupBomb(GetExplosionRadius(), damagePerBomb, bombExplosionLevel, feedbackManager);
                     bomb.SetActive(true);
                     FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Bomb/DropBomb", transform.position);
 

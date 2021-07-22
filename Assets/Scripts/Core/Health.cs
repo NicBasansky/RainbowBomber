@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using Bomber.UI;
+using MoreMountains.Tools;
 
 namespace Bomber.Core
 {
@@ -25,18 +26,24 @@ namespace Bomber.Core
         Vector3 initialScale;
         TrailRenderer trail = null;
         ScoreHUD scoreHUD;
-
+        MMHealthBar healthBar;
 
         private void Awake()
         {
             trail = GetComponent<TrailRenderer>();
             scoreHUD = FindObjectOfType<ScoreHUD>();
+            healthBar = GetComponent<MMHealthBar>();
         }
 
         void Start()
         {
             health = startingHealth; // TODO use a Lazy Value initialization
             initialScale = model.transform.localScale;
+            if (healthBar != null)
+            {
+                healthBar.UpdateBar(health, 0, startingHealth, true);
+
+            }
         }
 
         public void AffectHealth(float delta)
@@ -46,7 +53,11 @@ namespace Bomber.Core
             {
 
                 health -= delta;
-                //print(gameObject.name + " is at " + health + " health"); // todo remove
+                if (healthBar != null)
+                {
+                    healthBar.UpdateBar(health, 0, startingHealth, true);
+                }
+
                 if (!CheckIsDead())
                 {
                     StartCoroutine(BecomeInvincible());

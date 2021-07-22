@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Bomber.Core;
+using MoreMountains.Feedbacks;
 
 namespace Bomber.Items
 {
@@ -17,23 +18,26 @@ namespace Bomber.Items
         [SerializeField] float flashSpeedMultiplier = 1.3f;
         [SerializeField] float flashAccelTime = 0.2f;
 
+        BombFeedbackManager feedbackManager;
+
+
         float damage = 0;
         float explosionRadius = 0f;
         BombExplosionLevel bombLevel;
-
 
         private void OnEnable()
         {
             StartCoroutine(RunBombSequence());
         }
 
-        public void SetupBomb(float radius, float damage, BombExplosionLevel bombLevel)
+        public void SetupBomb(float radius, float damage, BombExplosionLevel bombLevel, BombFeedbackManager feedbackMgr)
         {
             explosionRadius = radius;
 
             this.damage = damage;
             this.bombLevel = bombLevel;
             ActiveBombManager.Instance.Register(this.gameObject);
+            feedbackManager = feedbackMgr;
         }
 
         IEnumerator RunBombSequence() 
@@ -70,6 +74,8 @@ namespace Bomber.Items
                 fx.GetComponent<ExplosionHitDetector>().SetupExplosion(explosionForce, explosionRadius, bombLevel);
                 fx.transform.position = transform.position;
                 fx.SetActive(true);
+
+                feedbackManager.PlayExplosionFeedback();
             }
         }
 
