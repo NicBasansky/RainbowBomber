@@ -19,6 +19,7 @@ namespace Bomber.Items
         [SerializeField] float flashAccelTime = 0.2f;
 
         BombFeedbackManager feedbackManager;
+        Rigidbody rb;
 
 
         float damage = 0;
@@ -28,6 +29,11 @@ namespace Bomber.Items
         private void OnEnable()
         {
             StartCoroutine(RunBombSequence());
+        }
+
+        private void Awake()
+        {
+            rb = GetComponent<Rigidbody>();
         }
 
         public void SetupBomb(float radius, float damage, BombExplosionLevel bombLevel, BombFeedbackManager feedbackMgr)
@@ -61,7 +67,13 @@ namespace Bomber.Items
 
             ActivateExplosionFX();
             ActiveBombManager.Instance.Unregister(this.gameObject);
+
+            // for resetting the bomb if it was picked up by an enemy
+            rb.isKinematic = false;
+            transform.parent = null;
+
             gameObject.SetActive(false);
+            
         }
 
         private void ActivateExplosionFX()

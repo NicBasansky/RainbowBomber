@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aimUIGo: {fileID: 7533585515086722026}
+  reticle: {fileID: 0}
 --- !u!1 &337660175742982911
 GameObject:
   m_ObjectHideFlags: 0

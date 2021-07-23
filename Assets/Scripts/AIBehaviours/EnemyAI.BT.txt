@@ -18,22 +18,24 @@ tree("Attack")
 	while IsAggro
 		while not IsAmmoLessThan(1)
 			while CanSeePlayer
-				parallel
-					repeat													
-						sequence
-							TargetPlayer
-							LookAtTarget
+				//parallel
+					//repeat		
+						//sequence
+							//TargetPlayer
+							//LookAtTarget							
 							
-					repeat													
-						fallback
-							while IsInAttackRange
-								sequence
-									Wait(0.5)
-									Attack
-									tree("FleeFromBombs")
-									MoveToDestination
-							//while not IsInAttackRange
-								//Fail	
+				repeat													
+					fallback
+						while IsInAttackRange
+							sequence
+								Wait(0.5)
+								Attack
+								tree("FleeFromBombs")
+								MoveToDestination
+						//while not IsInAttackRange
+							//random
+								//tree("PickupBombs")
+								//Fail
 								
 									
 								
@@ -71,10 +73,15 @@ tree("ChaseEnemy")
 			while not IsInAttackRange
 				fallback
 					while CanSeePlayer
-						repeat	
-							sequence
-								TargetPlayer
-								SetTargetAsDestination
+						repeat
+							fallback
+								random
+									tree("PickupBombs")
+									tree("FleeFromBombs")
+								while not IsFleeingFromBombs
+									sequence
+										TargetPlayer
+										SetTargetAsDestination
 						
 					while not CanSeePlayer
 						parallel
@@ -88,6 +95,18 @@ tree("ChaseEnemy")
 								Wait(3.0)
 								Fail
 					tree("SearchAround")
+
+tree("PickupBombs")	
+	while IsPlayerInThrowingDistance
+		while BombsNearToPickup
+			sequence
+				TargetClosestBomb
+				LookAtTarget
+				PickupBomb
+				//TargetPlayer
+				//LookAtTarget
+				ThrowBomb
+
 
 tree("SearchAround")
 	//While the enemy is not visible,
@@ -106,15 +125,15 @@ tree("SearchAround")
 		
 		
 tree("FleeFromBombs")
-	//parallel
+	parallel
 		sequence
 			FleeFromBombs
 			//SetTargetAsDestination
 			MoveToDestination		
-		//while IsInAttackRange
-			//sequence
-				//Wait(0.5)
-				//Attack
+		while IsInAttackRange
+			sequence
+				Wait(0.5)
+				Attack
 
 tree("Dead")
 	sequence
@@ -132,32 +151,32 @@ tree("Flee")
 			
 
 tree("LookAround")
-	//while not IsHealthLessThan(2.0)
-	fallback	
-		while not IsPlayerTooClose
-			fallback
-				while not IsPlayerInFOV
-					fallback
-						random
-							sequence
-								random
-									Turn(90.0)
-									Turn(-75.0)
-									Turn(145.0)
-									Turn(-27.0)
-								LookAtTarget					
-								fallback
-									tree("FleeFromBombs")
-									WaitRandom(1.0, 3.0)
+	while not IsAggro
+		fallback	
+			while not IsPlayerTooClose
+				fallback
+					while not IsPlayerInFOV
+						fallback
+							random
+								sequence
+									random
+										Turn(90.0)
+										Turn(-75.0)
+										Turn(145.0)
+										Turn(-27.0)
+									LookAtTarget					
+									fallback
+										tree("FleeFromBombs")
+										WaitRandom(1.0, 3.0)
 				
-							sequence
-								random
-									Succeed
-									Fail
-				while IsPlayerInFOV
-					Aggrovate
-		while IsPlayerTooClose
-			Aggrovate
+								sequence
+									random
+										Succeed
+										Fail
+					while IsPlayerInFOV
+						Aggrovate
+			while IsPlayerTooClose
+				Aggrovate
 
 
 tree("Wander")
