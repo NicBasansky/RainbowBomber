@@ -1,0 +1,203 @@
+tree("Root")
+	parallel
+		repeat mute tree("Patrol")
+		repeat mute tree("Dead")
+
+tree("Patrol")
+	fallback
+		tree("FleeFromBombs")		
+		tree("Attack")
+		tree("DetectEnemy")
+		//tree("HideAndReload")
+		tree("ChaseEnemy")
+		random
+			tree("LookAround")
+			tree("Wander")
+
+tree("Attack")
+	while IsAggro
+		while not IsAmmoLessThan(1)
+			while CanSeePlayer		
+				repeat		
+					sequence
+						tree("FleeFromBombs")
+						TargetPlayerOvershot
+						MoveToDestination							
+							
+				//repeat													
+					//fallback
+						//while IsInAttackRange
+							//sequence
+								//Wait(0.5)
+								//Attack
+								//tree("FleeFromBombs")
+								//TargetPlayerOvershot
+								//MoveToDestination
+						//while not IsInAttackRange
+							//random
+								//tree("PickupBombs")
+								//Fail
+								
+									
+								
+							
+
+tree("PlayerAsDestination")	
+	sequence
+		TargetPlayer
+		//LookAtTarget
+		SetTargetAsDestination
+
+
+tree("DetectEnemy")
+	while not IsAggro
+		fallback
+			while IsPlayerTooClose
+				Aggrovate
+			while IsPlayerInFOV
+				Aggrovate
+
+
+tree("HideAndReload")
+	while IsAmmoLessThan(1)	
+		sequence
+			while CanSeePlayer
+				sequence
+					Flee
+					MoveToDestination
+			while not CanSeePlayer
+				WaitRandom(3.0, 5.0)
+
+tree("ChaseEnemy")
+	while IsAggro
+		while not IsFleeingFromBombs
+			while not IsInAttackRange
+				fallback
+					while CanSeePlayer
+						repeat
+							fallback
+								//random
+									//tree("PickupBombs")
+								tree("FleeFromBombs")
+								while not IsFleeingFromBombs
+									sequence
+										TargetPlayerOvershot
+										SetTargetAsDestination
+						
+					while not CanSeePlayer
+						parallel
+							repeat
+								sequence
+									TargetLastSeenPosition
+									SetTargetAsDestination
+									MoveToDestination
+
+							sequence
+								Wait(3.0)
+								Fail
+					tree("SearchAround")
+
+tree("PickupBombs")	
+	while IsPlayerInThrowingDistance
+		while BombsNearToPickup
+			sequence
+				TargetClosestBomb
+				LookAtTarget
+				PickupBomb
+				//TargetPlayer
+				//LookAtTarget
+				ThrowBomb
+
+
+tree("SearchAround")
+	//While the enemy is not visible,
+	//move around randomly then forget about
+	//the enemy if not found.
+	while not CanSeePlayer 
+		sequence
+			Repeat(3)
+				random(2, 1)
+					sequence
+						SetDestination_RandomInRange(5.0)
+						MoveToDestination
+						WaitRandom(1.0, 4.0)
+					Succeed
+			ClearEnemy
+		
+		
+tree("FleeFromBombs")
+	parallel
+		sequence
+			FleeFromBombs
+			//SetTargetAsDestination
+			MoveToDestination		
+		while IsInAttackRange
+			sequence
+				Wait(0.5)
+				Attack
+
+tree("Dead")
+	sequence
+		IsHealthLessThan(0.1)
+		Die
+
+tree("Flee")
+	while IsHealthLessThan(2.0)
+		fallback
+			while IsPlayerTooClose
+				sequence
+					Flee
+					LookAtTarget
+					MoveToDestination
+			
+
+tree("LookAround")
+	while not IsAggro
+		fallback	
+			while not IsPlayerTooClose
+				fallback
+					while not IsPlayerInFOV
+						fallback
+							random
+								sequence
+									random
+										Turn(90.0)
+										Turn(-75.0)
+										Turn(145.0)
+										Turn(-27.0)
+									LookAtTarget					
+									fallback
+										tree("FleeFromBombs")
+										WaitRandom(1.0, 3.0)
+				
+								sequence
+									random
+										Succeed
+										Fail
+					while IsPlayerInFOV
+						Aggrovate
+			while IsPlayerTooClose
+				Aggrovate
+
+
+tree("Wander")
+	fallback
+		while not IsPlayerTooClose
+			fallback
+				while not IsPlayerInFOV
+					fallback			
+						tree("FleeFromBombs")
+						while not IsFleeingFromBombs					
+							sequence
+								PickRandomDestination
+								while not IsFleeingFromBombs
+									MoveToDestination
+				while IsPlayerInFOV
+					Aggrovate
+		while IsPlayerTooClose
+			Aggrovate
+	
+
+					
+
+

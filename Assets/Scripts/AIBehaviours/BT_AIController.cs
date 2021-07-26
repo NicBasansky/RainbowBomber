@@ -7,6 +7,7 @@ using Bomber.Items;
 using Bomber.Core;
 using System;
 
+
 public class BT_AIController : MonoBehaviour, IBombExplosion
 {
     public Transform player;
@@ -18,6 +19,8 @@ public class BT_AIController : MonoBehaviour, IBombExplosion
     [SerializeField] GameObject shadowGo;
     [SerializeField] Transform pickupTransform;
     [SerializeField] float maxThrowingDistance = 15.0f;
+    
+
 
     NavMeshAgent agent;
     public Vector3 destination;
@@ -82,6 +85,8 @@ public class BT_AIController : MonoBehaviour, IBombExplosion
             HitRecovery();
         }
     }
+
+    
 
     private void HitRecovery()
     {
@@ -215,7 +220,7 @@ public class BT_AIController : MonoBehaviour, IBombExplosion
     public void PickRandomDestination()
     {
         int numTries = 30;
-        float walkPointRange = 50f;
+        float walkPointRange = 30f;
 
         for (int i = 0; i < numTries; i++)
         {
@@ -224,9 +229,21 @@ public class BT_AIController : MonoBehaviour, IBombExplosion
 
             Vector3 walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
-            if (Physics.Raycast(walkPoint, -Vector3.up, 2f,
-                            LayerMask.NameToLayer("whatIsGround")))
+            //if (Physics.Raycast(walkPoint, -Vector3.up, 2f,
+                            //LayerMask.NameToLayer("whatIsGround")))
             {
+                NavMeshPath path = new NavMeshPath();
+                NavMesh.CalculatePath(transform.position, walkPoint, NavMesh.AllAreas, path);
+                if (path.status != NavMeshPathStatus.PathComplete)
+                {
+                    continue;
+                }
+
+                if (Task.isInspected)
+                {
+                    Task.current.debugInfo = string.Format("Dest:{0}", walkPoint);
+                }
+
                 destination = walkPoint;
 
                 SetDestIfOnNavMesh(walkPoint);
@@ -268,7 +285,7 @@ public class BT_AIController : MonoBehaviour, IBombExplosion
 
 
     [Task]
-    private void TargetPlayer()
+    public void TargetPlayer()
     {
         target = player.position;
         Task.current.debugInfo = string.Format("pos={0}", target.ToString());
@@ -276,9 +293,19 @@ public class BT_AIController : MonoBehaviour, IBombExplosion
         Task.current.Succeed();
     }
 
+    [Task]
+    public void TargetPlayerOvershot()
+    {
+        Vector3 direction = (player.position - transform.position).normalized;
+        target = player.position + direction * 6f; // overshoot by float
+        Task.current.debugInfo = string.Format("pos={0}", target.ToString());
+        lastSeenPosition = target;
+        Task.current.Succeed();
+    }
+
 
     [Task]
-    private void LookAtTarget()
+    public void LookAtTarget()
     {
         Vector3 direction = target - transform.position;
         transform.rotation = Quaternion.Slerp(transform.rotation,
@@ -297,14 +324,14 @@ public class BT_AIController : MonoBehaviour, IBombExplosion
 
 
     [Task]
-    private void SetTargetAsDestination()
+    public void SetTargetAsDestination()
     {
         SetDestIfOnNavMesh(target);
         Task.current.Succeed();
     }
 
 
-    [Task] bool IsInAttackRange()
+    [Task] public bool IsInAttackRange()
     {
         Vector3 distance = player.position - transform.position;
         if (distance.sqrMagnitude < (attackDist * attackDist))

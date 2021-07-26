@@ -51,6 +51,7 @@ namespace Bomber.Control
         bool isDead = false;
         bool isHitByPhysics = false;
         bool isParalized = false;
+        bool slowed = false;
         bool shouldMoveToStart = false;
         //bool isJumping = false;
         bool allowRightStickMovement = false;
@@ -62,6 +63,8 @@ namespace Bomber.Control
         GameObject ground;
 
         Vector3 moveVec = Vector3.zero;
+        float initialThrust = 0.0f;     
+        float thrustRecoveryAmount = 17.0f;
         float horizontal = 0.0f;
         float vertical = 0.0f;
         Vector3 rightStickVec = Vector3.zero;
@@ -110,6 +113,8 @@ namespace Bomber.Control
             {
                 StartCoroutine(DisplayGetReadyUI());
             }
+
+            initialThrust = thrust;
         }
 
         private void Update()
@@ -132,6 +137,16 @@ namespace Bomber.Control
             else
             {
                 aimInputCalled = false; // TODO useful?
+            }
+
+            if (slowed)
+            {
+                thrust += thrustRecoveryAmount * Time.deltaTime;
+                if (thrust >= initialThrust)
+                {
+                    thrust = initialThrust;
+                    slowed = false;
+                }
             }
 
         }
@@ -196,31 +211,31 @@ namespace Bomber.Control
 
         
 
-    private void ExplodeFromLaunch()
-    {
-        Collider[] cols = Physics.OverlapSphere(transform.position, launchExplosionRadius);
-        foreach (Collider c in cols)
+        private void ExplodeFromLaunch()
         {
-            var ai = c.GetComponent<BT_AIController>();
-            if (ai != null)
+            Collider[] cols = Physics.OverlapSphere(transform.position, launchExplosionRadius);
+            foreach (Collider c in cols)
             {
-                ai.GetComponent<Health>().AffectHealth(-1);
-                ai.AffectByExplosion(launchExplosionForce,
-                        new Vector3(transform.position.x, ground.transform.position.y, transform.position.z), launchExplosionRadius);// transform.position, launchExplosionRadius);
-                var smashFx = Instantiate(launchSmashFX, transform.position, Quaternion.identity, parentSpawnedFX);
+                var ai = c.GetComponent<BT_AIController>();
+                if (ai != null)
+                {
+                    ai.GetComponent<Health>().AffectHealth(-1);
+                    ai.AffectByExplosion(launchExplosionForce,
+                            new Vector3(transform.position.x, ground.transform.position.y, transform.position.z), launchExplosionRadius);// transform.position, launchExplosionRadius);
+                    var smashFx = Instantiate(launchSmashFX, transform.position, Quaternion.identity, parentSpawnedFX);
              
-                continue;
+                    continue;
+                }
+
+                if (c.attachedRigidbody != null && c.attachedRigidbody != rb)
+                {
+                    c.attachedRigidbody.AddExplosionForce(launchExplosionForce, transform.position, launchExplosionRadius);
+
+                }
+
+                var smashFX = Instantiate(launchSmashFX, transform.position, Quaternion.identity, parentSpawnedFX);
             }
-
-            if (c.attachedRigidbody != null && c.attachedRigidbody != rb)
-            {
-                c.attachedRigidbody.AddExplosionForce(launchExplosionForce, transform.position, launchExplosionRadius);
-
-            }
-
-            var smashFX = Instantiate(launchSmashFX, transform.position, Quaternion.identity, parentSpawnedFX);
         }
-    }
 
         // Input message
         public void OnMove(InputValue input)
@@ -388,6 +403,12 @@ namespace Bomber.Control
                 ReleaseAirAim(true);
 
             }
+        }
+
+        public void SlowSpeed(float slowDownSpeedFraction)
+        {
+            slowed = true;
+            thrust = thrust * slowDownSpeedFraction;
         }
 
         public void BoostForwardSpeed(Vector3 boostDirection, float boostAmount)

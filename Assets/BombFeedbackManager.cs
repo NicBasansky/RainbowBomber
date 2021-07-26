@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.Feedbacks;
 
-public class BombFeedbackManager : MonoBehaviour
+public class BombFeedbackManager : Singleton<BombFeedbackManager>
 {
     [SerializeField] MMFeedbacks explosionFeedback;
 

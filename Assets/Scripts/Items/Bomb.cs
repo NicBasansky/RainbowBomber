@@ -36,14 +36,18 @@ namespace Bomber.Items
             rb = GetComponent<Rigidbody>();
         }
 
-        public void SetupBomb(float radius, float damage, BombExplosionLevel bombLevel, BombFeedbackManager feedbackMgr)
+        public void SetupBomb(float radius, float damage, BombExplosionLevel bombLevel)
         {
             explosionRadius = radius;
 
             this.damage = damage;
             this.bombLevel = bombLevel;
             ActiveBombManager.Instance.Register(this.gameObject);
-            feedbackManager = feedbackMgr;
+            //feedbackManager = feedbackMgr;
+            //if (feedbackManager == null)
+            //{
+            //    print("feedbackmgr null in bomb");
+            //}
         }
 
         IEnumerator RunBombSequence() 
@@ -87,7 +91,7 @@ namespace Bomber.Items
                 fx.transform.position = transform.position;
                 fx.SetActive(true);
 
-                feedbackManager.PlayExplosionFeedback();
+                BombFeedbackManager.Instance.PlayExplosionFeedback();
             }
         }
 
