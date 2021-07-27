@@ -526,17 +526,11 @@ public class BT_AIController : MonoBehaviour, IBombExplosion
 
                         Task.current.Succeed();
                         return;
-                    }
-                
+                    }               
                 }
-  
             }
-
         }
         Task.current.Fail();
-
-        
-
     }
 
     private void ResetIsFleeingFromBombs()

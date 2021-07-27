@@ -141,7 +141,7 @@ MonoBehaviour:
     m_ImpactRadius: 10
     m_DirectionMode: 0
     m_DissipationMode: 2
-    m_DissipationDistance: 500
+    m_DissipationDistance: 30
     m_PropagationSpeed: 343
   Velocity: {x: 5, y: 5, z: 5}
 --- !u!114 &329050338573815666

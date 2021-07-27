@@ -41,7 +41,12 @@ public class Dissolver : MonoBehaviour
     {
         yield return new WaitForSeconds(colliderDelay);
 
-        GetComponent<Collider>().enabled = false;
+
+        Collider[] colls = GetComponentsInChildren<Collider>();
+        foreach (var c in colls)
+        {
+            c.enabled = false;
+        }
 
         yield return new WaitForSeconds(goDelay);
 
