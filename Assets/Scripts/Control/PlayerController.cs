@@ -15,6 +15,9 @@ namespace Bomber.Control
         [SerializeField] float speed = 5.0f;
         [SerializeField] float thrust = 105f;
         [SerializeField] float torque = 40f;
+
+        
+
         [SerializeField] float gravity = 20f;
         [SerializeField] float boostThrust = 4000f;
         [SerializeField] float boostDuration = 2.0f;
@@ -75,6 +78,10 @@ namespace Bomber.Control
         Vector3 launchTarget;
         float launchExplosionRadius = 7.0f;
         float launchExplosionForce = 2000f; // TODO tune?
+        bool shouldLerpToPoint = false;
+        Vector3 lerpPoint = Vector3.zero; // point to move to if called from outside
+        float lerpSpeed = 1.5f;
+        
    
 
         Rigidbody rb;
@@ -187,6 +194,18 @@ namespace Bomber.Control
                             ground.transform.position.y + 1.5f, transform.position.z);
                 }
 
+            }
+            if (shouldLerpToPoint)
+            {
+                
+                transform.position = Vector3.Lerp(transform.position, lerpPoint, lerpSpeed * Time.deltaTime);
+                if (Vector3.Distance(transform.position, lerpPoint) <= 0.2f)
+                {
+                    rb.isKinematic = true;
+                    lerpPoint = transform.position + new Vector3(0, 7.0f, 0);
+                    lerpSpeed = 0.4f;
+                    // should fade out and change scenes
+                }
             }
         }
 
@@ -405,6 +424,12 @@ namespace Bomber.Control
             }
         }
 
+        public void LerpToPoint(Vector3 position)
+        {
+            lerpPoint = position;
+            shouldLerpToPoint = true;
+        }
+
         public void SlowSpeed(float slowDownSpeedFraction)
         {
             slowed = true;
@@ -510,6 +535,11 @@ namespace Bomber.Control
         public float GetThrust()
         {
             return thrust;
+        }
+
+        public void FreezeMovement()
+        {
+            isParalized = true;
         }
 
         public void AffectByExplosion(float explosionForce, Vector3 sourcePosition, float radius)

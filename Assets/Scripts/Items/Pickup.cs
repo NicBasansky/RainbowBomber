@@ -19,6 +19,8 @@ namespace Bomber.Items
         ScoreHUD scoreHUD;
         GameObject player;
         Animator animator;
+
+        bool pickedUp = false;
         
 
         private void Awake()
@@ -32,7 +34,7 @@ namespace Bomber.Items
         private void OnTriggerEnter(Collider other)
         {
 
-            if (other.gameObject.tag == "Player")
+            if (!pickedUp && other.gameObject.tag == "Player")
             {
 
                 // play particle effect
@@ -58,7 +60,6 @@ namespace Bomber.Items
                         if (powerUpDetails.pickupSoundFMODPath != string.Empty)
                         {
                             FMODUnity.RuntimeManager.PlayOneShot(powerUpDetails.pickupSoundFMODPath,        transform.position);
-
                         }
                     }
                 }
@@ -73,7 +74,7 @@ namespace Bomber.Items
                     animator.SetTrigger("onPickedUp");
                 }
 
-                
+                pickedUp = true;
 
                 // play sound
 
@@ -88,6 +89,8 @@ namespace Bomber.Items
 
             }
         }
+
+
 
         private void ApplyPowerUp()
         {

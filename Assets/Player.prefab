@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 211246341036399336}
   - component: {fileID: 6458662155850917524}
   - component: {fileID: 9079945415374142049}
+  - component: {fileID: 59627496440169720}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -124,6 +125,8 @@ MonoBehaviour:
   currentNumBombs: 3
   maxNumBombs: 3
   secondsToReload: 2
+  upgradeFX: {fileID: 1497030318103322, guid: 0d47453bb47c97b499472e76fc08569d, type: 3}
+  fxTransform: {fileID: 0}
 --- !u!96 &7942258322549159095
 TrailRenderer:
   serializedVersion: 2
@@ -340,6 +343,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &59627496440169720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818679884671909245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a0438631098321478e3f903ce386eaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4498852869859726532
 GameObject:
   m_ObjectHideFlags: 0

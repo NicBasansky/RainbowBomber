@@ -6,6 +6,8 @@ namespace Bomber.Quests
 {
     public class QuestReceiver : MonoBehaviour
     {
+        [SerializeField] EndGoal endGoalPortal;
+
         Quest currentQuest;
         int coinGoal = 0;
         int coinCount = 0;
@@ -24,8 +26,8 @@ namespace Bomber.Quests
             {
                 killGoal = quest.minEnemiesToKill;
             }
-            Debug.Log($"currentQuest has " + currentQuest.minCoinsToCollect + "coins to collect.");
-            Debug.Log($"currentQuest has " + currentQuest.minEnemiesToKill + "enemies to kill.");
+            Debug.Log($"currentQuest has " + currentQuest.minCoinsToCollect + " coins to collect.");
+            Debug.Log($"currentQuest has " + currentQuest.minEnemiesToKill + " enemies to kill.");
         }
 
         public void IncrementCoinCount() // called by Pickup => scoreHUD => here
@@ -45,10 +47,12 @@ namespace Bomber.Quests
             if (coinGoal > 0 && coinCount >= coinGoal)
             {
                 Debug.Log("Coin Goal Reached!");
+                endGoalPortal.MakeGoalVisible(true);
             }
             else if (killGoal > 0 && killCount >= killGoal)
             {
                 Debug.Log("Kill Goal Reached!");
+                endGoalPortal.MakeGoalVisible(true);
             }
         }
     }

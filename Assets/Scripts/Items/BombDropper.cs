@@ -28,6 +28,8 @@ namespace Bomber.Items
         [SerializeField] int currentNumBombs = 3;
         [SerializeField] int maxNumBombs = 3;
         [SerializeField] float secondsToReload = 2f;
+        [SerializeField] GameObject upgradeFX;
+        [SerializeField] Transform fxTransform;
 
         float timeSinceLastDroppedBomb = Mathf.Infinity;
         float timeSinceReload = 0;
@@ -116,6 +118,14 @@ namespace Bomber.Items
                     bombExplosionLevel++;
 
                 }
+
+                if (upgradeFX != null)
+                {
+                    GameObject fx = Instantiate(upgradeFX, fxTransform);
+                    fx.transform.rotation = Quaternion.identity;
+
+                }
+
                 
                 //// -1 so in Power Up we can say 1.x for a positive change to blast radius
                 //accumulativeBlastRadiusMultiplier += (details.blastRadiusMultiplier - 1);
