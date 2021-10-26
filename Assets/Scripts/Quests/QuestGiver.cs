@@ -47,6 +47,7 @@ namespace Bomber.Quests
                     coinsToCollect = quest.minCoinsToCollect;
                 }
                 quest.minCoinsToCollect = coinsToCollect;
+                GetComponent<EndGoal>().MakeGoalVisible(false);
             }
             else if (quest.questType == QuestType.KillAllEnemies)
             {
@@ -57,6 +58,11 @@ namespace Bomber.Quests
                     enemiesToKill = quest.minEnemiesToKill;
                 }
                 quest.minEnemiesToKill = enemiesToKill;
+                GetComponent<EndGoal>().MakeGoalVisible(false);
+            }
+            else if (quest.questType == QuestType.GetToTheGoal)
+            {
+                GetComponent<EndGoal>().MakeGoalVisible(true);
             }
 
             questReceiver.BeginQuest(quest);

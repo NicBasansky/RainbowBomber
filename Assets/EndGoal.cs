@@ -13,11 +13,11 @@ public class EndGoal : MonoBehaviour
 
     private void Start()
     {
-        MakeGoalVisible(false);
         fader.FadeToClear(0.5f);
         
     }
 
+    // called by the quest giver
     public void MakeGoalVisible(bool visible)
     {
         foreach(GameObject go in endGoalGameObjects)
@@ -25,6 +25,7 @@ public class EndGoal : MonoBehaviour
             go.SetActive(visible);
         }
     }
+
     public void GoalReached(Collider other)
     {
    
@@ -39,8 +40,7 @@ public class EndGoal : MonoBehaviour
 
         // save points
        
-        StartCoroutine(LoadNextScene());
-                
+        StartCoroutine(LoadNextScene());          
     }
 
     IEnumerator LoadNextScene()

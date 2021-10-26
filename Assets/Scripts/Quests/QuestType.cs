@@ -8,5 +8,6 @@ namespace Bomber.Quests
     {
         CollectAllCoins,
         KillAllEnemies,
+        GetToTheGoal
     }
 }
